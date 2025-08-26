@@ -1,0 +1,130 @@
+{
+  "dimensions": [
+    {
+      "key": "impact",
+      "label": "Impact",
+      "description": "Expected magnitude of credit shortfall or delay if realized.",
+      "rationale": "Higher impact directly reduces delivered credits or timing reliability.",
+      "guidance": "Judge potential loss in credits or timing; pick level matching severity described.",
+      "higher_is_riskier": true,
+      "scale": [
+        "minor",
+        "moderate",
+        "major",
+        "severe"
+      ],
+      "mapping": {
+        "minor": 0.2,
+        "moderate": 0.5,
+        "major": 0.8,
+        "severe": 1.0
+      },
+      "weight": 0.35
+    },
+    {
+      "key": "certainty",
+      "label": "Certainty",
+      "description": "Confidence that the risk is real and likely without change.",
+      "rationale": "More certain risks warrant higher attention in aggregated scoring.",
+      "guidance": "Assess evidence strength and consensus; select level reflecting likelihood given current facts.",
+      "higher_is_riskier": true,
+      "scale": [
+        "speculative",
+        "plausible",
+        "likely",
+        "near-certain"
+      ],
+      "mapping": {
+        "speculative": 0.2,
+        "plausible": 0.5,
+        "likely": 0.8,
+        "near-certain": 1.0
+      },
+      "weight": 0.25
+    },
+    {
+      "key": "scope-extent",
+      "label": "Scope/Extent",
+      "description": "Breadth of affected scope: assets, stages, geographies, stakeholders.",
+      "rationale": "Wider scope multiplies operational disruptions and credit issuance delays.",
+      "guidance": "Choose level based on how many phases/locations/partners are materially impacted.",
+      "higher_is_riskier": true,
+      "scale": [
+        "localized",
+        "multi-site",
+        "program-wide",
+        "systemic"
+      ],
+      "mapping": {
+        "localized": 0.2,
+        "multi-site": 0.5,
+        "program-wide": 0.8,
+        "systemic": 1.0
+      },
+      "weight": 0.15
+    },
+    {
+      "key": "recency",
+      "label": "Recency",
+      "description": "How recent the evidence is relative to project timeline.",
+      "rationale": "Recent signals better reflect current risk state and trajectory.",
+      "guidance": "Use publication or observation date; newer evidence means higher level.",
+      "higher_is_riskier": true,
+      "scale": [
+        "stale",
+        "old",
+        "recent",
+        "very recent"
+      ],
+      "mapping": {
+        "stale": 0.1,
+        "old": 0.4,
+        "recent": 0.7,
+        "very recent": 1.0
+      },
+      "weight": 0.1
+    },
+    {
+      "key": "evidence-quality",
+      "label": "Evidence Quality",
+      "description": "Reliability of sources, methods, and data supporting the claim.",
+      "rationale": "Higher quality reduces false alarms; low quality inflates perceived risk.",
+      "guidance": "Rate by source credibility, methodological rigor, triangulation, transparency, and verifiability.",
+      "higher_is_riskier": false,
+      "scale": [
+        "weak",
+        "mixed",
+        "strong",
+        "very strong"
+      ],
+      "mapping": {
+        "weak": 1.0,
+        "mixed": 0.6,
+        "strong": 0.3,
+        "very strong": 0.0
+      },
+      "weight": 0.2
+    },
+    {
+      "key": "controllability-mitigation",
+      "label": "Controllability",
+      "description": "Feasibility of mitigation or contingency to neutralize the risk.",
+      "rationale": "Controllable risks can be reduced, limiting credit delivery impacts.",
+      "guidance": "Judge existing controls and realistic mitigations; higher level means more control.",
+      "higher_is_riskier": false,
+      "scale": [
+        "none",
+        "limited",
+        "moderate",
+        "strong"
+      ],
+      "mapping": {
+        "none": 1.0,
+        "limited": 0.7,
+        "moderate": 0.4,
+        "strong": 0.1
+      },
+      "weight": 0.15
+    }
+  ]
+}

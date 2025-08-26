@@ -1,0 +1,53 @@
+SYSTEM
+Design a universal scoring rubric for evaluating EVIDENCE across multiple carbon-credit risk types. Output a SINGLE valid JSON object ONLY (no prose). Keep it lean but complete enough for automated scoring.
+
+USER
+Goal
+Create a compact, reusable set of DIMENSIONS shared across risk types. Each dimension uses a short categorical scale mapped to [0,1]. Higher numeric = higher risk unless specified.
+
+Scope of risk types
+["political","regulatory-policy","legal-compliance","financial","counterparty-credit","market-price","technology-implementation","operational-execution","supply-chain-logistics","environmental-physical","social-community","governance","data-mrv","fraud-manipulation","security"]
+
+Requirements (keep it lean)
+- 4–6 dimensions total, risk-agnostic (e.g., impact, certainty, scope-extent, recency, evidence-quality, controllability-mitigation).
+- For each dimension:
+  - key (kebab-case), label (short), description (≤ 25 words), guidance (≤ 30 words)
+  - higher_is_riskier (bool)
+  - scale: 3–5 ordered levels (short labels)
+  - mapping: each level → number in [0,1], monotonic with higher_is_riskier
+  - weight: number in (0,1] (relative; doesn’t need to sum to 1)
+- Global fields:
+  - higher_score_means: "higher_is_riskier"
+  - evidence_formula: {"type":"weighted_sum","normalize_missing": true}
+  - weights: mirror each dimension.key → weight (copy from dimension.weight)
+  - notes: short guidance on missing values & conflicts (≤ 25 words)
+  - checks: brief machine checks (unique keys, mapping coverage, monotonicity, weights present)
+
+Constraints
+- Output JSON ONLY. No comments/trailing commas.
+- 4 ≤ dimensions.length ≤ 6
+- For each dimension: 3 ≤ scale.length ≤ 5; mapping values in [0,1]; monotonicity holds
+- weights must include all dimension keys with weight > 0
+- Keys must be kebab-case
+
+Output JSON shape (example fields; keep it lean)
+{
+  "higher_score_means": "higher_is_riskier",
+  "dimensions": [
+    {
+      "key": "impact",
+      "label": "Impact",
+      "description": "...",
+      "guidance": "...",
+      "higher_is_riskier": true,
+      "scale": ["mild","moderate","strong","severe"],
+      "mapping": {"mild":0.2,"moderate":0.5,"strong":0.8,"severe":1.0},
+      "weight": 0.35
+    }
+    // 3–5 more dimensions like "certainty","scope-extent","recency","evidence-quality","controllability-mitigation"
+  ],
+  "evidence_formula": {"type":"weighted_sum","normalize_missing": true},
+  "weights": {"impact":0.35,"certainty":0.25,"scope-extent":0.15,"recency":0.1,"evidence-quality":0.1,"controllability-mitigation":0.05},
+  "notes": "If a dimension is missing, drop it and renormalize weights. Prefer recent, higher-certainty evidence.",
+  "checks": ["unique dimension keys","mapping covers scale","monotonic with direction","weights present for all keys"]
+}

@@ -1,0 +1,35 @@
+You are an expert in carbon markets, project finance, and risk. Your task is to define a concise, MECE* taxonomy of risk types that affect the probability that a carbon credit project fails to deliver credits (quantity and/or timing). Consider the full lifecycle (origination → permitting → financing → construction → operations → MRV → validation/verification → issuance/registry → delivery/settlement) across major archetypes:
+- Nature-based: REDD+, ARR/IFM, blue carbon
+- Household/industrial: cookstoves, biogas, landfill gas
+- Energy: renewable energy and efficiency
+- Engineered removals: DAC/BECCS, biochar
+
+(*MECE = mutually exclusive, collectively exhaustive—minimize overlap and double counting.)
+
+REQUIREMENTS
+1) Produce 10–15 risk categories that are broadly applicable across archetypes.
+2) Each category must have:
+   - risk_type: short snake_case identifier (<= 20 chars; regex ^[a-z0-9_]+$)
+   - description: 1–2 sentences, plain language, focused on how the risk impairs issuance/delivery (not just reputation).
+   - weight: float in [0,1], two decimals, representing relative materiality = probability × impact on delivery.
+3) Weights must sum to exactly 1.00. Sort categories by weight (desc). Target the top 3 summing to 0.40–0.60.
+4) Use judgment to cover the most material dimensions (examples you MAY consider: political/regulatory; land tenure & FPIC; additionality/baseline & over-crediting; MRV/data integrity; permanence/reversal; leakage; project execution/schedule; technology performance; financing/counterparty; legal/permits; registry/issuance; market/liquidity/price; environmental safeguards/biodiversity; force majeure/physical climate; corruption/sanctions/FX; data/cyber for digital MRV). You do NOT need to include all examples; avoid overlaps.
+5) Do all reasoning silently; output JSON only.
+
+OUTPUT FORMAT (JSON only, no prose, no comments):
+{
+  "risks": [
+    { "risk_type": "political_regulatory", "description": "…", "weight": 0.12 },
+    { "risk_type": "land_tenure_fpic",     "description": "…", "weight": 0.10 }
+    // 8–13 more items, sorted by weight desc; weights sum to 1.00
+  ]
+}
+
+QUALITY CHECK BEFORE YOU PRINT:
+- Are categories non-overlapping and covering lifecycle + archetypes?
+- Are names short, consistent, snake_case?
+- Are descriptions 1–2 sentences and delivery-focused?
+- Do weights have two decimals and sum to 1.00 exactly?
+- Are items sorted by weight desc?
+
+Return ONLY the JSON object.

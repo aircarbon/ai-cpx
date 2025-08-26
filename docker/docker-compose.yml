@@ -1,0 +1,29 @@
+services:
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    ports:
+      - "8001:8001"
+    networks:
+      - internal
+    restart: unless-stopped
+
+  docparser:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.docparser
+    networks:
+      - internal
+
+  risk_calculator:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.risk_calculator
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
