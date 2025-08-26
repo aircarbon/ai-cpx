@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional, Dict, Any, TYPE_CHECKING
+from typing import Optional, Dict, Any, TYPE_CHECKING, List
 from dataclasses import dataclass, field
 from beanie import PydanticObjectId
 
@@ -174,4 +174,75 @@ class SourceDocument:
             page_count=self.page_count,
             metadata=self.metadata,
             created_at=self.created_at
+        )
+
+
+@dataclass
+class LLMDimensionRating:
+    """Rating for a specific dimension of an evidence, as returned by LLM"""
+    dimension_key: str  # Key from RiskDimensionSpec
+    scale_value: str    # Value from the dimension's scale (e.g., 'mild', 'moderate', 'severe')
+    reasoning: str      # LLM's explanation for this rating
+    confidence: float   # LLM's confidence in this rating (0.0 to 1.0)
+
+
+@dataclass
+class LLMEvidence:
+    """Individual evidence found by LLM in a text chunk"""
+    claim_text: str                              # Summary of the evidence claim
+    supporting_text: str                         # Actual text snippet from chunk that supports this evidence
+    dimension_ratings: List[LLMDimensionRating]  # Ratings for each required dimension
+    confidence: float                            # Overall confidence in this evidence (0.0 to 1.0)
+
+
+@dataclass
+class LLMRiskAnalysisResponse:
+    """Complete response from LLM for analyzing a chunk for a specific risk type"""
+    risk_type: str                    # The risk type that was being analyzed
+    evidences: List[LLMEvidence]      # List of evidences found in the chunk
+    chunk_summary: str                # Brief summary of what the chunk contains
+    no_evidence_reasoning: str        # If no evidences found, explanation why
+    
+    @property
+    def has_evidences(self) -> bool:
+        return len(self.evidences) > 0
+    
+    @property
+    def evidence_count(self) -> int:
+        return len(self.evidences)
+    
+    @property
+    def average_confidence(self) -> float:
+        if not self.evidences:
+            return 0.0
+        return sum(evidence.confidence for evidence in self.evidences) / len(self.evidences)
+
+
+@dataclass 
+class RiskDimensionSpec:
+    """Risk dimension specification type for business logic"""
+    key: str
+    label: str
+    description: str
+    rationale: str
+    guidance: str
+    higher_is_riskier: bool
+    scale: List[str]
+    mapping: Dict[str, float]
+    weight: float
+    id: Optional[str] = None
+    
+    @classmethod
+    def from_model(cls, model) -> 'RiskDimensionSpec':
+        return cls(
+            key=model.key,
+            label=model.label,
+            description=model.description,
+            rationale=model.rationale,
+            guidance=model.guidance,
+            higher_is_riskier=model.higher_is_riskier,
+            scale=model.scale,
+            mapping=model.mapping,
+            weight=model.weight,
+            id=str(model.id)
         )

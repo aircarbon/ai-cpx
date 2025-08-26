@@ -18,7 +18,13 @@ sys.path.append(os.path.abspath(os.path.join('..', '..', '..')))
 from app.core.database import init_database, close_database
 from app.core.types import Project, RiskType
 from app.repositories.project_repository import ProjectRepository
-from app.core.models import Project as ProjectModel, SourceDocument as SourceDocumentModel, Chunk as ChunkModel, RiskType as RiskTypeModel
+from app.core.models import (
+    Project as ProjectModel, SourceDocument as SourceDocumentModel, 
+    Chunk as ChunkModel, RiskType as RiskTypeModel, RiskDimensionSpec as RiskDimensionSpecModel,
+    EvidenceRating as EvidenceRatingModel, Evidence as EvidenceModel, 
+    RiskAssessment as RiskAssessmentModel, ProjectScore as ProjectScoreModel,
+    CoverageLedger as CoverageLedgerModel
+)
 from .chunk_processor import process_project_chunks
 from .risk_analyzer import process_project_risk_analysis, get_all_risk_types
 
@@ -86,7 +92,12 @@ async def scheduled_task() -> None:
 async def main():
     try:
         print("🔌 Initializing database connection...")
-        await init_database([ProjectModel, SourceDocumentModel, ChunkModel, RiskTypeModel])
+        models = [
+            ProjectModel, SourceDocumentModel, ChunkModel, RiskTypeModel, 
+            RiskDimensionSpecModel, EvidenceRatingModel, EvidenceModel, 
+            RiskAssessmentModel, ProjectScoreModel, CoverageLedgerModel
+        ]
+        await init_database(models)
         print("✅ Database connection established")
         
         await scheduled_task()
