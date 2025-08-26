@@ -69,6 +69,12 @@ async def get_project_documents(project: Project) -> List[SourceDocument]:
 async def process_document_chunks(project: Project, document: SourceDocument) -> int:
     """Process a document into chunks and save to database. Returns number of chunks created."""
     try:
+        # Check if chunks already exist for this document
+        existing_chunks = await ChunkRepository.get_chunks_by_document(document.id)
+        if existing_chunks:
+            print(f"  ✅ Document already chunked: {document.file_name} ({len(existing_chunks)} chunks)")
+            return len(existing_chunks)
+        
         # Skip documents with no content
         if not document.content or len(document.content.strip()) == 0:
             print(f"  ⚠️  Skipping empty document: {document.file_name}")
