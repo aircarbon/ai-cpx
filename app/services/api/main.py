@@ -3,9 +3,9 @@ from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import project_risks, risk_types
+from .routers import config
 from app.core.database import init_database
-from app.core.models import ParsedDocument, ProjectRisk, RiskTypes
+from app.core.models import RiskType, RiskDimensionSpec
 
 # Import env variables
 load_dotenv()
@@ -18,7 +18,7 @@ async def lifespan(app: FastAPI):
     # Startup
     global db_client
     # Initialize database with all required models for the API service
-    db_client = await init_database([ParsedDocument, ProjectRisk, RiskTypes])
+    db_client = await init_database([RiskType, RiskDimensionSpec])
     if not db_client:
         raise RuntimeError("Failed to initialize database connection")
     
@@ -41,8 +41,7 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(project_risks.router)
-app.include_router(risk_types.router)
+app.include_router(config.router)
 
 # Endpoints
 @app.get("/")
