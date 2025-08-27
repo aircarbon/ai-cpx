@@ -343,9 +343,13 @@ class ProjectScore:
     
     @classmethod
     def from_model(cls, model) -> 'ProjectScore':
+        # Extract ObjectId from DBRef
+        project_id_str = str(model.project_id.to_ref().id) if hasattr(model.project_id, 'to_ref') else str(model.project_id)
+        risk_scores_str = [str(risk_id.to_ref().id if hasattr(risk_id, 'to_ref') else risk_id) for risk_id in model.risk_scores]
+        
         return cls(
-            project_id=str(model.project_id),
-            risk_scores=[str(risk_id) for risk_id in model.risk_scores],
+            project_id=project_id_str,
+            risk_scores=risk_scores_str,
             total_score=model.total_score,
             created_at=model.created_at,
             id=str(model.id)
