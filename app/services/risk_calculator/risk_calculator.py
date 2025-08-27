@@ -27,6 +27,9 @@ from app.core.models import (
 )
 from .chunk_processor import process_project_chunks
 from .risk_analyzer import process_project_risk_analysis, get_all_risk_types
+from .risk_assessment_processor import process_project_risk_assessments, get_project_evidence_summary
+from app.repositories.evidence_repository import EvidenceRepository
+from app.repositories.chunk_repository import ChunkRepository
 
 # Load environment variables from .env file
 load_dotenv()
@@ -64,23 +67,68 @@ async def scheduled_task() -> None:
             return
         print(f"⚡ Loaded {len(risk_types)} risk types")
         
-        # Process each project in two phases
-        for project in projects:
-            # Phase 1: Process documents into chunks
-            print(f"\n{'='*50}")
-            print(f"📋 PHASE 1: CHUNKING - {project.name}")
-            print(f"{'='*50}")
-            chunk_count = await process_project_chunks(project)
+        # Process each project in three phases with granular skip logic
+        for i, project in enumerate(projects):
+            print(f"\n{'='*80}")
+            print(f"🔄 PROCESSING PROJECT: {project.name}")
+            print(f"{'='*80}")
             
-            # Phase 2: Analyze chunks for risks
-            print(f"\n{'='*50}")
-            print(f"🎯 PHASE 2: RISK ANALYSIS - {project.name}")
-            print(f"{'='*50}")
-            if chunk_count > 0:
-                analyzed_count = await process_project_risk_analysis(project, risk_types)
-                print(f"📊 Project '{project.name}': {chunk_count} chunks created, {analyzed_count} analyzed")
+            # STEP 1: Check if chunks exist - if yes, skip chunking
+            has_chunks = await ChunkRepository.project_has_chunks(project.id)
+            if has_chunks:
+                print(f"\n{'='*50}")
+                print(f"✅ PHASE 1 SKIPPED: CHUNKING - {project.name}")
+                print(f"{'='*50}")
+                print(f"⏩ Project already has chunks - skipping chunking phase")
             else:
-                print(f"⚠️  Skipping risk analysis for '{project.name}' - no chunks created")
+                print(f"\n{'='*50}")
+                print(f"📋 PHASE 1: CHUNKING - {project.name}")
+                print(f"{'='*50}")
+                chunk_count = await process_project_chunks(project)
+                print(f"📝 Created {chunk_count} chunks for project")
+            
+            # STEP 2: Check if evidences exist - if yes, skip evidence extraction
+            has_evidences = await EvidenceRepository.project_has_evidences(project.id)
+            if has_evidences:
+                print(f"\n{'='*50}")
+                print(f"✅ PHASE 2 SKIPPED: EVIDENCE EXTRACTION - {project.name}")
+                print(f"{'='*50}")
+                print(f"⏩ Project already has evidences - skipping evidence extraction phase")
+            else:
+                print(f"\n{'='*50}")
+                print(f"🎯 PHASE 2: EVIDENCE EXTRACTION - {project.name}")
+                print(f"{'='*50}")
+                
+                # Process all chunks for all risk types
+                processed_evidences = await process_project_risk_analysis(project, risk_types)
+                print(f"📈 Total evidences processed: {processed_evidences}")
+            
+            # STEP 3: Process risk assessments (with per-risk-type skip logic inside)
+            print(f"\n{'='*50}")
+            print(f"📊 PHASE 3: RISK ASSESSMENT CALCULATION - {project.name}")
+            print(f"{'='*50}")
+            
+            # Get evidence summary first
+            evidence_summary = await get_project_evidence_summary(project)
+            total_evidences = sum(evidence_summary.values())
+            
+            if total_evidences > 0:
+                # Process risk assessments (will skip individual risk types that already exist)
+                risk_scores = await process_project_risk_assessments(project)
+                print(f"📈 Processed {len(risk_scores)} risk assessment scores")
+                
+                # Display summary
+                print(f"📋 Risk Assessment Summary:")
+                for risk_type_name, score in sorted(risk_scores.items(), key=lambda x: x[1], reverse=True):
+                    evidence_count = evidence_summary.get(risk_type_name, 0)
+                    print(f"  • {risk_type_name}: {score:.3f} (based on {evidence_count} evidences)")
+            else:
+                print(f"⚠️  No evidences found for project '{project.name}' - skipping risk assessment calculation")
+            
+            # Debug: Exit after processing first project completely
+            if i == 0:
+                print(f"\n🛑 DEBUG: Exiting after processing first project '{project.name}' completely")
+                break
         
         print("\n" + "="*60)
         print("✅ Risk calculation task completed successfully")

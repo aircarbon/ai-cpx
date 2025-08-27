@@ -246,3 +246,83 @@ class RiskDimensionSpec:
             weight=model.weight,
             id=str(model.id)
         )
+
+
+@dataclass
+class EvidenceRating:
+    """Evidence rating for a specific risk dimension"""
+    risk_type_id: str
+    risk_dimension_spec_id: str
+    scale_value: str
+    score: float
+    higher_is_riskier: bool
+    weight: float
+    id: Optional[str] = None
+    
+    @classmethod
+    def from_model(cls, model) -> 'EvidenceRating':
+        return cls(
+            risk_type_id=str(model.risk_type_id),
+            risk_dimension_spec_id=str(model.risk_dimension_spec_id),
+            scale_value=model.scale_value,
+            score=model.score,
+            higher_is_riskier=model.higher_is_riskier,
+            weight=model.weight,
+            id=str(model.id)
+        )
+
+
+@dataclass
+class Evidence:
+    """Evidence found for a specific risk type in a chunk"""
+    risk_type_id: str
+    claim_text: str
+    chunk_id: str
+    evidence_ratings: List[str]  # List of EvidenceRating IDs
+    score: float
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    created_at: Optional[datetime] = None
+    id: Optional[str] = None
+    
+    def __post_init__(self):
+        if self.created_at is None:
+            self.created_at = datetime.now()
+    
+    @classmethod
+    def from_model(cls, model) -> 'Evidence':
+        return cls(
+            risk_type_id=str(model.risk_type_id),
+            claim_text=model.claim_text,
+            chunk_id=str(model.chunk_id),
+            evidence_ratings=[str(rating_id) for rating_id in model.evidence_ratings],
+            score=model.score,
+            metadata=model.metadata,
+            created_at=model.created_at,
+            id=str(model.id)
+        )
+
+
+@dataclass
+class RiskAssessment:
+    """Risk assessment aggregating evidences for a specific risk type and project"""
+    project_id: str
+    risk_type_id: str
+    evidence_ids: List[str]  # List of Evidence IDs
+    score: float
+    created_at: Optional[datetime] = None
+    id: Optional[str] = None
+    
+    def __post_init__(self):
+        if self.created_at is None:
+            self.created_at = datetime.now()
+    
+    @classmethod
+    def from_model(cls, model) -> 'RiskAssessment':
+        return cls(
+            project_id=str(model.project_id),
+            risk_type_id=str(model.risk_type_id),
+            evidence_ids=[str(evidence_id) for evidence_id in model.evidence_ids],
+            score=model.score,
+            created_at=model.created_at,
+            id=str(model.id)
+        )

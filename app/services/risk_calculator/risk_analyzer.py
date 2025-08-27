@@ -207,75 +207,68 @@ async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType) -> None
     print(f"    🔍 Analyzing chunk {chunk.chunk_index} for risk type: {risk_type.risk_type}")
     
     try:
-        # For debugging, analyze all risk types for the first chunk only
-        if chunk.chunk_index == 0:  # Only test on first chunk for all risk types
-            print(f"    📋 Loading risk dimensions...")
-            try:
-                dimensions = await get_all_risk_dimensions()
-                print(f"    ✅ Risk dimensions loaded successfully")
-            except Exception as e:
-                print(f"    ❌ Failed to load risk dimensions: {type(e).__name__}: {str(e)}")
-                print(f"    🔍 Error details: {repr(e)}")
-                import traceback
-                traceback.print_exc()
-                return
+        # For debugging, analyze all risk types for all chunks (no chunk restriction)
+        print(f"    📋 Loading risk dimensions...")
+        try:
+            dimensions = await get_all_risk_dimensions()
+            print(f"    ✅ Risk dimensions loaded successfully")
+        except Exception as e:
+            print(f"    ❌ Failed to load risk dimensions: {type(e).__name__}: {str(e)}")
+            print(f"    🔍 Error details: {repr(e)}")
+            import traceback
+            traceback.print_exc()
+            return
+        
+        if not dimensions:
+            print(f"    ⚠️ No risk dimensions found in database - cannot perform analysis")
+            return
+        
+        print(f"    📊 Found {len(dimensions)} risk dimensions")
+        
+        print(f"    🤖 Building analysis prompt...")
+        prompt = build_risk_analysis_prompt(chunk.content, risk_type, dimensions)
+        
+        print(f"    🧠 Querying LLM for risk analysis...")
+        llm_service = get_llm_service()
+        session_id = f"risk_analysis_{risk_type.risk_type}_{chunk.chunk_index}"
+        response = await llm_service.query(prompt, session_id=session_id)
+        
+        print(f"    📝 Raw LLM Response:")
+        print(f"{'='*50}")
+        print(response)
+        print(f"{'='*50}")
+        
+        # Try to parse JSON response
+        try:
+            response_data = json.loads(response)
+            print(f"    ✅ Successfully parsed JSON response")
             
-            if not dimensions:
-                print(f"    ⚠️ No risk dimensions found in database - cannot perform analysis")
-                print(f"    💡 Hint: Run database initialization first:")
-                print(f"       docker build -t db-init -f docker/Dockerfile.db-init .")
-                print(f"       docker run --rm --network internal db-init")
-                return
+            # Parse into our dataclass structure
+            llm_response = parse_llm_response(response_data)
+            print(f"    📈 Found {llm_response.evidence_count} evidences")
             
-            print(f"    📊 Found {len(dimensions)} risk dimensions")
-            
-            print(f"    🤖 Building analysis prompt...")
-            prompt = build_risk_analysis_prompt(chunk.content, risk_type, dimensions)
-            
-            print(f"    🧠 Querying LLM for risk analysis...")
-            llm_service = get_llm_service()
-            session_id = f"risk_analysis_{risk_type.risk_type}_{chunk.chunk_index}"
-            response = await llm_service.query(prompt, session_id=session_id)
-            
-            print(f"    📝 Raw LLM Response:")
-            print(f"{'='*50}")
-            print(response)
-            print(f"{'='*50}")
-            
-            # Try to parse JSON response
-            try:
-                response_data = json.loads(response)
-                print(f"    ✅ Successfully parsed JSON response")
+            if llm_response.has_evidences:
+                # Display evidences summary
+                for i, evidence in enumerate(llm_response.evidences, 1):
+                    print(f"        Evidence {i}: {evidence.claim_text[:50]}...")
+                    print(f"        Confidence: {evidence.confidence}")
+                    print(f"        Dimensions rated: {len(evidence.dimension_ratings)}")
                 
-                # Parse into our dataclass structure
-                llm_response = parse_llm_response(response_data)
-                print(f"    📈 Found {llm_response.evidence_count} evidences")
+                # Save evidences and evidence ratings to database
+                print(f"    💾 Saving evidences to database...")
+                saved_count = await save_evidences_to_database(llm_response, risk_type, chunk, dimensions)
+                print(f"    ✅ Saved {saved_count} evidences to database")
                 
-                if llm_response.has_evidences:
-                    # Display evidences summary
-                    for i, evidence in enumerate(llm_response.evidences, 1):
-                        print(f"        Evidence {i}: {evidence.claim_text[:50]}...")
-                        print(f"        Confidence: {evidence.confidence}")
-                        print(f"        Dimensions rated: {len(evidence.dimension_ratings)}")
-                    
-                    # Save evidences and evidence ratings to database
-                    print(f"    💾 Saving evidences to database...")
-                    saved_count = await save_evidences_to_database(llm_response, risk_type, chunk, dimensions)
-                    print(f"    ✅ Saved {saved_count} evidences to database")
-                    
-                else:
-                    print(f"    📄 No evidence reasoning: {llm_response.no_evidence_reasoning}")
-                    
-            except json.JSONDecodeError as e:
-                print(f"    ❌ Failed to parse JSON response: {str(e)}")
-                print(f"    📝 Response may not be in valid JSON format")
-            except Exception as e:
-                print(f"    ❌ Error processing LLM response: {str(e)}")
-                import traceback
-                traceback.print_exc()
-            
-        else:
-            print(f"    ⏩ Skipping LLM call for this chunk/risk (testing only first)")
+            else:
+                print(f"    📄 No evidence reasoning: {llm_response.no_evidence_reasoning}")
+                
+        except json.JSONDecodeError as e:
+            print(f"    ❌ Failed to parse JSON response: {str(e)}")
+            print(f"    📝 Response may not be in valid JSON format")
+        except Exception as e:
+            print(f"    ❌ Error processing LLM response: {str(e)}")
+            import traceback
+            traceback.print_exc()
             
     except Exception as e:
         print(f"    ❌ Error in LLM analysis: {str(e)}")
@@ -283,23 +276,8 @@ async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType) -> None
 
 async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType]) -> None:
     """Analyze a single chunk against all risk types."""
-    # Check if this chunk already has any evidence (skip if processed)
-    try:
-        existing_evidences = await EvidenceRepository.get_by_chunk(chunk.id)
-        if existing_evidences:
-            print(f"    ✅ Chunk {chunk.chunk_index} already has {len(existing_evidences)} evidences - skipping all risk types")
-            return
-    except Exception as e:
-        print(f"    ⚠️ Warning: Could not check existing evidence for chunk {chunk.chunk_index}: {str(e)}")
-    
     for risk_type in risk_types:
         await analyze_chunk_for_risk_type(chunk, risk_type)
-    
-    # Debug: Exit after processing all risk types for first chunk
-    if chunk.chunk_index == 0:
-        print(f"\n🛑 DEBUG: Exiting after analyzing all risk types for chunk {chunk.chunk_index}")
-        import sys
-        sys.exit()
 
 
 async def process_project_risk_analysis(project: Project, risk_types: List[RiskType]) -> int:
