@@ -5,7 +5,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routers import config, risk
 from app.core.database import init_database
-from app.core.models import RiskType, RiskDimensionSpec, Project, ProjectScore
+from app.core.models import (
+    RiskType, RiskDimensionSpec, Project, ProjectScore, RiskAssessment, 
+    Evidence, EvidenceRating, Chunk, SourceDocument
+)
 
 # Import env variables
 load_dotenv()
@@ -18,7 +21,10 @@ async def lifespan(app: FastAPI):
     # Startup
     global db_client
     # Initialize database with all required models for the API service
-    db_client = await init_database([RiskType, RiskDimensionSpec, Project, ProjectScore])
+    db_client = await init_database([
+        RiskType, RiskDimensionSpec, Project, ProjectScore, RiskAssessment, 
+        Evidence, EvidenceRating, Chunk, SourceDocument
+    ])
     if not db_client:
         raise RuntimeError("Failed to initialize database connection")
     

@@ -63,8 +63,11 @@ class Chunk:
     
     @classmethod
     def from_model(cls, model: 'ChunkModel') -> 'Chunk':
+        # Extract ObjectId from DBRef for Link fields
+        document_id_str = str(model.document_id.to_ref().id) if hasattr(model.document_id, 'to_ref') else str(model.document_id)
+        
         return cls(
-            document_id=str(model.document_id),
+            document_id=document_id_str,
             chunk_index=model.chunk_index,
             content=model.content,
             size_characters=model.size_characters,
@@ -144,8 +147,11 @@ class SourceDocument:
     
     @classmethod
     def from_model(cls, model: 'SourceDocumentModel') -> 'SourceDocument':
+        # Extract ObjectId from DBRef for Link fields
+        project_id_str = str(model.project_id.to_ref().id) if hasattr(model.project_id, 'to_ref') else str(model.project_id)
+        
         return cls(
-            project_id=str(model.project_id),
+            project_id=project_id_str,
             file_name=model.file_name,
             source_type=model.source_type,
             source_path=model.source_path,
@@ -261,9 +267,13 @@ class EvidenceRating:
     
     @classmethod
     def from_model(cls, model) -> 'EvidenceRating':
+        # Extract ObjectId from DBRef for Link fields
+        risk_type_id_str = str(model.risk_type_id.to_ref().id) if hasattr(model.risk_type_id, 'to_ref') else str(model.risk_type_id)
+        risk_dimension_spec_id_str = str(model.risk_dimension_spec_id.to_ref().id) if hasattr(model.risk_dimension_spec_id, 'to_ref') else str(model.risk_dimension_spec_id)
+        
         return cls(
-            risk_type_id=str(model.risk_type_id),
-            risk_dimension_spec_id=str(model.risk_dimension_spec_id),
+            risk_type_id=risk_type_id_str,
+            risk_dimension_spec_id=risk_dimension_spec_id_str,
             scale_value=model.scale_value,
             score=model.score,
             higher_is_riskier=model.higher_is_riskier,
@@ -290,11 +300,16 @@ class Evidence:
     
     @classmethod
     def from_model(cls, model) -> 'Evidence':
+        # Extract ObjectId from DBRef for Link fields
+        risk_type_id_str = str(model.risk_type_id.to_ref().id) if hasattr(model.risk_type_id, 'to_ref') else str(model.risk_type_id)
+        chunk_id_str = str(model.chunk_id.to_ref().id) if hasattr(model.chunk_id, 'to_ref') else str(model.chunk_id)
+        evidence_ratings_str = [str(rating_id.to_ref().id if hasattr(rating_id, 'to_ref') else rating_id) for rating_id in model.evidence_ratings]
+        
         return cls(
-            risk_type_id=str(model.risk_type_id),
+            risk_type_id=risk_type_id_str,
             claim_text=model.claim_text,
-            chunk_id=str(model.chunk_id),
-            evidence_ratings=[str(rating_id) for rating_id in model.evidence_ratings],
+            chunk_id=chunk_id_str,
+            evidence_ratings=evidence_ratings_str,
             score=model.score,
             metadata=model.metadata,
             created_at=model.created_at,
@@ -318,10 +333,15 @@ class RiskAssessment:
     
     @classmethod
     def from_model(cls, model) -> 'RiskAssessment':
+        # Extract ObjectId from DBRef for Link fields
+        project_id_str = str(model.project_id.to_ref().id) if hasattr(model.project_id, 'to_ref') else str(model.project_id)
+        risk_type_id_str = str(model.risk_type_id.to_ref().id) if hasattr(model.risk_type_id, 'to_ref') else str(model.risk_type_id)
+        evidence_ids_str = [str(evidence_id.to_ref().id if hasattr(evidence_id, 'to_ref') else evidence_id) for evidence_id in model.evidence_ids]
+        
         return cls(
-            project_id=str(model.project_id),
-            risk_type_id=str(model.risk_type_id),
-            evidence_ids=[str(evidence_id) for evidence_id in model.evidence_ids],
+            project_id=project_id_str,
+            risk_type_id=risk_type_id_str,
+            evidence_ids=evidence_ids_str,
             score=model.score,
             created_at=model.created_at,
             id=str(model.id)
