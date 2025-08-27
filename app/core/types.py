@@ -326,3 +326,27 @@ class RiskAssessment:
             created_at=model.created_at,
             id=str(model.id)
         )
+
+
+@dataclass
+class ProjectScore:
+    """Total project score aggregating all risk assessments for a project"""
+    project_id: str
+    risk_scores: List[str]  # List of RiskAssessment IDs
+    total_score: float
+    created_at: Optional[datetime] = None
+    id: Optional[str] = None
+    
+    def __post_init__(self):
+        if self.created_at is None:
+            self.created_at = datetime.now()
+    
+    @classmethod
+    def from_model(cls, model) -> 'ProjectScore':
+        return cls(
+            project_id=str(model.project_id),
+            risk_scores=[str(risk_id) for risk_id in model.risk_scores],
+            total_score=model.total_score,
+            created_at=model.created_at,
+            id=str(model.id)
+        )

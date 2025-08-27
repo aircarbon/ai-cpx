@@ -28,8 +28,11 @@ from app.core.models import (
 from .chunk_processor import process_project_chunks
 from .risk_analyzer import process_project_risk_analysis, get_all_risk_types
 from .risk_assessment_processor import process_project_risk_assessments, get_project_evidence_summary
+from .project_score_processor import process_project_total_score
 from app.repositories.evidence_repository import EvidenceRepository
 from app.repositories.chunk_repository import ChunkRepository
+from app.repositories.project_score_repository import ProjectScoreRepository
+from app.repositories.risk_assessment_repository import RiskAssessmentRepository
 
 # Load environment variables from .env file
 load_dotenv()
@@ -103,27 +106,68 @@ async def scheduled_task() -> None:
                 processed_evidences = await process_project_risk_analysis(project, risk_types)
                 print(f"📈 Total evidences processed: {processed_evidences}")
             
-            # STEP 3: Process risk assessments (with per-risk-type skip logic inside)
+            # STEP 3: Process risk assessments - skip if ANY risk assessments exist
             print(f"\n{'='*50}")
             print(f"📊 PHASE 3: RISK ASSESSMENT CALCULATION - {project.name}")
             print(f"{'='*50}")
             
-            # Get evidence summary first
-            evidence_summary = await get_project_evidence_summary(project)
-            total_evidences = sum(evidence_summary.values())
-            
-            if total_evidences > 0:
-                # Process risk assessments (will skip individual risk types that already exist)
-                risk_scores = await process_project_risk_assessments(project)
-                print(f"📈 Processed {len(risk_scores)} risk assessment scores")
+            # Check if project has any risk assessments
+            has_risk_assessments = await RiskAssessmentRepository.project_has_risk_assessments(project.id)
+            if has_risk_assessments:
+                print(f"✅ PHASE 3 SKIPPED: RISK ASSESSMENT CALCULATION - {project.name}")
+                print(f"⏩ Project already has risk assessments - skipping risk assessment calculation")
                 
-                # Display summary
-                print(f"📋 Risk Assessment Summary:")
-                for risk_type_name, score in sorted(risk_scores.items(), key=lambda x: x[1], reverse=True):
-                    evidence_count = evidence_summary.get(risk_type_name, 0)
-                    print(f"  • {risk_type_name}: {score:.3f} (based on {evidence_count} evidences)")
+                # Still display summary for existing assessments
+                evidence_summary = await get_project_evidence_summary(project)
+                existing_risk_assessments = await RiskAssessmentRepository.get_by_project(project.id)
+                print(f"📊 Found {len(existing_risk_assessments)} existing risk assessments")
+                
+                # Create risk_scores dict for display
+                risk_scores = {}
+                for assessment in existing_risk_assessments:
+                    # Get risk type name - we'll need to look this up
+                    pass  # We'll display the count instead of names for now
+                
             else:
-                print(f"⚠️  No evidences found for project '{project.name}' - skipping risk assessment calculation")
+                # Get evidence summary first
+                evidence_summary = await get_project_evidence_summary(project)
+                total_evidences = sum(evidence_summary.values())
+                
+                if total_evidences > 0:
+                    # Process risk assessments
+                    risk_scores = await process_project_risk_assessments(project)
+                    print(f"📈 Processed {len(risk_scores)} risk assessment scores")
+                    
+                    # Display summary
+                    print(f"📋 Risk Assessment Summary:")
+                    for risk_type_name, score in sorted(risk_scores.items(), key=lambda x: x[1], reverse=True):
+                        evidence_count = evidence_summary.get(risk_type_name, 0)
+                        print(f"  • {risk_type_name}: {score:.3f} (based on {evidence_count} evidences)")
+                else:
+                    print(f"⚠️  No evidences found for project '{project.name}' - skipping risk assessment calculation")
+            
+            # STEP 4: Process total project score - skip if project score exists
+            print(f"\n{'='*50}")
+            print(f"🏆 PHASE 4: TOTAL PROJECT SCORE CALCULATION - {project.name}")
+            print(f"{'='*50}")
+            
+            # Check if project already has a total score
+            has_project_score = await ProjectScoreRepository.project_has_score(project.id)
+            if has_project_score:
+                print(f"✅ PHASE 4 SKIPPED: PROJECT SCORE CALCULATION - {project.name}")
+                print(f"⏩ Project already has total score - skipping total score calculation")
+                existing_score = await ProjectScoreRepository.get_by_project(project.id)
+                print(f"📊 Existing total project score: {existing_score.total_score:.3f}")
+            else:
+                # Check if we have risk assessments to calculate from
+                has_risk_assessments = await RiskAssessmentRepository.project_has_risk_assessments(project.id)
+                if has_risk_assessments:
+                    # Process total project score
+                    project_score_result = await process_project_total_score(project)
+                    total_score = project_score_result.get("total_score", 0.0)
+                    print(f"🏆 Final project score: {total_score:.3f}")
+                else:
+                    print(f"⚠️  No risk assessments found for project '{project.name}' - cannot calculate total score")
             
             # Debug: Exit after processing first project completely
             if i == 0:
