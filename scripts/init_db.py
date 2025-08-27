@@ -236,7 +236,7 @@ async def check_database_status():
         # Check document counts for new collections
         expected_collections = [
             'projects', 'documents', 'chunks', 'risk_types', 'risk_dimensions',
-            'evidence_assessments', 'evidences', 'risk_assessments', 
+            'evidence_ratings', 'evidences', 'risk_assessments', 
             'project_scores', 'coverage_ledger'
         ]
         for collection_name in collections:

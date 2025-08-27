@@ -152,7 +152,7 @@ class EvidenceRating(Document):
     weight: float = Field(..., description="Weight factor for this assessment")
     
     class Settings:
-        name = "evidence_assessments"
+        name = "evidence_ratings"
         indexes = [
             "risk_type_id",
             "risk_dimension_spec_id",
