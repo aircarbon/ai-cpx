@@ -2,6 +2,7 @@ from typing import List, Optional
 
 from app.core.models import EvidenceRating as EvidenceRatingModel, RiskType as RiskTypeModel, RiskDimensionSpec as RiskDimensionSpecModel
 from app.core.types import RiskType, RiskDimensionSpec, LLMDimensionRating, EvidenceRating
+from app.repositories.evidence_repository import EvidenceRepository
 from beanie import PydanticObjectId
 
 
@@ -30,3 +31,21 @@ class EvidenceRatingRepository:
         """Get evidence rating by ID."""
         model = await EvidenceRatingModel.get(PydanticObjectId(rating_id))
         return EvidenceRating.from_model(model) if model else None
+    
+    @staticmethod
+    async def get_by_evidence_id(evidence_id: str) -> List[EvidenceRating]:
+        """Get all evidence ratings for a specific evidence."""
+        # Since evidence ratings are stored as IDs in Evidence.evidence_ratings,
+        # we need to get the evidence first to get its rating IDs
+        evidence = await EvidenceRepository.get_by_id(evidence_id)
+        
+        if not evidence or not evidence.evidence_ratings:
+            return []
+        
+        ratings = []
+        for rating_id in evidence.evidence_ratings:
+            rating = await EvidenceRatingRepository.get_by_id(rating_id)
+            if rating:
+                ratings.append(rating)
+        
+        return ratings

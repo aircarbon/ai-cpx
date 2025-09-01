@@ -157,3 +157,17 @@ class EvidenceRepository:
         except Exception as e:
             print(f"    ❌ ERROR in project_has_evidences: {str(e)}")
             return False
+    
+    @staticmethod
+    async def get_by_ids(evidence_ids: List[str]) -> List[Evidence]:
+        """Get multiple evidences by their IDs."""
+        if not evidence_ids:
+            return []
+        
+        evidences = []
+        for evidence_id in evidence_ids:
+            evidence = await EvidenceRepository.get_by_id(evidence_id)
+            if evidence:
+                evidences.append(evidence)
+        
+        return evidences

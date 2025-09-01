@@ -8,6 +8,11 @@ from app.core.types import SourceDocument as SourceDocumentType
 class SourceDocumentRepository:
     
     @staticmethod
+    async def get_all() -> List[SourceDocumentType]:
+        documents = await SourceDocumentModel.find_all().to_list()
+        return [SourceDocumentType.from_model(document) for document in documents]
+    
+    @staticmethod
     async def get_by_project(project_id: str) -> List[SourceDocumentType]:
         try:
             documents = await SourceDocumentModel.find(SourceDocumentModel.project_id.id == PydanticObjectId(project_id)).to_list()

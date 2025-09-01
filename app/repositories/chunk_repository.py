@@ -56,3 +56,8 @@ class ChunkRepository:
         
         return False
     
+    @staticmethod
+    async def get_by_id(chunk_id: str) -> Optional[ChunkType]:
+        model = await ChunkModel.get(PydanticObjectId(chunk_id), fetch_links=True)
+        return ChunkType.from_model(model) if model else None
+    

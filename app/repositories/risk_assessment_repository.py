@@ -105,3 +105,9 @@ class RiskAssessmentRepository:
             fetch_links=True
         )
         return existing is not None
+    
+    @staticmethod
+    async def get_by_id(risk_assessment_id: str) -> Optional[RiskAssessment]:
+        """Get risk assessment by ID."""
+        model = await RiskAssessmentModel.get(PydanticObjectId(risk_assessment_id), fetch_links=True)
+        return RiskAssessment.from_model(model) if model else None

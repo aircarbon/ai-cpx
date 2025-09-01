@@ -9,8 +9,7 @@ from app.repositories.evidence_repository import EvidenceRepository
 from app.repositories.evidence_rating_repository import EvidenceRatingRepository
 from app.repositories.chunk_repository import ChunkRepository
 from app.repositories.source_document_repository import SourceDocumentRepository
-from app.core.models import RiskAssessment as RiskAssessmentModel, Evidence as EvidenceModel, EvidenceRating as EvidenceRatingModel, Chunk as ChunkModel
-from beanie import PydanticObjectId
+# Removed direct model imports - using repositories instead
 
 router = APIRouter(prefix="/risk", tags=["risk"])
 
@@ -63,14 +62,10 @@ async def get_project_risk_breakdown(project_id: str):
     # Fetch the RiskAssessment records using the IDs from project_score.risk_scores
     risk_breakdown = []
     for risk_assessment_id in project_score.risk_scores:
-        # Fetch the RiskAssessment model directly
-        risk_assessment_model = await RiskAssessmentModel.get(PydanticObjectId(risk_assessment_id), fetch_links=True)
+        # Use repository instead of direct model access
+        risk_assessment = await RiskAssessmentRepository.get_by_id(risk_assessment_id)
         
-        if risk_assessment_model:
-            # Convert to type object to get the proper IDs
-            from app.core.types import RiskAssessment
-            risk_assessment = RiskAssessment.from_model(risk_assessment_model)
-            
+        if risk_assessment:
             # Get the risk type details
             risk_type_obj = risk_type_mapping.get(risk_assessment.risk_type_id)
             
@@ -100,15 +95,11 @@ async def get_project_risk_breakdown(project_id: str):
 @router.get("/risk-assessment/{risk_assessment_id}", response_model=Dict[str, Any])
 async def get_risk_assessment(risk_assessment_id: str):
     """Get detailed information about a specific risk assessment including evidences"""
-    # Fetch the RiskAssessment record
-    risk_assessment_model = await RiskAssessmentModel.get(PydanticObjectId(risk_assessment_id), fetch_links=True)
+    # Use repository instead of direct model access
+    risk_assessment = await RiskAssessmentRepository.get_by_id(risk_assessment_id)
     
-    if not risk_assessment_model:
+    if not risk_assessment:
         raise HTTPException(status_code=404, detail=f"Risk assessment not found with ID: {risk_assessment_id}")
-    
-    # Convert to type object to get proper IDs
-    from app.core.types import RiskAssessment
-    risk_assessment = RiskAssessment.from_model(risk_assessment_model)
     
     # Get risk type details
     all_risk_types = await RiskTypeRepository.get_all()
@@ -120,19 +111,16 @@ async def get_risk_assessment(risk_assessment_id: str):
     project_mapping = {p.id: p for p in all_projects}
     project_obj = project_mapping.get(risk_assessment.project_id)
     
-    # Get evidence details
+    # Get evidence details using repository
+    evidences_data = await EvidenceRepository.get_by_ids(risk_assessment.evidence_ids)
     evidences = []
-    for evidence_id in risk_assessment.evidence_ids:
-        evidence_model = await EvidenceModel.get(PydanticObjectId(evidence_id), fetch_links=True)
-        if evidence_model:
-            from app.core.types import Evidence
-            evidence = Evidence.from_model(evidence_model)
-            evidences.append({
-                "id": evidence.id,
-                "claim_text": evidence.claim_text,
-                "chunk_id": evidence.chunk_id,
-                "score": evidence.score
-            })
+    for evidence in evidences_data:
+        evidences.append({
+            "id": evidence.id,
+            "claim_text": evidence.claim_text,
+            "chunk_id": evidence.chunk_id,
+            "score": evidence.score
+        })
     
     # Build the response
     response = {
@@ -151,15 +139,11 @@ async def get_risk_assessment(risk_assessment_id: str):
 @router.get("/evidence-rating-breakdown/{evidence_id}", response_model=Dict[str, Any])
 async def get_evidence_rating_breakdown(evidence_id: str):
     """Get detailed rating breakdown for a specific evidence"""
-    # First, get the Evidence to access its evidence_ratings
-    evidence_model = await EvidenceModel.get(PydanticObjectId(evidence_id), fetch_links=True)
+    # Use repository instead of direct model access
+    evidence = await EvidenceRepository.get_by_id(evidence_id)
     
-    if not evidence_model:
+    if not evidence:
         raise HTTPException(status_code=404, detail=f"Evidence not found with ID: {evidence_id}")
-    
-    # Convert to type object to get proper IDs
-    from app.core.types import Evidence
-    evidence = Evidence.from_model(evidence_model)
     
     # Get all risk types and risk dimension specs for mapping
     all_risk_types = await RiskTypeRepository.get_all()
@@ -172,32 +156,28 @@ async def get_evidence_rating_breakdown(evidence_id: str):
     risk_type_name = None
     risk_type_description = None
     
-    # Get all evidence ratings for this evidence
+    # Get all evidence ratings for this evidence using repository
+    evidence_ratings = await EvidenceRatingRepository.get_by_evidence_id(evidence_id)
+    
     rating_breakdown = []
-    for evidence_rating_id in evidence.evidence_ratings:
-        evidence_rating_model = await EvidenceRatingModel.get(PydanticObjectId(evidence_rating_id), fetch_links=True)
+    for evidence_rating in evidence_ratings:
+        # Get risk type and dimension spec details
+        risk_type_obj = risk_type_mapping.get(evidence_rating.risk_type_id)
+        dimension_spec_obj = dimension_spec_mapping.get(evidence_rating.risk_dimension_spec_id)
         
-        if evidence_rating_model:
-            from app.core.types import EvidenceRating
-            evidence_rating = EvidenceRating.from_model(evidence_rating_model)
-            
-            # Get risk type and dimension spec details
-            risk_type_obj = risk_type_mapping.get(evidence_rating.risk_type_id)
-            dimension_spec_obj = dimension_spec_mapping.get(evidence_rating.risk_dimension_spec_id)
-            
-            # Set risk type info from the first rating (they're all the same)
-            if risk_type_name is None and risk_type_obj:
-                risk_type_name = risk_type_obj.risk_type
-                risk_type_description = risk_type_obj.description
-            
-            rating_breakdown.append({
-                "id": evidence_rating.id,
-                "risk_dimension_name": dimension_spec_obj.label if dimension_spec_obj else "Unknown Dimension",
-                "scale_value": evidence_rating.scale_value,
-                "score": evidence_rating.score,
-                "higher_is_riskier": evidence_rating.higher_is_riskier,
-                "weight": evidence_rating.weight
-            })
+        # Set risk type info from the first rating (they're all the same)
+        if risk_type_name is None and risk_type_obj:
+            risk_type_name = risk_type_obj.risk_type
+            risk_type_description = risk_type_obj.description
+        
+        rating_breakdown.append({
+            "id": evidence_rating.id,
+            "risk_dimension_name": dimension_spec_obj.label if dimension_spec_obj else "Unknown Dimension",
+            "scale_value": evidence_rating.scale_value,
+            "score": evidence_rating.score,
+            "higher_is_riskier": evidence_rating.higher_is_riskier,
+            "weight": evidence_rating.weight
+        })
     
     # Build the response with risk type at the top level
     response = {
@@ -213,27 +193,26 @@ async def get_evidence_rating_breakdown(evidence_id: str):
 @router.get("/get-chunk/{chunk_id}", response_model=Dict[str, Any])
 async def get_chunk(chunk_id: str):
     """Get chunk details with project and document name mapping"""
-    # Get the Chunk
-    chunk_model = await ChunkModel.get(PydanticObjectId(chunk_id), fetch_links=True)
+    # Use repository instead of direct model access
+    chunk = await ChunkRepository.get_by_id(chunk_id)
     
-    if not chunk_model:
+    if not chunk:
         raise HTTPException(status_code=404, detail=f"Chunk not found with ID: {chunk_id}")
-    
-    # Convert to type object to get proper IDs
-    from app.core.types import Chunk
-    chunk = Chunk.from_model(chunk_model)
     
     # Get all source documents and projects for mapping
     all_projects = await ProjectRepository.get_all()
     project_mapping = {p.id: p for p in all_projects}
     
-    # Get the document details (already fetched due to fetch_links=True)
-    document_model = chunk_model.document_id
-    if not document_model:
-        raise HTTPException(status_code=500, detail="Failed to fetch linked document")
+    # Get the document details using repository
+    all_documents = await SourceDocumentRepository.get_all()
+    document = None
+    for doc in all_documents:
+        if doc.id == chunk.document_id:
+            document = doc
+            break
     
-    from app.core.types import SourceDocument
-    document = SourceDocument.from_model(document_model)
+    if not document:
+        raise HTTPException(status_code=500, detail="Failed to fetch linked document")
     
     # Get the project name
     project_obj = project_mapping.get(document.project_id)
