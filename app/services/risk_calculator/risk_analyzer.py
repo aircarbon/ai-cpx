@@ -1,6 +1,7 @@
 from typing import List
 import sys
 import json
+import os
 
 from app.core.types import Project, Chunk, RiskType, LLMRiskAnalysisResponse, RiskDimensionSpec, LLMEvidence, LLMDimensionRating
 from app.repositories.chunk_repository import ChunkRepository
@@ -292,13 +293,27 @@ async def process_project_risk_analysis(project: Project, risk_types: List[RiskT
             print(f"⚠️  No chunks found for project '{project.name}'")
             return 0
         
-        print(f"📝 Found {len(chunks)} chunks to analyze")
+        # Apply mode-based chunk limiting
+        app_mode = os.getenv('APP_MODE', 'DEV').upper()
+        chunks_to_process = chunks
+        
+        if app_mode == 'DEV':
+            max_chunks = int(os.getenv('DEV_MAX_CHUNKS_PER_PROJECT', '10'))
+            if len(chunks) > max_chunks:
+                chunks_to_process = chunks[:max_chunks]
+                print(f"🔧 DEV MODE: Limiting processing to {max_chunks} chunks (out of {len(chunks)} total)")
+            else:
+                print(f"🔧 DEV MODE: Processing all {len(chunks)} chunks (under limit of {max_chunks})")
+        else:
+            print(f"🚀 PROD MODE: Processing all {len(chunks)} chunks")
+        
+        print(f"📝 Found {len(chunks)} total chunks, processing {len(chunks_to_process)} chunks")
         print(f"⚡ Will analyze against {len(risk_types)} risk types")
         
         # Process each chunk against all risk types
         analyzed_count = 0
-        for chunk in chunks:
-            print(f"  📊 Analyzing chunk {chunk.chunk_index + 1}/{len(chunks)}")
+        for chunk in chunks_to_process:
+            print(f"  📊 Analyzing chunk {chunk.chunk_index + 1}/{len(chunks_to_process)}")
             await analyze_chunk_for_all_risks(chunk, risk_types)
             analyzed_count += 1
         

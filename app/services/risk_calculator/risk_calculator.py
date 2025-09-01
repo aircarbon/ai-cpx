@@ -70,10 +70,18 @@ async def scheduled_task() -> None:
             return
         print(f"⚡ Loaded {len(risk_types)} risk types")
         
+        # Check application mode for processing behavior
+        app_mode = os.getenv('APP_MODE', 'DEV').upper()
+        
+        if app_mode == 'DEV':
+            print(f"🔧 DEV MODE: Processing all {len(projects)} projects with chunk limits per project")
+        else:
+            print(f"🚀 PROD MODE: Processing all {len(projects)} projects without limits")
+        
         # Process each project in three phases with granular skip logic
         for i, project in enumerate(projects):
             print(f"\n{'='*80}")
-            print(f"🔄 PROCESSING PROJECT: {project.name}")
+            print(f"🔄 PROCESSING PROJECT {i+1}/{len(projects)}: {project.name}")
             print(f"{'='*80}")
             
             # STEP 1: Check if chunks exist - if yes, skip chunking
@@ -168,11 +176,6 @@ async def scheduled_task() -> None:
                     print(f"🏆 Final project score: {total_score:.3f}")
                 else:
                     print(f"⚠️  No risk assessments found for project '{project.name}' - cannot calculate total score")
-            
-            # Debug: Exit after processing first project completely
-            if i == 0:
-                print(f"\n🛑 DEBUG: Exiting after processing first project '{project.name}' completely")
-                break
         
         print("\n" + "="*60)
         print("✅ Risk calculation task completed successfully")
