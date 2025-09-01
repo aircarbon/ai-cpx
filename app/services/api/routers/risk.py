@@ -156,6 +156,27 @@ async def get_evidence_rating_breakdown(evidence_id: str):
     risk_type_name = None
     risk_type_description = None
     
+    # Get chunk, document and project information for additional fields
+    chunk = await ChunkRepository.get_by_id(evidence.chunk_id)
+    project_name = "Unknown Project"
+    
+    if chunk:
+        # Get all documents to find the one that contains this chunk
+        all_documents = await SourceDocumentRepository.get_all()
+        document = None
+        for doc in all_documents:
+            if doc.id == chunk.document_id:
+                document = doc
+                break
+        
+        if document:
+            # Get all projects to find the project name
+            all_projects = await ProjectRepository.get_all()
+            for project in all_projects:
+                if project.id == document.project_id:
+                    project_name = project.name
+                    break
+    
     # Get all evidence ratings for this evidence using repository
     evidence_ratings = await EvidenceRatingRepository.get_by_evidence_id(evidence_id)
     
@@ -182,6 +203,9 @@ async def get_evidence_rating_breakdown(evidence_id: str):
     # Build the response with risk type at the top level
     response = {
         "evidence_id": evidence_id,
+        "chunk_id": evidence.chunk_id,
+        "claim_text": evidence.claim_text,
+        "project_name": project_name,
         "risk_type_name": risk_type_name or "Unknown Risk Type",
         "risk_type_description": risk_type_description or "Unknown",
         "ratings": rating_breakdown
