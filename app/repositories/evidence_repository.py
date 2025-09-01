@@ -143,16 +143,18 @@ class EvidenceRepository:
     
     @staticmethod
     async def project_has_evidences(project_id: str) -> bool:
-        """Check if evidences exist - using global override to prevent infinite extraction."""
+        """Check if evidences exist for a specific project."""
         try:
-            # Global override: If there are sufficient evidences in database, skip extraction
-            total_evidences = await EvidenceModel.count()
+            # Get evidences for this specific project
+            evidences = await EvidenceRepository.get_by_project(project_id)
+            has_evidences = len(evidences) > 0
             
-            if total_evidences > 20:  # If more than 20 evidences exist, assume processing has been done
-                print(f"    ✅ GLOBAL OVERRIDE: Found {total_evidences} total evidences - skipping extraction")
-                return True
+            if has_evidences:
+                print(f"    ✅ PROJECT CHECK: Found {len(evidences)} evidences for project {project_id}")
+            else:
+                print(f"    📝 PROJECT CHECK: No evidences found for project {project_id}")
                 
-            return False
+            return has_evidences
             
         except Exception as e:
             print(f"    ❌ ERROR in project_has_evidences: {str(e)}")

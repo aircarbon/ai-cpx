@@ -94,8 +94,8 @@ docker run -d --name mongodb \
 source ./.env
 docker run -d --name minio \
   --network internal \
-  -e S3_ROOT_USER=${S3_ROOT_USER:-minioadmin} \
-  -e S3_ROOT_PASSWORD=${S3_ROOT_PASSWORD:-minioadmin} \
+  -e MINIO_ROOT_USER=${S3_ROOT_USER:-minioadmin} \
+  -e MINIO_ROOT_PASSWORD=${S3_ROOT_PASSWORD:-minioadmin} \
   -p ${MINIO_API_PORT:-9100}:9000 -p ${MINIO_CONSOLE_PORT:-9101}:9001 \
   -v minio-data:/data \
   quay.io/minio/minio server /data --console-address ":9001"
