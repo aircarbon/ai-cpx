@@ -1,0 +1,1 @@
+# API Schema definitions for OpenAPI documentation

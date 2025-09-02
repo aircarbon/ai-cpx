@@ -34,8 +34,32 @@ async def lifespan(app: FastAPI):
     if db_client:
         db_client.close()
 
-# Create an instance of the FastAPI class
-app = FastAPI(lifespan=lifespan)
+# Create an instance of the FastAPI class with enhanced OpenAPI configuration
+app = FastAPI(
+    title="AI CPX API",
+    description="""
+    A comprehensive API for carbon credit project risk assessment and analysis.
+    
+    This API provides endpoints to:
+    * Get project risk scores and breakdowns
+    * View detailed risk assessments with evidences
+    * Examine evidence ratings and chunk content
+    * Access configuration data for risk types and dimensions
+    
+    The API uses advanced AI models to analyze project documents and assess various risk factors.
+    """,
+    lifespan=lifespan,
+    openapi_tags=[
+        {
+            "name": "risk",
+            "description": "Risk assessment and analysis endpoints",
+        },
+        {
+            "name": "config",
+            "description": "Configuration and metadata endpoints",
+        },
+    ]
+)
 
 # Set up CORS
 app.add_middleware(
@@ -49,8 +73,3 @@ app.add_middleware(
 # Include routers
 app.include_router(config.router)
 app.include_router(risk.router)
-
-# Endpoints
-@app.get("/")
-async def read_root():
-    return {"message": "Test"}

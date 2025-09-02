@@ -9,11 +9,9 @@ router = APIRouter(prefix="/config", tags=["config"])
 
 @router.get("/risk-types", response_model=List[RiskType])
 async def get_risk_types():
-    """Get all risk types with name, description, and weight"""
     return await RiskTypeRepository.get_all()
 
 
 @router.get("/dimension-specs", response_model=List[RiskDimensionSpec])
 async def get_dimension_specs():
-    """Get all risk dimension specifications"""
     return await RiskDimensionRepository.get_all()
