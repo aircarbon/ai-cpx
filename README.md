@@ -139,19 +139,19 @@ docker run -d --name mongodb-test \
 ### FastAPI service
 ```bash
 docker build -t api-test -f docker/Dockerfile.api .
-docker run -d --rm --name api-test -p 8002:8001 --network internal api-test
+docker run -d --rm --name api-test -v $(pwd)/.env.test:/app/.env -p 8002:8001 --network internal api-test
 ```
 
 ### Document parsing service
 ```bash
 docker build -t doc-parser-test -f docker/Dockerfile.docparser .
-docker run -d --rm --name doc-parser-test --network internal doc-parser-test
+docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test
 ```
 
 ### Risk calculation service
 ```bash
 docker build -t risk-calculator-test -f docker/Dockerfile.risk-calculator .
-docker run -d --rm --name risk-calculator-test --network internal risk-calculator-test
+docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test
 ```
 
 To run test setup:

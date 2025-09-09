@@ -9,9 +9,78 @@ import asyncio
 import sys
 import os
 
-# Add path to access shared scripts utilities
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from utils import test_database_connection, initialize_database_schema
+# Add path to access app modules
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+from app.core.database import ensure_database_connection, close_database, get_database_status
+from app.core.data_loader import initialize_configuration_data
+from app.core.models import (
+    Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec,
+    EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
+)
+
+# Define all models used in the application
+ALL_MODELS = [
+    Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec, 
+    EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
+]
+
+
+async def test_database_connection():
+    """Test basic database connectivity by connecting and disconnecting."""
+    print("🧪 Testing database connection...")
+    
+    try:
+        # Use consolidated function: ensure connection with models + test connectivity
+        test_success = await ensure_database_connection(ALL_MODELS, test_connection=True)
+        
+        if test_success:
+            # Get additional status information for verbose output
+            status = await get_database_status()
+            collections = status.get("collections", [])
+            print("✅ Database ping successful!")
+            print(f"📂 Available collections: {len(collections)}")
+        
+        return test_success
+        
+    except Exception as e:
+        print(f"❌ Database connection test failed: {e}")
+        return False
+    
+    finally:
+        await close_database()
+
+
+async def initialize_database_schema():
+    """Initialize database schema by connecting and loading configuration data."""
+    print("🛠️  Initializing database schema...")
+    
+    try:
+        # Connect to database
+        connection_success = await ensure_database_connection(ALL_MODELS)
+        if not connection_success:
+            print("❌ Failed to connect to database")
+            return False
+        
+        print("✅ Database connection successful!")
+        print("✅ Beanie models initialized successfully!")
+        
+        # Load configuration data using shared data loader
+        config_results = await initialize_configuration_data()
+        
+        print(f"✅ Database schema initialized successfully!")
+        print(f"   📊 Risk dimensions: {config_results['risk_dimensions']} loaded")
+        print(f"   🎯 Risk types: {config_results['risk_types']} loaded")
+        
+        return True
+        
+    except Exception as e:
+        print(f"❌ Database schema initialization failed: {e}")
+        return False
+    
+    finally:
+        await close_database()
+
 
 def empty_db():
     """Stage 1: Empty database setup"""
