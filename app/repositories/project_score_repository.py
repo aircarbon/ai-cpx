@@ -65,3 +65,39 @@ class ProjectScoreRepository:
             ProjectScoreModel.project_id == PydanticObjectId(project_id)
         ).delete()
         return result.deleted_count > 0
+    
+    @staticmethod
+    async def update_summary(project_id: str, summary: str) -> Optional[ProjectScore]:
+        """Update the summary field of an existing project score by project_id."""
+        try:
+            existing_model = await ProjectScoreModel.find_one(
+                ProjectScoreModel.project_id == PydanticObjectId(project_id)
+            )
+            
+            if existing_model:
+                existing_model.summary = summary
+                await existing_model.save()
+                return ProjectScore.from_model(existing_model)
+                
+            return None
+                
+        except Exception as e:
+            print(f"    ❌ Error in update_summary: {str(e)}")
+            return None
+    
+    @staticmethod
+    async def update_summary_by_id(project_score_id: str, summary: str) -> Optional[ProjectScore]:
+        """Update the summary field of a project score by its ID."""
+        try:
+            existing_model = await ProjectScoreModel.get(PydanticObjectId(project_score_id))
+            
+            if existing_model:
+                existing_model.summary = summary
+                await existing_model.save()
+                return ProjectScore.from_model(existing_model)
+            else:
+                return None
+                
+        except Exception as e:
+            print(f"    ❌ Error updating summary: {str(e)}")
+            return None

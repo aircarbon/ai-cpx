@@ -1,5 +1,5 @@
 import os
-from typing import Optional
+from typing import Optional, List, Dict
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
@@ -83,6 +83,41 @@ class LLMService:
         """
         
         return await self.query(prompt, session_id=f"risk_analysis_{risk_type}")
+    
+    async def generate_project_summary(self, top_risk_evidences: List[Dict], project_name: str) -> str:
+        """Generate a concise project summary based on the most important risk evidences."""
+        
+        # Build evidence text for the prompt
+        evidence_sections = []
+        for risk_data in top_risk_evidences:
+            risk_type = risk_data["risk_type"]
+            score = risk_data["score"]
+            evidences = risk_data["evidences"]
+            
+            if evidences:
+                evidence_texts = [f"• {evidence}" for evidence in evidences]
+                evidence_section = f"**{risk_type}** (Risk Score: {score:.2f}):\n" + "\n".join(evidence_texts)
+                evidence_sections.append(evidence_section)
+        
+        all_evidences = "\n\n".join(evidence_sections)
+        
+        prompt = f"""You are analyzing a carbon credit project for risk assessment. Based on the most significant risk evidences found in the project documents, create a concise summary that highlights the key risk factors.
+
+Project: {project_name}
+
+Key Risk Evidences:
+{all_evidences}
+
+Instructions:
+- Write a 1-3 sentence summary that captures the most important risk concerns
+- Focus on the highest-impact findings that would be most relevant for decision-making
+- Use clear, professional language suitable for stakeholders
+- Avoid technical jargon where possible
+- Be specific about the risks rather than generic
+
+Summary:"""
+        
+        return await self.query(prompt, session_id=f"project_summary_{project_name}")
 
 
 _llm_service: Optional[LLMService] = None
