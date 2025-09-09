@@ -17,10 +17,10 @@ services:
     networks:
       - internal
 
-  risk_calculator:
+  risk-calculator:
     build:
       context: ..
-      dockerfile: docker/Dockerfile.risk_calculator
+      dockerfile: docker/Dockerfile.risk-calculator
     networks:
       - internal
 

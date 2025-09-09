@@ -115,6 +115,65 @@ docker run -d --name doc-parser --network internal doc-parser
 
 ### Risk calculation service
 ```bash
-docker build -t risk-calculator -f docker/Dockerfile.risk_calculator .
+docker build -t risk-calculator -f docker/Dockerfile.risk-calculator .
 docker run -d --name risk-calculator --network internal risk-calculator
+```
+
+# Testing
+For testing purposes (mostly for claud to be able to spin on a quick testing environment to test and debug), you can setup temporary MongoDB and api, doc-parser and risk-calculation containers. They can stay in the `internal` network to be able to connect to MinIO bucket (the MinIO bucket can be reused because it just serves the files and is not affected by the code).
+
+Create `.env.test` file with different credentials than in the `.env` file to avoid confusion (especially ports).
+
+# MongoDB database:
+```bash
+source ./.env.test
+docker run -d --name mongodb-test \
+  --network internal \
+  -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest} \
+  -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123} \
+  -p 27018:27017 \
+  --rm \
+  mongo:noble
+```
+
+### FastAPI service
+```bash
+docker build -t api-test -f docker/Dockerfile.api .
+docker run -d --rm --name api-test -p 8001:8001 --network internal api-test
+```
+
+### Document parsing service
+```bash
+docker build -t doc-parser-test -f docker/Dockerfile.docparser .
+docker run -d --rm --name doc-parser-test --network internal doc-parser-test
+```
+
+### Risk calculation service
+```bash
+docker build -t risk-calculator-test -f docker/Dockerfile.risk-calculator .
+docker run -d --rm --name risk-calculator-test --network internal risk-calculator-test
+```
+
+To run test setup:
+
+```bash
+# Build the database initialization container
+docker build -t test-setup -f docker/Dockerfile.test-setup .
+
+# Run database initialization
+docker run --rm --network internal test-setup
+```
+
+You can also run with the following commands:
+```
+empty-db
+init-db
+init-projects
+init-docs
+init-chunks
+```
+
+So command would look something like this:
+```bash
+docker run --rm --network internal test-setup init-db
 ```
