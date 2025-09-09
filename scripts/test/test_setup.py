@@ -14,90 +14,49 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 
 from app.core.database import ensure_database_connection, close_database, get_database_status
 from app.core.data_loader import initialize_configuration_data
+from test_data_loader import load_test_projects, load_test_documents, load_test_chunks
 from app.core.models import (
     Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec,
     EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
 )
 
-# Define all models used in the application
+# Define all models used in the application  
 ALL_MODELS = [
     Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec, 
     EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
 ]
 
 
-async def test_database_connection():
-    """Test basic database connectivity by connecting and disconnecting."""
-    print("🧪 Testing database connection...")
-    
-    try:
-        # Use consolidated function: ensure connection with models + test connectivity
-        test_success = await ensure_database_connection(ALL_MODELS, test_connection=True)
-        
-        if test_success:
-            # Get additional status information for verbose output
-            status = await get_database_status()
-            collections = status.get("collections", [])
-            print("✅ Database ping successful!")
-            print(f"📂 Available collections: {len(collections)}")
-        
-        return test_success
-        
-    except Exception as e:
-        print(f"❌ Database connection test failed: {e}")
-        return False
-    
-    finally:
-        await close_database()
-
-
-async def initialize_database_schema():
-    """Initialize database schema by connecting and loading configuration data."""
-    print("🛠️  Initializing database schema...")
-    
-    try:
-        # Connect to database
-        connection_success = await ensure_database_connection(ALL_MODELS)
-        if not connection_success:
-            print("❌ Failed to connect to database")
-            return False
-        
-        print("✅ Database connection successful!")
-        print("✅ Beanie models initialized successfully!")
-        
-        # Load configuration data using shared data loader
-        config_results = await initialize_configuration_data()
-        
-        print(f"✅ Database schema initialized successfully!")
-        print(f"   📊 Risk dimensions: {config_results['risk_dimensions']} loaded")
-        print(f"   🎯 Risk types: {config_results['risk_types']} loaded")
-        
-        return True
-        
-    except Exception as e:
-        print(f"❌ Database schema initialization failed: {e}")
-        return False
-    
-    finally:
-        await close_database()
 
 
 def empty_db():
-    """Stage 1: Empty database setup"""
+    """Stage 1: Empty database setup - test connection only"""
     print("🗑️  Stage 1: Setting up empty database...")
     print("   - Testing database connection and basic operations")
     
-    # Debug: Check which .env file is being used
-    env_file_path = os.path.join(os.path.dirname(__file__), '..', '..', '.env')
-    if os.path.exists(env_file_path):
-        with open(env_file_path, 'r') as f:
-            first_line = f.readline().strip()
-            print(f"   🔍 Using .env file: {first_line}")
-    else:
-        print("   ⚠️  No .env file found")
+    async def test_connection():
+        try:
+            print("🧪 Testing database connection...")
+            test_success = await ensure_database_connection(test_connection=True)
+            
+            if test_success:
+                print("✅ Database ping successful!")
+                # Get basic status
+                status = await get_database_status()
+                collections = status.get("collections", [])
+                print(f"📂 Available collections: {len(collections)}")
+            
+            return test_success
+            
+        except Exception as e:
+            print(f"❌ Database connection test failed: {e}")
+            return False
+        
+        finally:
+            await close_database()
     
     # Run async database connection test
-    success = asyncio.run(test_database_connection())
+    success = asyncio.run(test_connection())
     
     if success:
         print("   ✅ Database connection verified and ready")
@@ -106,12 +65,37 @@ def empty_db():
         raise Exception("Database connection test failed")
 
 def init_db():
-    """Stage 2: Initialize database schema"""
+    """Stage 2: Initialize database schema - same as main init_db.py"""
     print("🛠️  Stage 2: Initializing database schema...")
     print("   - Creating tables and loading configuration data")
     
+    async def initialize_schema():
+        try:
+            connection_success = await ensure_database_connection(ALL_MODELS)
+            if not connection_success:
+                print("❌ Failed to connect to database")
+                return False
+            
+            print("✅ Database connection successful!")
+            print("✅ Beanie models initialized successfully!")
+            
+            config_results = await initialize_configuration_data()
+            
+            print(f"✅ Database schema initialized successfully!")
+            print(f"   📊 Risk dimensions: {config_results['risk_dimensions']} loaded")
+            print(f"   🎯 Risk types: {config_results['risk_types']} loaded")
+            
+            return True
+            
+        except Exception as e:
+            print(f"❌ Database schema initialization failed: {e}")
+            return False
+        
+        finally:
+            await close_database()
+    
     # Run async database schema initialization
-    success = asyncio.run(initialize_database_schema())
+    success = asyncio.run(initialize_schema())
     
     if success:
         print("   ✅ Database schema initialized successfully")
@@ -120,28 +104,124 @@ def init_db():
         raise Exception("Database schema initialization failed")
 
 def init_projects():
-    """Stage 3: Initialize projects"""
+    """Stage 3: Initialize projects - load test project data only"""
     print("📁 Stage 3: Initializing projects...")
-    print("   - Setting up project configurations and templates")
+    print("   - Loading test projects from JSON fixtures")
+    
+    async def load_projects():
+        try:
+            connection_success = await ensure_database_connection(ALL_MODELS)
+            if not connection_success:
+                print("❌ Failed to connect to database")
+                return False
+            
+            print("✅ Database connection successful!")
+            
+            projects_count = await load_test_projects()
+            
+            print(f"✅ Test projects initialized successfully!")
+            print(f"   📁 Projects: {projects_count} loaded")
+            
+            return True
+            
+        except Exception as e:
+            print(f"❌ Test projects initialization failed: {e}")
+            return False
+        
+        finally:
+            await close_database()
+    
+    # Run async test data loading
+    success = asyncio.run(load_projects())
+    
+    if success:
+        print("   ✅ Test projects initialized successfully")
+    else:
+        print("   ❌ Test projects initialization failed")
+        raise Exception("Test projects initialization failed")
 
 def init_docs():
-    """Stage 4: Initialize documentation"""
-    print("📚 Stage 4: Initializing documentation...")
-    print("   - Loading documentation and reference materials")
+    """Stage 4: Initialize documents - load test document data"""
+    print("📚 Stage 4: Initializing documents...")
+    print("   - Loading test documents from JSON fixtures")
+    
+    async def load_documents():
+        try:
+            connection_success = await ensure_database_connection(ALL_MODELS)
+            if not connection_success:
+                print("❌ Failed to connect to database")
+                return False
+            
+            print("✅ Database connection successful!")
+            
+            documents_count = await load_test_documents()
+            
+            print(f"✅ Test documents initialized successfully!")
+            print(f"   📄 Documents: {documents_count} loaded")
+            
+            return True
+            
+        except Exception as e:
+            print(f"❌ Test documents initialization failed: {e}")
+            return False
+        
+        finally:
+            await close_database()
+    
+    # Run async test data loading
+    success = asyncio.run(load_documents())
+    
+    if success:
+        print("   ✅ Test documents initialized successfully")
+    else:
+        print("   ❌ Test documents initialization failed")
+        raise Exception("Test documents initialization failed")
 
 def init_chunks():
-    """Stage 5: Initialize data chunks"""
+    """Stage 5: Initialize chunks - load test chunk data"""
     print("🧩 Stage 5: Initializing data chunks...")
-    print("   - Processing and organizing data chunks")
+    print("   - Loading test chunks from JSON fixtures")
+    
+    async def load_chunks():
+        try:
+            connection_success = await ensure_database_connection(ALL_MODELS)
+            if not connection_success:
+                print("❌ Failed to connect to database")
+                return False
+            
+            print("✅ Database connection successful!")
+            
+            chunks_count = await load_test_chunks()
+            
+            print(f"✅ Test chunks initialized successfully!")
+            print(f"   🧩 Chunks: {chunks_count} loaded")
+            
+            return True
+            
+        except Exception as e:
+            print(f"❌ Test chunks initialization failed: {e}")
+            return False
+        
+        finally:
+            await close_database()
+    
+    # Run async test data loading
+    success = asyncio.run(load_chunks())
+    
+    if success:
+        print("   ✅ Test chunks initialized successfully")
+    else:
+        print("   ❌ Test chunks initialization failed")
+        raise Exception("Test chunks initialization failed")
 
 def run_stages_up_to(target_stage):
     """Run all stages up to and including the target stage"""
     stages = [
         ("empty-db", empty_db, "🗑️  Stage 1: Setting up empty database..."),
         ("init-db", init_db, "🛠️  Stage 2: Initializing database schema..."),
-        ("init-projects", init_projects, "📁 Stage 3: Initializing projects..."),
-        ("init-docs", init_docs, "📚 Stage 4: Initializing documentation..."),
-        ("init-chunks", init_chunks, "🧩 Stage 5: Initializing data chunks...")
+        ("init-projects", init_projects, "📁 Stage 3: Loading test projects..."),
+        ("init-docs", init_docs, "📚 Stage 4: Loading test documents..."),
+        ("init-chunks", init_chunks, "🧩 Stage 5: Loading test chunks...")
     ]
     
     if target_stage == "all":
