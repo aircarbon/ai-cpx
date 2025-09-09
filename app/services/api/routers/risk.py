@@ -30,7 +30,8 @@ async def get_projects_with_total_scores():
         result.append(ProjectSummary(
             project_id=project.id,
             project_name=project.name,
-            total_risk_score=project_score.total_score if project_score else None
+            total_risk_score=project_score.total_score if project_score else None,
+            summary=project_score.summary if project_score else None
         ))
     
     return result

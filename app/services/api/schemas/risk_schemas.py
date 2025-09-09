@@ -8,6 +8,7 @@ class ProjectSummary(BaseModel):
     project_id: str = Field(..., description="Unique identifier for the project")
     project_name: str = Field(..., description="Name of the project")
     total_risk_score: Optional[float] = Field(None, description="Total aggregated risk score for the project")
+    summary: Optional[str] = Field(None, description="Optional summary text describing the project's risk assessment")
 
 
 class EvidenceDetail(BaseModel):

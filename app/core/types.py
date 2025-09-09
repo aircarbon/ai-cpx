@@ -354,6 +354,7 @@ class ProjectScore:
     project_id: str
     risk_scores: List[str]  # List of RiskAssessment IDs
     total_score: float
+    summary: Optional[str] = None
     created_at: Optional[datetime] = None
     id: Optional[str] = None
     
@@ -371,6 +372,7 @@ class ProjectScore:
             project_id=project_id_str,
             risk_scores=risk_scores_str,
             total_score=model.total_score,
+            summary=model.summary,
             created_at=model.created_at,
             id=str(model.id)
         )

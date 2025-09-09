@@ -222,6 +222,7 @@ class ProjectScore(Document):
     project_id: Link[Project] = Field(..., description="Reference to the project this score belongs to")
     risk_scores: List[Link[RiskAssessment]] = Field(default_factory=list, description="Array of links to RiskAssessment objects, one for each type of risk")
     total_score: float = Field(..., description="Total calculated score for the project (as weighted average of all risk scores)")
+    summary: Optional[str] = Field(None, description="Optional summary text describing the project's risk assessment")
     
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the project score was created")
     
