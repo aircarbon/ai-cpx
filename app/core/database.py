@@ -64,10 +64,82 @@ async def close_database():
         _initialized_models.clear()
         print("🗄️  Database: Disconnected")
 
+async def ensure_database_connection(
+    document_models: Optional[List[Type[Document]]] = None,
+    test_connection: bool = False
+) -> bool:
+    try:
+        if _client is None:
+            await init_database(document_models)
+        else:
+            # Initialize additional models if provided
+            if document_models:
+                new_models = [model for model in document_models 
+                             if model.__name__ not in _initialized_models]
+                if new_models:
+                    await init_beanie(database=_database, document_models=new_models)
+                    for model in new_models:
+                        _initialized_models.add(model.__name__)
+        
+        # Test connection if requested
+        if test_connection:
+            await _client.admin.command("ping")
+        
+        return True
+        
+    except Exception as e:
+        if test_connection:
+            print(f"❌ Database connection test failed: {e}")
+        return False
+
+
+async def get_database_status() -> dict:
+    try:
+        # Ensure connection exists
+        if not await ensure_database_connection():
+            return {"connected": False, "error": "Could not establish connection"}
+        
+        collections = await _database.list_collection_names()
+        status = {
+            "connected": True,
+            "database_name": _database.name,
+            "collections": collections,
+            "collection_counts": {}
+        }
+        
+        # Get document counts for each collection
+        for collection_name in collections:
+            try:
+                count = await _database[collection_name].count_documents({})
+                status["collection_counts"][collection_name] = count
+            except Exception:
+                status["collection_counts"][collection_name] = "error"
+        
+        return status
+        
+    except Exception as e:
+        return {
+            "connected": False,
+            "error": str(e)
+        }
+
+
+async def test_database_connection() -> bool:
+    return await ensure_database_connection(test_connection=True)
+
+
 # For backward compatibility with scripts/init_db.py
 class _DatabaseManager:
     @property
     def database(self):
         return _database
+    
+    @property
+    def client(self):
+        return _client
+    
+    @property
+    def initialized_models(self):
+        return _initialized_models.copy()
 
 db_manager = _DatabaseManager() 

@@ -1,42 +1,51 @@
 import asyncio
 import sys
+import os
 
-from utils import (
-    connect_database, disconnect_database, initialize_database_schema, create_test_data
-)
+# Add path for app imports
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from app.core.database import ensure_database_connection, close_database, get_database_status
+from app.core.data_loader import initialize_configuration_data
 from app.core.models import (
-    Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec
+    Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec,
+    EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
 )
 
+# Define all models used in the application
+ALL_MODELS = [
+    Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec, 
+    EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
+]
 
-async def init_database_with_test():
-    """Initialize the database connection and test with sample documents."""
+
+async def init_database():
+    """Initialize the database connection and load configuration data."""
     
     print("🚀 Starting database initialization...")
     print("=" * 60)
     
     try:
-        # Initialize database with all models
-        client = await connect_database()
+        # Ensure database connection and initialize models
+        print("📄 Connecting to database...")
+        connection_success = await ensure_database_connection(ALL_MODELS)
         
-        if not client:
+        if not connection_success:
             print("❌ Failed to connect to database")
             sys.exit(1)
         
-        # Initialize database schema
-        await disconnect_database()  # Close connection from connect_database()
+        print("✅ Database connection successful!")
+        print("✅ Beanie models initialized successfully!")
         
-        schema_success = await initialize_database_schema()
-        if not schema_success:
-            print("❌ Database schema initialization failed")
-            sys.exit(1)
+        # Initialize database schema with configuration data
+        print("\n🛠️  Initializing database schema...")
+        print("   - Loading configuration data (risk types and dimensions)")
         
-        # Create and test sample data
-        test_success = await create_test_data()
-        if not test_success:
-            print("❌ Test data creation failed")
-            sys.exit(1)
+        config_results = await initialize_configuration_data()
         
+        print(f"✅ Database schema initialized successfully!")
+        print(f"   📊 Risk dimensions: {config_results['risk_dimensions']} loaded")
+        print(f"   🎯 Risk types: {config_results['risk_types']} loaded")
         
         print("\n🎉 Database initialization completed successfully!")
         print("=" * 60)
@@ -48,8 +57,7 @@ async def init_database_with_test():
         sys.exit(1)
     
     finally:
-        # Database connections are handled by the utility functions
-        pass
+        await close_database()
 
 
 async def check_database_status():
@@ -59,30 +67,37 @@ async def check_database_status():
     print("=" * 60)
     
     try:
-        # Initialize database connection
-        client = await connect_database()
+        # Ensure database connection
+        connection_success = await ensure_database_connection(ALL_MODELS)
         
-        if not client:
+        if not connection_success:
             print("❌ Failed to connect to database")
             return
         
-        # Get database instance
-        from app.core.database import db_manager
-        database = db_manager.database
+        print("✅ Database connection successful!")
+        
+        # Get database status
+        status = await get_database_status()
+        
+        if not status.get("connected"):
+            print(f"❌ Database status check failed: {status.get('error')}")
+            return
         
         # List all collections
-        collections = await database.list_collection_names()
+        collections = status.get("collections", [])
         print(f"📂 Collections found: {collections}")
         
-        # Check document counts for new collections
+        # Show collection counts
+        collection_counts = status.get("collection_counts", {})
         expected_collections = [
             'projects', 'documents', 'chunks', 'risk_types', 'risk_dimensions',
             'evidence_ratings', 'evidences', 'risk_assessments', 
             'project_scores', 'coverage_ledger'
         ]
+        
         for collection_name in collections:
             if collection_name in expected_collections:
-                count = await database[collection_name].count_documents({})
+                count = collection_counts.get(collection_name, 0)
                 print(f"   📄 {collection_name}: {count} documents")
         
         # Show detailed configuration data
@@ -114,11 +129,11 @@ async def check_database_status():
         traceback.print_exc()
     
     finally:
-        await disconnect_database()
+        await close_database()
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "status":
         asyncio.run(check_database_status())
     else:
-        asyncio.run(init_database_with_test()) 
+        asyncio.run(init_database()) 

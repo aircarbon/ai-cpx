@@ -139,7 +139,7 @@ docker run -d --name mongodb-test \
 ### FastAPI service
 ```bash
 docker build -t api-test -f docker/Dockerfile.api .
-docker run -d --rm --name api-test -p 8001:8001 --network internal api-test
+docker run -d --rm --name api-test -p 8002:8001 --network internal api-test
 ```
 
 ### Document parsing service
