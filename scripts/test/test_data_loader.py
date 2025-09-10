@@ -13,7 +13,7 @@ from typing import List, Dict
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from app.core.models import Project, SourceDocument, Chunk, EvidenceRating, Evidence, RiskAssessment
+from app.core.models import Project, SourceDocument, Chunk, EvidenceRating, Evidence, RiskAssessment, ProjectScore
 from bson import ObjectId
 
 
@@ -256,6 +256,44 @@ async def load_test_risk_assessments() -> int:
         return 0
     except Exception as e:
         print(f"❌ Error loading test risk assessments: {e}")
+        raise
+
+
+async def load_test_project_scores() -> int:
+    print("🏆 Loading test project scores...")
+    
+    try:
+        project_scores_data = load_test_json("project_scores.json")
+        created_count = 0
+        
+        for score_data in project_scores_data:
+            clean_data = clean_mongodb_fields(score_data)
+            
+            # Intentionally set summary to None for testing purposes
+            clean_data["summary"] = None
+            
+            existing = await ProjectScore.find_one(ProjectScore.id == clean_data["id"])
+            if existing:
+                print(f"   ⚠️  Project score (ID: {clean_data['id']}) already exists, skipping...")
+                continue
+            
+            project_score = ProjectScore(**clean_data)
+            await project_score.insert()
+            created_count += 1
+            
+            # Get some display info for logging
+            risk_scores_count = len(clean_data.get('risk_scores', []))
+            total_score = clean_data.get('total_score', 0)
+            print(f"   ✅ Created project score: {risk_scores_count} risk assessments, total score: {total_score:.3f}")
+        
+        print(f"🏆 Test project scores loaded: {created_count} created, {len(project_scores_data) - created_count} already existed")
+        return created_count
+        
+    except FileNotFoundError:
+        print("   ⚠️  No project_scores.json found, skipping project scores loading")
+        return 0
+    except Exception as e:
+        print(f"❌ Error loading test project scores: {e}")
         raise
 
 

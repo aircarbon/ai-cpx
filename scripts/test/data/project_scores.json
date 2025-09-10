@@ -1,0 +1,192 @@
+[{
+  "_id": {
+    "$oid": "68c09930f328f82997b75121"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_scores": [
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b75114"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b75115"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b75116"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b75117"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b75118"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b75119"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b7511a"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b7511b"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b7511c"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b7511d"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b7511e"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b7511f"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c0992ff328f82997b75120"
+      }
+    }
+  ],
+  "total_score": 0.49423076923076925,
+  "summary": "The primary risks to the CDC-129 Rio Crepori REDD+ Project stem from potential permanence reversals due to illegal gold mining activities in adjacent indigenous territories, which threaten environmental integrity. Additionally, evolving policy and regulatory frameworks involving FUNAI and indigenous land rights could impact project implementation and land management, while the legal recognition of indigenous land tenure and carbon rights provides a solid foundation but requires ongoing stakeholder consent.",
+  "created_at": {
+    "$date": "2025-09-09T21:16:32.007Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751b4"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_scores": [
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f4f328f82997b751a7"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f4f328f82997b751a8"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751a9"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751aa"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751ab"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751ac"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751ad"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751ae"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751af"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751b0"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751b1"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751b2"
+      }
+    },
+    {
+      "$ref": "risk_assessments",
+      "$id": {
+        "$oid": "68c099f5f328f82997b751b3"
+      }
+    }
+  ],
+  "total_score": 0.4911858974358974,
+  "summary": "The project’s reliance on external partners for validation and verification (risk score: 0.71) introduces potential concerns regarding project approval and monitoring consistency. Additionally, the extensive 30-year implementation timeline (risk score: 0.64) poses risks related to long-term operational stability and timely oversight. These factors collectively highlight the need for robust oversight mechanisms to mitigate reliance on external entities and ensure project continuity over its duration.",
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.700Z"
+  }
+}]

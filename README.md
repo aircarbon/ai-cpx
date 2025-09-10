@@ -171,9 +171,12 @@ init-db
 init-projects
 init-docs
 init-chunks
+load-evidences
+load-risk-assessments
+load-project-scores
 ```
 
 So command would look something like this:
 ```bash
-docker run --rm --network internal test-setup init-db
+docker run --rm --network internal test-setup load-project-scores
 ```
