@@ -14,7 +14,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 
 from app.core.database import ensure_database_connection, close_database, get_database_status
 from app.core.data_loader import initialize_configuration_data
-from test_data_loader import load_test_projects, load_test_documents, load_test_chunks, load_test_evidence_ratings, load_test_evidences
+from test_data_loader import load_test_projects, load_test_documents, load_test_chunks, load_test_evidence_ratings, load_test_evidences, load_test_risk_assessments
 from app.core.models import (
     Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec,
     EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
@@ -254,6 +254,44 @@ def load_evidences():
         print("   ❌ Test evidences initialization failed")
         raise Exception("Test evidences initialization failed")
 
+def load_risk_assessments():
+    """Stage 7: Load risk assessments - load test risk assessments data"""
+    print("📊 Stage 7: Loading risk assessments...")
+    print("   - Loading test risk assessments from JSON fixtures")
+    
+    async def load_risk_assessment_data():
+        try:
+            connection_success = await ensure_database_connection(ALL_MODELS)
+            if not connection_success:
+                print("❌ Failed to connect to database")
+                return False
+            
+            print("✅ Database connection successful!")
+            
+            # Load risk assessments
+            assessments_count = await load_test_risk_assessments()
+            
+            print(f"✅ Test risk assessments initialized successfully!")
+            print(f"   📊 Risk assessments: {assessments_count} loaded")
+            
+            return True
+            
+        except Exception as e:
+            print(f"❌ Test risk assessments initialization failed: {e}")
+            return False
+        
+        finally:
+            await close_database()
+    
+    # Run async risk assessment data loading
+    success = asyncio.run(load_risk_assessment_data())
+    
+    if success:
+        print("   ✅ Test risk assessments initialized successfully")
+    else:
+        print("   ❌ Test risk assessments initialization failed")
+        raise Exception("Test risk assessments initialization failed")
+
 def run_stages_up_to(target_stage):
     """Run all stages up to and including the target stage"""
     stages = [
@@ -262,7 +300,8 @@ def run_stages_up_to(target_stage):
         ("init-projects", init_projects, "📁 Stage 3: Loading test projects..."),
         ("init-docs", init_docs, "📚 Stage 4: Loading test documents..."),
         ("init-chunks", init_chunks, "🧩 Stage 5: Loading test chunks..."),
-        ("load-evidences", load_evidences, "🔍 Stage 6: Loading test evidences...")
+        ("load-evidences", load_evidences, "🔍 Stage 6: Loading test evidences..."),
+        ("load-risk-assessments", load_risk_assessments, "📊 Stage 7: Loading test risk assessments...")
     ]
     
     if target_stage == "all":
@@ -289,7 +328,7 @@ def main():
         "stage",
         nargs="?",  # Make argument optional
         default="all",  # Default value when no argument provided
-        choices=["empty-db", "init-db", "init-projects", "init-docs", "init-chunks", "load-evidences", "all"],
+        choices=["empty-db", "init-db", "init-projects", "init-docs", "init-chunks", "load-evidences", "load-risk-assessments", "all"],
         help="Initialization stage to run (default: all)"
     )
     

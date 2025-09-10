@@ -1,0 +1,867 @@
+[{
+  "_id": {
+    "$oid": "68c0992ff328f82997b75114"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09751f328f82997b75064"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c097cef328f82997b750cd"
+      }
+    }
+  ],
+  "score": 0.5687500000000001,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.545Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b75115"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c0975af328f82997b7506b"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c097daf328f82997b750d4"
+      }
+    }
+  ],
+  "score": 0.4437500000000001,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.594Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b75116"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09769f328f82997b75072"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09769f328f82997b75079"
+      }
+    }
+  ],
+  "score": 0.45625000000000004,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.626Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b75117"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09775f328f82997b75080"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09775f328f82997b75087"
+      }
+    }
+  ],
+  "score": 0.4625,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.660Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b75118"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c0977df328f82997b7508e"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c0985af328f82997b750f7"
+      }
+    }
+  ],
+  "score": 0.55,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.694Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b75119"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09785f328f82997b75095"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c097f8f328f82997b750db"
+      }
+    }
+  ],
+  "score": 0.4687500000000001,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.727Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b7511a"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c0978cf328f82997b7509c"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c0986ff328f82997b750fe"
+      }
+    }
+  ],
+  "score": 0.5083333333333333,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.759Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b7511b"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09792f328f82997b750a3"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09801f328f82997b750e2"
+      }
+    }
+  ],
+  "score": 0.4750000000000001,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.792Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b7511c"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c0979df328f82997b750aa"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c0987ff328f82997b75105"
+      }
+    }
+  ],
+  "score": 0.5875,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.823Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b7511d"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c097a8f328f82997b750b1"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09886f328f82997b7510c"
+      }
+    }
+  ],
+  "score": 0.51875,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.854Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b7511e"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c097b1f328f82997b750b8"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09810f328f82997b750e9"
+      }
+    }
+  ],
+  "score": 0.54375,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.889Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b7511f"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c097bdf328f82997b750bf"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09819f328f82997b750f0"
+      }
+    }
+  ],
+  "score": 0.51875,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.920Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0992ff328f82997b75120"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded06d5dc2e62c81493a1"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c097c4f328f82997b750c6"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c098acf328f82997b75113"
+      }
+    }
+  ],
+  "score": 0.3229166666666667,
+  "created_at": {
+    "$date": "2025-09-09T21:16:31.951Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f4f328f82997b751a7"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c0998ff328f82997b75160"
+      }
+    }
+  ],
+  "score": 0.5875,
+  "created_at": {
+    "$date": "2025-09-09T21:19:48.939Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f4f328f82997b751a8"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09947f328f82997b75128"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09947f328f82997b7512f"
+      }
+    }
+  ],
+  "score": 0.46875000000000006,
+  "created_at": {
+    "$date": "2025-09-09T21:19:48.988Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751a9"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c0999ef328f82997b75167"
+      }
+    }
+  ],
+  "score": 0.7124999999999999,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.044Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751aa"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c099a8f328f82997b7516e"
+      }
+    }
+  ],
+  "score": 0.6375,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.095Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751ab"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09955f328f82997b75136"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c099adf328f82997b75175"
+      }
+    }
+  ],
+  "score": 0.45,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.147Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751ac"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09960f328f82997b7513d"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c099b7f328f82997b7517c"
+      }
+    }
+  ],
+  "score": 0.5625,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.196Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751ad"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09967f328f82997b75144"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c099c1f328f82997b75183"
+      }
+    }
+  ],
+  "score": 0.5687500000000001,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.285Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751ae"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c099c6f328f82997b7518a"
+      }
+    }
+  ],
+  "score": 0.625,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.339Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751af"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c099cef328f82997b75191"
+      }
+    }
+  ],
+  "score": 0.4,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.392Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751b0"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09977f328f82997b7514b"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c099d5f328f82997b75198"
+      }
+    }
+  ],
+  "score": 0.38541666666666663,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.446Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751b1"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c0997ef328f82997b75152"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c099dbf328f82997b7519f"
+      }
+    }
+  ],
+  "score": 0.5125,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.498Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751b2"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "evidence_ids": [
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c09986f328f82997b75159"
+      }
+    },
+    {
+      "$ref": "evidences",
+      "$id": {
+        "$oid": "68c099eaf328f82997b751a6"
+      }
+    }
+  ],
+  "score": 0.475,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.551Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099f5f328f82997b751b3"
+  },
+  "project_id": {
+    "$ref": "projects",
+    "$id": {
+      "$oid": "68aded0fd5dc2e62c81493b4"
+    }
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "evidence_ids": [],
+  "score": 0,
+  "created_at": {
+    "$date": "2025-09-09T21:19:49.599Z"
+  }
+}]

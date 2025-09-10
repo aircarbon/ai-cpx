@@ -13,7 +13,7 @@ from typing import List, Dict
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from app.core.models import Project, SourceDocument, Chunk, EvidenceRating, Evidence
+from app.core.models import Project, SourceDocument, Chunk, EvidenceRating, Evidence, RiskAssessment
 from bson import ObjectId
 
 
@@ -221,6 +221,41 @@ async def load_test_evidences() -> int:
         return 0
     except Exception as e:
         print(f"❌ Error loading test evidences: {e}")
+        raise
+
+
+async def load_test_risk_assessments() -> int:
+    print("📊 Loading test risk assessments...")
+    
+    try:
+        risk_assessments_data = load_test_json("risk_assessments.json")
+        created_count = 0
+        
+        for assessment_data in risk_assessments_data:
+            clean_data = clean_mongodb_fields(assessment_data)
+            
+            existing = await RiskAssessment.find_one(RiskAssessment.id == clean_data["id"])
+            if existing:
+                print(f"   ⚠️  Risk assessment (ID: {clean_data['id']}) already exists, skipping...")
+                continue
+            
+            risk_assessment = RiskAssessment(**clean_data)
+            await risk_assessment.insert()
+            created_count += 1
+            
+            # Get some display info for logging
+            evidence_count = len(clean_data.get('evidence_ids', []))
+            score = clean_data.get('score', 0)
+            print(f"   ✅ Created risk assessment: {evidence_count} evidences, score: {score:.3f}")
+        
+        print(f"📊 Test risk assessments loaded: {created_count} created, {len(risk_assessments_data) - created_count} already existed")
+        return created_count
+        
+    except FileNotFoundError:
+        print("   ⚠️  No risk_assessments.json found, skipping risk assessments loading")
+        return 0
+    except Exception as e:
+        print(f"❌ Error loading test risk assessments: {e}")
         raise
 
 
