@@ -297,3 +297,40 @@ async def load_test_project_scores() -> int:
         raise
 
 
+async def load_test_project_score_summaries() -> int:
+    print("📝 Loading test project score summaries...")
+    
+    try:
+        project_scores_data = load_test_json("project_scores.json")
+        updated_count = 0
+        
+        for score_data in project_scores_data:
+            clean_data = clean_mongodb_fields(score_data)
+            
+            # Find existing project score by ID
+            existing = await ProjectScore.find_one(ProjectScore.id == clean_data["id"])
+            if not existing:
+                print(f"   ⚠️  Project score (ID: {clean_data['id']}) not found, skipping...")
+                continue
+            
+            # Update only the summary field
+            summary = clean_data.get("summary")
+            if summary:
+                existing.summary = summary
+                await existing.save()
+                updated_count += 1
+                print(f"   ✅ Updated project score summary: {summary[:100]}...")
+            else:
+                print(f"   ⚠️  No summary found for project score (ID: {clean_data['id']}), skipping...")
+        
+        print(f"📝 Test project score summaries updated: {updated_count} updated")
+        return updated_count
+        
+    except FileNotFoundError:
+        print("   ⚠️  No project_scores.json found, skipping project score summaries loading")
+        return 0
+    except Exception as e:
+        print(f"❌ Error loading test project score summaries: {e}")
+        raise
+
+

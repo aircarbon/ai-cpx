@@ -14,7 +14,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 
 from app.core.database import ensure_database_connection, close_database, get_database_status
 from app.core.data_loader import initialize_configuration_data
-from test_data_loader import load_test_projects, load_test_documents, load_test_chunks, load_test_evidence_ratings, load_test_evidences, load_test_risk_assessments, load_test_project_scores
+from test_data_loader import load_test_projects, load_test_documents, load_test_chunks, load_test_evidence_ratings, load_test_evidences, load_test_risk_assessments, load_test_project_scores, load_test_project_score_summaries
 from app.core.models import (
     Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec,
     EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
@@ -330,6 +330,44 @@ def load_project_scores():
         print("   ❌ Test project scores initialization failed")
         raise Exception("Test project scores initialization failed")
 
+def load_project_score_summaries():
+    """Stage 9: Load project score summaries - update summary fields in existing project scores"""
+    print("📝 Stage 9: Loading project score summaries...")
+    print("   - Updating summary fields in existing project scores from JSON fixtures")
+    
+    async def load_project_score_summary_data():
+        try:
+            connection_success = await ensure_database_connection(ALL_MODELS)
+            if not connection_success:
+                print("❌ Failed to connect to database")
+                return False
+            
+            print("✅ Database connection successful!")
+            
+            # Load project score summaries
+            updated_count = await load_test_project_score_summaries()
+            
+            print(f"✅ Test project score summaries updated successfully!")
+            print(f"   📝 Project score summaries: {updated_count} updated")
+            
+            return True
+            
+        except Exception as e:
+            print(f"❌ Test project score summaries update failed: {e}")
+            return False
+        
+        finally:
+            await close_database()
+    
+    # Run async project score summary data loading
+    success = asyncio.run(load_project_score_summary_data())
+    
+    if success:
+        print("   ✅ Test project score summaries updated successfully")
+    else:
+        print("   ❌ Test project score summaries update failed")
+        raise Exception("Test project score summaries update failed")
+
 def run_stages_up_to(target_stage):
     """Run all stages up to and including the target stage"""
     stages = [
@@ -340,7 +378,8 @@ def run_stages_up_to(target_stage):
         ("init-chunks", init_chunks, "🧩 Stage 5: Loading test chunks..."),
         ("load-evidences", load_evidences, "🔍 Stage 6: Loading test evidences..."),
         ("load-risk-assessments", load_risk_assessments, "📊 Stage 7: Loading test risk assessments..."),
-        ("load-project-scores", load_project_scores, "🏆 Stage 8: Loading test project scores...")
+        ("load-project-scores", load_project_scores, "🏆 Stage 8: Loading test project scores..."),
+        ("load-project-score-summaries", load_project_score_summaries, "📝 Stage 9: Loading test project score summaries...")
     ]
     
     if target_stage == "all":
@@ -367,7 +406,7 @@ def main():
         "stage",
         nargs="?",  # Make argument optional
         default="all",  # Default value when no argument provided
-        choices=["empty-db", "init-db", "init-projects", "init-docs", "init-chunks", "load-evidences", "load-risk-assessments", "load-project-scores", "all"],
+        choices=["empty-db", "init-db", "init-projects", "init-docs", "init-chunks", "load-evidences", "load-risk-assessments", "load-project-scores", "load-project-score-summaries", "all"],
         help="Initialization stage to run (default: all)"
     )
     

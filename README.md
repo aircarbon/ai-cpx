@@ -174,9 +174,10 @@ init-chunks
 load-evidences
 load-risk-assessments
 load-project-scores
+load-project-score-summaries
 ```
 
 So command would look something like this:
 ```bash
-docker run --rm --network internal test-setup load-project-scores
+docker run --rm --network internal test-setup init-chunks
 ```
