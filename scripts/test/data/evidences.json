@@ -1,0 +1,2880 @@
+[{
+  "_id": {
+    "$oid": "68c09751f328f82997b75064"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "claim_text": "FUNAI is responsible for the demarcation, land regularization, and monitoring of indigenous lands, and promotes policies for sustainable development of indigenous populations, including actions that may impact land use regulation.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09751f328f82997b7505e"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09751f328f82997b7505f"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09751f328f82997b75060"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09751f328f82997b75061"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09751f328f82997b75062"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09751f328f82997b75063"
+      }
+    }
+  ],
+  "score": 0.5875,
+  "metadata": {
+    "supporting_text": "It is the responsibility of FUNAI to provide studies of identification, delimitation, determination, demarcation, land regularization, and registration of lands traditionally occupied by indigenous people, in addition to monitoring and supervising indigenous lands. FUNAI also coordinates and implements policies for the protection of isolated and newly recruited peoples. Also, it’s still, their role to promote policies aimed at the sustainable development of indigenous populations.",
+    "llm_confidence": 0.78
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:08:33.131Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0975af328f82997b7506b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "claim_text": "The project aims to demonstrate the economic feasibility of forest preservation, but not all SDGs were met due to funding constraints, which may impact the reliability of monitoring and verification activities.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0975af328f82997b75065"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0975af328f82997b75066"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0975af328f82997b75067"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0975af328f82997b75068"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0975af328f82997b75069"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0975af328f82997b7506a"
+      }
+    }
+  ],
+  "score": 0.4750000000000001,
+  "metadata": {
+    "supporting_text": "The Project has been fully operational since July 1, 2017 with the goal is to prove out the economic feasibility of preserving the forest in regions that are already heavily degraded, and where it is still considered socially acceptable to convert forest to agriculture.",
+    "llm_confidence": 0.7
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:08:42.837Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b75072"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "claim_text": "The indigenous population has the right of possession and usufruct guaranteed by the 1988 Constitution of the Federative Republic of Brazil over the lands they occupy, thus possessing carbon rights.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b7506c"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b7506d"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b7506e"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b7506f"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b75070"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b75071"
+      }
+    }
+  ],
+  "score": 0.55,
+  "metadata": {
+    "supporting_text": "The indigenous population has the right of possession and usufruct guaranteed by the 1988 Constitution of the Federative Republic of Brazil over the lands they occupy, thus possessing carbon rights.",
+    "llm_confidence": 0.75
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:08:57.501Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b75079"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "claim_text": "The project proponents have the rights to withdraw GHG removals or GHG emission reduction Certificates as is listed in the contracts, but they require collective approval for withdrawal, indicating some degree of control over project credits.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b75073"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b75074"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b75075"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b75076"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b75077"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09769f328f82997b75078"
+      }
+    }
+  ],
+  "score": 0.36250000000000004,
+  "metadata": {
+    "supporting_text": "Each of the following project proponents have the rights to withdraw GHG removals or GHG emission reduction Certificates as is listed in the contracts related to project set up. However in order to withdraw they have to equally sign, as each person collectively represents their people and the reserve. Thus, one individual person can’t withdraw without the consent of everyone else.",
+    "llm_confidence": 0.7
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:08:57.509Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b75080"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "claim_text": "The project has been fully operational since July 1, 2017, with the goal to prove the economic feasibility of forest preservation in degraded regions, indicating ongoing implementation and potential for delays impacting milestones.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b7507a"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b7507b"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b7507c"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b7507d"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b7507e"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b7507f"
+      }
+    }
+  ],
+  "score": 0.5,
+  "metadata": {
+    "supporting_text": "The Project has been fully operational since July 1, 2017 with the goal is to prove out the economic feasibility of preserving the forest in regions that are already heavily degraded, and where it is still considered socially acceptable to convert forest to agriculture.",
+    "llm_confidence": 0.75
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:09:09.810Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b75087"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "claim_text": "Funding constraints and unmet SDGs suggest potential for delays or missed milestones due to insufficient resources.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b75081"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b75082"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b75083"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b75084"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b75085"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09775f328f82997b75086"
+      }
+    }
+  ],
+  "score": 0.42500000000000004,
+  "metadata": {
+    "supporting_text": "not all Sustainable Development Goals were met in the first monitoring period of the project as numerous require funding from carbon credits beyond the financial means of the proponents to allow for the project to succeed in that area.",
+    "llm_confidence": 0.7
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:09:09.816Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0977df328f82997b7508e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "claim_text": "The indigenous population has the right of possession and usufruct guaranteed by the 1988 Constitution of the Federative Republic of Brazil over the lands they occupy, thus possessing carbon rights.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0977df328f82997b75088"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0977df328f82997b75089"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0977df328f82997b7508a"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0977df328f82997b7508b"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0977df328f82997b7508c"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0977df328f82997b7508d"
+      }
+    }
+  ],
+  "score": 0.5875,
+  "metadata": {
+    "supporting_text": "The indigenous population has the right of possession and usufruct guaranteed by the 1988 Constitution of the Federative Republic of Brazil over the lands they occupy, thus possessing carbon rights.",
+    "llm_confidence": 0.85
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:09:17.251Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09785f328f82997b75095"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "claim_text": "The project aims to prove the economic feasibility of forest preservation in heavily degraded regions, with an emphasis on the reduction of emissions from deforestation, supported by initiatives of environmental and climatic additionality with institutional and governmental support.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09785f328f82997b7508f"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09785f328f82997b75090"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09785f328f82997b75091"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09785f328f82997b75092"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09785f328f82997b75093"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09785f328f82997b75094"
+      }
+    }
+  ],
+  "score": 0.43750000000000006,
+  "metadata": {
+    "supporting_text": "The project has been fully operational since July 1, 2017 with the goal is to prove out the economic feasibility of preserving the forest in regions that are already heavily degraded, and where it is still considered socially acceptable to convert forest to agriculture.\n\nThe primary focus has been to reduce and eventually climate illegal logging.  As well as quantify the reduction in wood leaving the reserve.\n\nLikewise, the project proponents, since the start date, have led initiatives of an environmental nature and climatic additionality with the technical and financial support of institutional and governmental, which have in their jurisdiction of operation the territories of the proposing indigenous reservations.",
+    "llm_confidence": 0.7
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:09:25.672Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0978cf328f82997b7509c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "claim_text": "The project aims to prove the economic feasibility of preserving heavily degraded regions and the ongoing operational status suggests reliance on existing activities that may not fully align with initial forecasts.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0978cf328f82997b75096"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0978cf328f82997b75097"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0978cf328f82997b75098"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0978cf328f82997b75099"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0978cf328f82997b7509a"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0978cf328f82997b7509b"
+      }
+    }
+  ],
+  "score": 0.55,
+  "metadata": {
+    "supporting_text": "The Project has been fully operational since July 1, 2017 with the goal is to prove out the economic feasibility of preserving the forest in regions that are already heavily degraded, and where it is still considered socially acceptable to convert forest to agriculture.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:09:32.287Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09792f328f82997b750a3"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "claim_text": "The project has been fully operational since July 1, 2017, with the goal to prove economic feasibility of forest preservation in degraded regions, but does not specify ongoing operational challenges or feedstock shortages.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09792f328f82997b7509d"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09792f328f82997b7509e"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09792f328f82997b7509f"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09792f328f82997b750a0"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09792f328f82997b750a1"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09792f328f82997b750a2"
+      }
+    }
+  ],
+  "score": 0.3625,
+  "metadata": {
+    "supporting_text": "The Project has been fully operational since July 1, 2017 with the goal is to prove out the economic feasibility of preserving the forest in regions that are already heavily degraded, and where it is still considered socially acceptable to convert forest to agriculture.",
+    "llm_confidence": 0.7
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:09:38.647Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0979df328f82997b750aa"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "claim_text": "The project focuses on reducing deforestation and illegal logging, with a goal to protect rainforests expected to be deforested in the absence of intervention.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0979df328f82997b750a4"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0979df328f82997b750a5"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0979df328f82997b750a6"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0979df328f82997b750a7"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0979df328f82997b750a8"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0979df328f82997b750a9"
+      }
+    }
+  ],
+  "score": 0.5875000000000001,
+  "metadata": {
+    "supporting_text": "The project corresponds to the Scope of Unplanned Emissions from deforestation, aiming to protect rainforests, which are expected to be deforested in the absence of Project.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:09:49.789Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c097a8f328f82997b750b1"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "claim_text": "The project aims to reduce deforestation and protect forests, which are subject to natural disruptions such as illegal logging and deforestation activities, but no explicit mention of natural disasters or conflict impacting assets or site access.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097a8f328f82997b750ab"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097a8f328f82997b750ac"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097a8f328f82997b750ad"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097a8f328f82997b750ae"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097a8f328f82997b750af"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097a8f328f82997b750b0"
+      }
+    }
+  ],
+  "score": 0.41250000000000003,
+  "metadata": {
+    "supporting_text": "The primary focus has been to reduce and eventually climate illegal logging. As well as quantify the reduction in wood leaving the reserve.",
+    "llm_confidence": 0.55
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:10:00.278Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c097b1f328f82997b750b8"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "claim_text": "The indigenous population has the right of possession and usufruct guaranteed by the 1988 Constitution of the Federative Republic of Brazil over the lands they occupy, thus possessing carbon rights.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097b1f328f82997b750b2"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097b1f328f82997b750b3"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097b1f328f82997b750b4"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097b1f328f82997b750b5"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097b1f328f82997b750b6"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097b1f328f82997b750b7"
+      }
+    }
+  ],
+  "score": 0.7,
+  "metadata": {
+    "supporting_text": "The indigenous population has the right of possession and usufruct guaranteed by the 1988 Constitution of the Federative Republic of Brazil over the lands they occupy, thus possessing carbon rights.",
+    "llm_confidence": 0.85
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:10:09.421Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c097bdf328f82997b750bf"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "claim_text": "The project corresponds to the Scope of Unplanned Emissions from deforestation, aiming to protect rainforests, which are expected to be deforested in the absence of Project.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097bdf328f82997b750b9"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097bdf328f82997b750ba"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097bdf328f82997b750bb"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097bdf328f82997b750bc"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097bdf328f82997b750bd"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097bdf328f82997b750be"
+      }
+    }
+  ],
+  "score": 0.5375000000000001,
+  "metadata": {
+    "supporting_text": "The project corresponds to the Scope of Unplanned Emissions from deforestation, aiming to protect rainforests, which are expected to be deforested in the absence of Project.",
+    "llm_confidence": 0.7
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:10:21.756Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c097c4f328f82997b750c6"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "claim_text": "There is no explicit mention of registry account issues, serial generation errors, or platform backlogs causing delays in credit issuance in the provided text.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3a9"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097c4f328f82997b750c0"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097c4f328f82997b750c1"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097c4f328f82997b750c2"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097c4f328f82997b750c3"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097c4f328f82997b750c4"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097c4f328f82997b750c5"
+      }
+    }
+  ],
+  "score": 0.13333333333333333,
+  "metadata": {
+    "supporting_text": "No specific information regarding registry platform issues, serial errors, or delays in credit issuance or transfer is present in the text.",
+    "llm_confidence": 0.9
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:10:28.538Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c097cef328f82997b750cd"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "claim_text": "The project involves actions and agreements with local communities and authorities to implement management plans and safeguard measures, which could be affected by future policy changes.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3aa"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097cef328f82997b750c7"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097cef328f82997b750c8"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097cef328f82997b750c9"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097cef328f82997b750ca"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097cef328f82997b750cb"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097cef328f82997b750cc"
+      }
+    }
+  ],
+  "score": 0.55,
+  "metadata": {
+    "supporting_text": "The proponents, who hold the right to the land, have implemented projects, agreements and contracts executed within the project area (the data has been provided to the DOE), in association with public, private, and mixed entities, with different participation mechanisms depending on the capacities of the parties. These actions have ensured that climate addi- tionality is achieved by reducing greenhouse gas emissions, framed by the United Nations Framework Commission on Climate Change (UNFCCC). In the first place, there is the formu- lation of the cultural and environmental management plan for the Reserve, which the re- serve implements and develops through the support of the local FUNAI office. With this, a recognition of t he problems related to the environmental aspect and quality of life. This defines certain actions that have contributed to the loss of habitats, such as the extraction of wood with chainsaws, crops for illicit use, hunting, fishing, and poor garbage manage- ment. With this exercise, certain agreements were proposed between the inhabitants of the reservation and five projects were prioritized to improve the situation that they had identified at the time.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:10:38.700Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c097daf328f82997b750d4"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "claim_text": "There is a potential risk of data tampering or inaccuracies in monitoring due to challenges in environmental management and community participation, which could lead to verification issues and delays in credit issuance.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3aa"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097daf328f82997b750ce"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097daf328f82997b750cf"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097daf328f82997b750d0"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097daf328f82997b750d1"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097daf328f82997b750d2"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097daf328f82997b750d3"
+      }
+    }
+  ],
+  "score": 0.41250000000000003,
+  "metadata": {
+    "supporting_text": "However, due to funding constraints, it is not always possible. It is also the responsibility of the agency to establish an inter-institutional articulation aimed between indigenous and non-indigenous people, and guarantee differentiated access to social and citizenship rights for indigenous people, by monitoring policies aimed at social security and indigenous school education, as well as how to promote or to foster support for educational processes traditional communities and participation and social control.",
+    "llm_confidence": 0.65
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:10:50.551Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c097f8f328f82997b750db"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "claim_text": "The project claims to ensure climate additionality by reducing greenhouse gas emissions framed by the UNFCCC, and actions have been implemented to address environmental impacts and community participation.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3aa"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097f8f328f82997b750d5"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097f8f328f82997b750d6"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097f8f328f82997b750d7"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097f8f328f82997b750d8"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097f8f328f82997b750d9"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c097f8f328f82997b750da"
+      }
+    }
+  ],
+  "score": 0.5000000000000001,
+  "metadata": {
+    "supporting_text": "The project has overcome several compliance and other safeguards by restricting involvement by outside groups... This process was carried out through the identification of socio-environmental aspects of the communities that required decisive actions for the efficiency of the project. This identification was validated through a process of joint construction with the communities of the activities to be carried out and the technologies to be applied within the framework of the project.",
+    "llm_confidence": 0.7
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:11:20.186Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09801f328f82997b750e2"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "claim_text": "The project involves activities such as reforestation, monitoring, and community-based management, which depend on the availability of natural resources like seeds, seedlings, and other inputs for planting and monitoring activities.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3aa"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09801f328f82997b750dc"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09801f328f82997b750dd"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09801f328f82997b750de"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09801f328f82997b750df"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09801f328f82997b750e0"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09801f328f82997b750e1"
+      }
+    }
+  ],
+  "score": 0.5875000000000001,
+  "metadata": {
+    "supporting_text": "Among these are also the reforestation and monitoring lines that seek to generate coverage recovery and monitoring processes and their behavior. This through participatory processes that allow the training of communities, and their subsequent incorporation into activities such as the construction of nurseries, planting processes of species that have been identified by the communities, and subsequently, guarantee active participation in matters corresponding to the follow-up, monitoring, and control of these lines.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:11:29.159Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09810f328f82997b750e9"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "claim_text": "The project emphasizes the importance of indigenous communities' social and cultural rights, governance, and participation, including recognition of traditional land management practices, but does not explicitly mention disputes or lack of FPIC.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3aa"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09810f328f82997b750e3"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09810f328f82997b750e4"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09810f328f82997b750e5"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09810f328f82997b750e6"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09810f328f82997b750e7"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09810f328f82997b750e8"
+      }
+    }
+  ],
+  "score": 0.3875,
+  "metadata": {
+    "supporting_text": "The owner of the project are the indigenous, by having the indigenous as the managers and decision makers the project is able to have the safeguards in place the protect their culture. This process was carried out through the identification of socio-environmental aspects of the communities that required decisive actions for the efficiency of the project. This identification was validated through a process of joint construction with the communities of the activities to be carried out and the technologies to be applied within the framework of the project.",
+    "llm_confidence": 0.65
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:11:44.159Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09819f328f82997b750f0"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "claim_text": "The project restricts involvement by outside groups and emphasizes local community management, which may limit external activities but does not directly address displacement outside the project boundary.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3aa"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09819f328f82997b750ea"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09819f328f82997b750eb"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09819f328f82997b750ec"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09819f328f82997b750ed"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09819f328f82997b750ee"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09819f328f82997b750ef"
+      }
+    }
+  ],
+  "score": 0.5,
+  "metadata": {
+    "supporting_text": "The project has overcome several compliance and other safeguards by restricting involvement by outside groups. As can be seen in the project, the owner of the project are the indigenous, by having the indigenous as the managers and decision makers the project is able to have the safeguards in place the protect their culture.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:11:53.663Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0985af328f82997b750f7"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "claim_text": "The project proponents have rights to the GHG removals and certificates but require collective consent for withdrawal, indicating a formalized legal framework for rights management.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3bd"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0985af328f82997b750f1"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0985af328f82997b750f2"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0985af328f82997b750f3"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0985af328f82997b750f4"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0985af328f82997b750f5"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0985af328f82997b750f6"
+      }
+    }
+  ],
+  "score": 0.5125000000000001,
+  "metadata": {
+    "supporting_text": "Each of the following project proponents have the rights to withdraw GHG removals or GHG emission reduction Certificates as is listed in the contracts related to project set up. However in order to withdraw they have to equally sign, as each person collectively represents their people and the reserve. Thus, one individual person can’t withdraw without the consent of everyone else.",
+    "llm_confidence": 0.78
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:12:58.763Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0986ff328f82997b750fe"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "claim_text": "The text does not explicitly mention any equipment or process underperformance, such as capture or destruction efficiencies, or any indication that the project's equipment or processes are underperforming versus their design or forecast.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3bd"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0986ff328f82997b750f8"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0986ff328f82997b750f9"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0986ff328f82997b750fa"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0986ff328f82997b750fb"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0986ff328f82997b750fc"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0986ff328f82997b750fd"
+      }
+    }
+  ],
+  "score": 0.4666666666666666,
+  "metadata": {
+    "supporting_text": "The provided text focuses on land rights, community involvement, legal and institutional frameworks, and threats from illegal mining, with no mention of specific technology performance issues.",
+    "llm_confidence": 1
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:13:19.828Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0987ff328f82997b75105"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "claim_text": "There is a significant threat from illegal gold mining in the Munduruku Indigenous Territory, which is outside but adjacent to the project area and is contaminating the environment.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3bd"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0987ff328f82997b750ff"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0987ff328f82997b75100"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0987ff328f82997b75101"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0987ff328f82997b75102"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0987ff328f82997b75103"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0987ff328f82997b75104"
+      }
+    }
+  ],
+  "score": 0.5874999999999999,
+  "metadata": {
+    "supporting_text": "The Munduruku people have a serious problem with illegal gold mining, thousands of hectares have been invaded by very dangerous illegal mining groups. The Government figures there are as many as 900 gold mines in the Munduruku Reserve, just outside of the carbon credit project area. These mines are contaminating the forest, the rivers, the flora and the fauna with metals from the mining process.",
+    "llm_confidence": 0.75
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:13:35.260Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09886f328f82997b7510c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "claim_text": "The project area is threatened by illegal gold mining groups invading thousands of hectares, contaminating the environment and potentially damaging project assets.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3bd"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09886f328f82997b75106"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09886f328f82997b75107"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09886f328f82997b75108"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09886f328f82997b75109"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09886f328f82997b7510a"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09886f328f82997b7510b"
+      }
+    }
+  ],
+  "score": 0.625,
+  "metadata": {
+    "supporting_text": "The Munduruku people have a serious problem with illegal gold mining, thousands of hectares have been invaded by very dangerous illegal mining groups. These mines are contaminating the forest, the rivers, the flora and the fauna with metals from the mining process.",
+    "llm_confidence": 0.75
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:13:42.230Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c098acf328f82997b75113"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "claim_text": "There is a potential delay in credit withdrawal due to the requirement that all representatives must sign collectively, which could hinder timely issuance.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68aded70865a68421beac3bd"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c098acf328f82997b7510d"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c098acf328f82997b7510e"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c098acf328f82997b7510f"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c098acf328f82997b75110"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c098acf328f82997b75111"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c098acf328f82997b75112"
+      }
+    }
+  ],
+  "score": 0.5125000000000001,
+  "metadata": {
+    "supporting_text": "Each of the project proponents have the rights to withdraw GHG removals or GHG emission reduction Certificates... they have to equally sign, as each person collectively represents their people and the reserve. Thus, one individual person can’t withdraw without the consent of everyone else.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:14:20.677Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b75128"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "claim_text": "The project takes place in one private property known as Fortín Paunero Establishment, which is entirely owned by a family company called EFP S.A.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc402"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b75122"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b75123"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b75124"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b75125"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b75126"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b75127"
+      }
+    }
+  ],
+  "score": 0.5875,
+  "metadata": {
+    "supporting_text": "Officially, it has been owned by EFP since 1978.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:16:55.417Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b7512f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "claim_text": "The previous conditions to the start of the CCMP are those of land that has been used for cattle ranching and agriculture for decades.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc402"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b75129"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b7512a"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b7512b"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b7512c"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b7512d"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09947f328f82997b7512e"
+      }
+    }
+  ],
+  "score": 0.3500000000000001,
+  "metadata": {
+    "supporting_text": "Most of the reforestation segment was covered with weeping lovegrass (Eragostris curvula) that was used to feed cattle, and approximately 21.6 hectares have been used for agriculture.",
+    "llm_confidence": 0.75
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:16:55.424Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09955f328f82997b75136"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "claim_text": "The project takes place in a private property owned by EFP S.A., with ownership documented in supplementary files.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc402"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09955f328f82997b75130"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09955f328f82997b75131"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09955f328f82997b75132"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09955f328f82997b75133"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09955f328f82997b75134"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09955f328f82997b75135"
+      }
+    }
+  ],
+  "score": 0.5,
+  "metadata": {
+    "supporting_text": "Officially, it has been owned by EFP since 1978.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:17:09.946Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09960f328f82997b7513d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "claim_text": "The project was designed under Cercarbono’s M/LU/F -A01 v1.1 methodology and complies with Cercarbono’s Protocol for Voluntary Carbon Certification v 4, indicating adherence to approved methodologies and procedures, reducing the risk of methodological errors or adverse updates.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc402"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09960f328f82997b75137"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09960f328f82997b75138"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09960f328f82997b75139"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09960f328f82997b7513a"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09960f328f82997b7513b"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09960f328f82997b7513c"
+      }
+    }
+  ],
+  "score": 0.5,
+  "metadata": {
+    "supporting_text": "The project was designed under Cercarbono’s M/LU/F -A01 v1.1 methodology (hereafter methodology) and complies with Cercarbono’s Protocol for Voluntary Carbon Certification v 4 (hereafter protocol). This document provides the necessary information to ensure that the CCMP complies with all Cercarbono’s requirements and principles as stated in aforementioned methodology and program to validate and verify the emissions removals.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:17:20.070Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09967f328f82997b75144"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "claim_text": "The project consists of afforestation with Eucalyptus spp., with an estimated average annual removal of 2.490 t CO2e and a total removal of 74.706 t CO2e throughout the project’s lifetime.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc402"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09967f328f82997b7513e"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09967f328f82997b7513f"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09967f328f82997b75140"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09967f328f82997b75141"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09967f328f82997b75142"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09967f328f82997b75143"
+      }
+    }
+  ],
+  "score": 0.5125000000000001,
+  "metadata": {
+    "supporting_text": "The main carbon pools in the project scenario are above and belowground tree biomass, with an estimated average annual removal of 2.490 t CO2e and a total removal of 74.706 t CO2e throughout the project’s lifetime.",
+    "llm_confidence": 0.75
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:17:27.039Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09977f328f82997b7514b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "claim_text": "The project is located in an area with human activity and land use that could be affected by extreme weather or natural disasters, such as droughts or floods, which are common in semi-arid regions with negative water balance.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc402"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09977f328f82997b75145"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09977f328f82997b75146"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09977f328f82997b75147"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09977f328f82997b75148"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09977f328f82997b75149"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09977f328f82997b7514a"
+      }
+    }
+  ],
+  "score": 0.6375,
+  "metadata": {
+    "supporting_text": "The Fortín Paunero Establishment is situated in the southwest of Buenos Aires Province, Argentina, in the Sandy Pampa subregion, spanning 2,333 hectares. This semi-arid region experiences an average annual temperature of 14°C and receives around 800 mm of rain annually, while potential evapotranspiration reaches 1,200 mm, resulting in a negative water balance (Oyarzabal et al., 2018). The area’s natural vegetation consists primarily of steppe and pseudo-steppe grasslands, along with various other types such as shrubs and rush beds, dominated by genera like Stipa, Poa, and Bromus (Oyarzabal et al., 2018). Human activity, mainly agricultural expansion, has significantly altered the natural environment.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:17:43.437Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0997ef328f82997b75152"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "claim_text": "The project takes place in one private property known as Fortín Paunero Establishment. This property is entirely owned by a family company called EFP S.A.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc402"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0997ef328f82997b7514c"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0997ef328f82997b7514d"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0997ef328f82997b7514e"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0997ef328f82997b7514f"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0997ef328f82997b75150"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0997ef328f82997b75151"
+      }
+    }
+  ],
+  "score": 0.5875,
+  "metadata": {
+    "supporting_text": "The project takes place in one private property known as Fortín Paunero Establishment. This property is entirely owned by a family company called EFP S.A.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:17:50.403Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c09986f328f82997b75159"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "claim_text": "The project explicitly states that cattle will not be displaced outside the project boundary, and therefore no leakage will be generated in this regard.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc402"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09986f328f82997b75153"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09986f328f82997b75154"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09986f328f82997b75155"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09986f328f82997b75156"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09986f328f82997b75157"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c09986f328f82997b75158"
+      }
+    }
+  ],
+  "score": 0.5,
+  "metadata": {
+    "supporting_text": "Additionally, the cattle that is excluded from the project area will not be displaced outside of the Fortín Paunero property, so no leakage will be generated in this regard.",
+    "llm_confidence": 0.85
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:17:58.204Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0998ff328f82997b75160"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "claim_text": "The validation of the project will be carried out shortly after the start of the project. Considering all the parameters, tools, protocol and methodology requirements presented in this document, the CCMP will have to be satisfactorily evaluated by a VVB in order for it to be approved.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0998ff328f82997b7515a"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0998ff328f82997b7515b"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0998ff328f82997b7515c"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0998ff328f82997b7515d"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0998ff328f82997b7515e"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0998ff328f82997b7515f"
+      }
+    }
+  ],
+  "score": 0.5875,
+  "metadata": {
+    "supporting_text": "The validation of the project will be carried out shortly after the start of the project. ... the CCMP will have to be satisfactorily evaluated by a VVB in order for it to be approved.",
+    "llm_confidence": 0.75
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:18:07.098Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c0999ef328f82997b75167"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "claim_text": "The CCMP project involves contractual relations with external entities such as EFP, Garruchos, and Cambium Earth, and includes validation and verification steps by a VVB, indicating reliance on external partners for project approval and monitoring.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0999ef328f82997b75161"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0999ef328f82997b75162"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0999ef328f82997b75163"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0999ef328f82997b75164"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0999ef328f82997b75165"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c0999ef328f82997b75166"
+      }
+    }
+  ],
+  "score": 0.7124999999999999,
+  "metadata": {
+    "supporting_text": "Once the weather was suitable for the planting activities, they were supervised by Garruchos and EFP to make sure Cercarbono’s requirements (as established in the methodology) were followed. ... a VVB will evaluate the implementation of the CCMP and determine the accuracy of the removals reported.",
+    "llm_confidence": 0.75
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:18:22.778Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099a8f328f82997b7516e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "claim_text": "The project timeline is planned to span 30 years, starting in September 2024 and ending in September 2054, with multiple monitoring and verification periods scheduled throughout.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099a8f328f82997b75168"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099a8f328f82997b75169"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099a8f328f82997b7516a"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099a8f328f82997b7516b"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099a8f328f82997b7516c"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099a8f328f82997b7516d"
+      }
+    }
+  ],
+  "score": 0.6375,
+  "metadata": {
+    "supporting_text": "The CCMP is planned to have a lifetime of 30 years , starting on 2024.09.21 and fin- ishing in 2054.09.21. The first accreditation period will last for the first 20 years of the project (2024.09.21 to 2044.09.21), and t he project activities that generate climate change mitigation results began on 2024.09.21 with the planting of eucalypt seed-lings. The first monitoring period will include the activities that were carried out during the first three years of the project, and the following monitoring periods will also englobe three-year periods until the end of the project cycle.",
+    "llm_confidence": 0.75
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:18:32.169Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099adf328f82997b75175"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "claim_text": "The project involves planting eucalypt seedlings and implementing afforestation activities, which require obtaining and maintaining proper permits and licenses.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099adf328f82997b7516f"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099adf328f82997b75170"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099adf328f82997b75171"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099adf328f82997b75172"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099adf328f82997b75173"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099adf328f82997b75174"
+      }
+    }
+  ],
+  "score": 0.4,
+  "metadata": {
+    "supporting_text": "The CCMP was established from the desire of the landowner family to develop a carbon capture project in their lands by implementing an afforestation with silvopastoral characteristics. According to Cercarbono’s methodology, eligibility and applicability analyses were carried out to identify the most suitable lands, and contractual relations were established between EFP, Garruchos, and Cambium Earth.",
+    "llm_confidence": 0.65
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:18:37.579Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099b7f328f82997b7517c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "claim_text": "The project activities that generate climate change mitigation results began on 2024.09.21 with the planting of eucalypt seedlings, and a verification process will assess whether major changes have occurred to the project.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099b7f328f82997b75176"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099b7f328f82997b75177"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099b7f328f82997b75178"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099b7f328f82997b75179"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099b7f328f82997b7517a"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099b7f328f82997b7517b"
+      }
+    }
+  ],
+  "score": 0.625,
+  "metadata": {
+    "supporting_text": "The verification of the project will be carried out shortly after the start of the project. ... The VVB will evaluate that no major changes have happened to the project.",
+    "llm_confidence": 0.78
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:18:47.364Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099c1f328f82997b75183"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "claim_text": "The project involves planting eucalyptus species (Eucalyptus viminalis, Eucalyptus grandis, E. camaldulensis) which are managed through a genetic improvement program and monitored for growth and CO2 removal, indicating reliance on specific equipment and processes.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c1f328f82997b7517d"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c1f328f82997b7517e"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c1f328f82997b7517f"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c1f328f82997b75180"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c1f328f82997b75181"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c1f328f82997b75182"
+      }
+    }
+  ],
+  "score": 0.625,
+  "metadata": {
+    "supporting_text": "Regarding the technologies that will be used to monitor the growth of the trees and the CO2 removal, refer to section 10 CCMP Monitoring. ... The varieties produced have straight shafts, as well as good diameters, heights and diametric growth, and they are resistant to diseases and adverse weather.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:18:57.328Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099c6f328f82997b7518a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "claim_text": "The project involves planting eucalyptus species and monitoring their growth for carbon sequestration, with detailed planning and supervision to ensure proper implementation.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c6f328f82997b75184"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c6f328f82997b75185"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c6f328f82997b75186"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c6f328f82997b75187"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c6f328f82997b75188"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099c6f328f82997b75189"
+      }
+    }
+  ],
+  "score": 0.625,
+  "metadata": {
+    "supporting_text": "The technologies that will be used to monitor the growth of the trees and the CO2 removal, refer to section 10 CCMP Monitoring... activities that generate climate change mitigation results began on 2024.09.21 with the planting of eucalypt seedlings.",
+    "llm_confidence": 0.8
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:19:02.883Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099cef328f82997b75191"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "claim_text": "The project involves planting eucalypt seedlings with a planned lifetime of 30 years, with monitoring and verification processes in place, but there is no explicit mention of risk management for events such as fires, pests, or soil degradation that could reverse stored carbon.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099cef328f82997b7518b"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099cef328f82997b7518c"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099cef328f82997b7518d"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099cef328f82997b7518e"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099cef328f82997b7518f"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099cef328f82997b75190"
+      }
+    }
+  ],
+  "score": 0.4,
+  "metadata": {
+    "supporting_text": "The CCMP is planned to have a lifetime of 30 years , starting on 2024.09.21 and fin-ishing in 2054.09.21... The first verification process will begin after a three-year period... The monitoring activities are based on a plan established in section 10 of this document, where the methodology to be implemented is determined, as well as the strata, variables to be measured, and the statistical design for quantifying biomass.",
+    "llm_confidence": 0.55
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:19:10.349Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099d5f328f82997b75198"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "claim_text": "No explicit mention of natural disasters, extreme weather, or conflict impacting project assets or site access.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099d5f328f82997b75192"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099d5f328f82997b75193"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099d5f328f82997b75194"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099d5f328f82997b75195"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099d5f328f82997b75196"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099d5f328f82997b75197"
+      }
+    }
+  ],
+  "score": 0.13333333333333333,
+  "metadata": {
+    "supporting_text": "The provided text does not contain any direct references to natural disasters, extreme weather events, or conflict situations that could physically damage assets or restrict site access.",
+    "llm_confidence": 0.65
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:19:17.464Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099dbf328f82997b7519f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "claim_text": "The project involves establishing afforestation and silvopastoral activities on private land, with contractual relations between landowners and project implementers, but there is no explicit mention of land rights disputes or community consent issues.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099dbf328f82997b75199"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099dbf328f82997b7519a"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099dbf328f82997b7519b"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099dbf328f82997b7519c"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099dbf328f82997b7519d"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099dbf328f82997b7519e"
+      }
+    }
+  ],
+  "score": 0.43749999999999994,
+  "metadata": {
+    "supporting_text": "Contractual relations were established between EFP, Garruchos, and Cambium Earth. Once the weather was suitable for the planting activities, they were supervised by Garruchos and EFP to make sure Cercarbono’s requirements (as established in the methodology) were followed.",
+    "llm_confidence": 0.7
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:19:23.614Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c099eaf328f82997b751a6"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "claim_text": "The project involves planting eucalypt species on soils characterized by low water retention, high drainage, and low fertility, which could potentially lead to water management challenges outside the project boundary.",
+  "chunk_id": {
+    "$ref": "chunks",
+    "$id": {
+      "$oid": "68bfe7e7bb76df1c830dc403"
+    }
+  },
+  "evidence_ratings": [
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099eaf328f82997b751a0"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099eaf328f82997b751a1"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099eaf328f82997b751a2"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099eaf328f82997b751a3"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099eaf328f82997b751a4"
+      }
+    },
+    {
+      "$ref": "evidence_ratings",
+      "$id": {
+        "$oid": "68c099eaf328f82997b751a5"
+      }
+    }
+  ],
+  "score": 0.44999999999999996,
+  "metadata": {
+    "supporting_text": "These soils also feature high rainfall infiltration and excessive drainage, with low to medium surface runoff, reducing the risk of water erosion. Overall, they are low-fertility soils, making it difficult to stabilize and retain organic carbon.",
+    "llm_confidence": 0.75
+  },
+  "created_at": {
+    "$date": "2025-09-09T21:19:38.784Z"
+  }
+}]

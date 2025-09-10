@@ -13,7 +13,7 @@ from typing import List, Dict
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-from app.core.models import Project, SourceDocument, Chunk
+from app.core.models import Project, SourceDocument, Chunk, EvidenceRating, Evidence
 from bson import ObjectId
 
 
@@ -50,6 +50,22 @@ def clean_mongodb_fields(data: Dict) -> Dict:
                     cleaned[key] = ObjectId(value["$id"]["$oid"])
                 else:
                     cleaned[key] = ObjectId(value["$id"])
+        elif isinstance(value, list):
+            # Handle arrays (like evidence_ratings)
+            cleaned_list = []
+            for item in value:
+                if isinstance(item, dict) and "$ref" in item and "$id" in item:
+                    # DBRef in array: {"$ref": "collection", "$id": {"$oid": "..."}}
+                    if isinstance(item["$id"], dict) and "$oid" in item["$id"]:
+                        cleaned_list.append(ObjectId(item["$id"]["$oid"]))
+                    else:
+                        cleaned_list.append(ObjectId(item["$id"]))
+                elif isinstance(item, dict) and "$oid" in item:
+                    # Simple ObjectId in array: {"$oid": "..."}
+                    cleaned_list.append(ObjectId(item["$oid"]))
+                else:
+                    cleaned_list.append(item)
+            cleaned[key] = cleaned_list
         else:
             cleaned[key] = value
     
@@ -143,6 +159,68 @@ async def load_test_chunks() -> int:
         return 0
     except Exception as e:
         print(f"❌ Error loading test chunks: {e}")
+        raise
+
+
+async def load_test_evidence_ratings() -> int:
+    print("📊 Loading test evidence ratings...")
+    
+    try:
+        evidence_ratings_data = load_test_json("evidence_ratings.json")
+        created_count = 0
+        
+        for rating_data in evidence_ratings_data:
+            clean_data = clean_mongodb_fields(rating_data)
+            
+            existing = await EvidenceRating.find_one(EvidenceRating.id == clean_data["id"])
+            if existing:
+                print(f"   ⚠️  Evidence rating (ID: {clean_data['id']}) already exists, skipping...")
+                continue
+            
+            evidence_rating = EvidenceRating(**clean_data)
+            await evidence_rating.insert()
+            created_count += 1
+            print(f"   ✅ Created evidence rating: {clean_data['scale_value']} (score: {clean_data.get('score', 'N/A')})")
+        
+        print(f"📊 Test evidence ratings loaded: {created_count} created, {len(evidence_ratings_data) - created_count} already existed")
+        return created_count
+        
+    except FileNotFoundError:
+        print("   ⚠️  No evidence_ratings.json found, skipping evidence ratings loading")
+        return 0
+    except Exception as e:
+        print(f"❌ Error loading test evidence ratings: {e}")
+        raise
+
+
+async def load_test_evidences() -> int:
+    print("🔍 Loading test evidences...")
+    
+    try:
+        evidences_data = load_test_json("evidences.json")
+        created_count = 0
+        
+        for evidence_data in evidences_data:
+            clean_data = clean_mongodb_fields(evidence_data)
+            
+            existing = await Evidence.find_one(Evidence.id == clean_data["id"])
+            if existing:
+                print(f"   ⚠️  Evidence (ID: {clean_data['id']}) already exists, skipping...")
+                continue
+            
+            evidence = Evidence(**clean_data)
+            await evidence.insert()
+            created_count += 1
+            print(f"   ✅ Created evidence: {clean_data['claim_text'][:50]}... (score: {clean_data.get('score', 'N/A')})")
+        
+        print(f"🔍 Test evidences loaded: {created_count} created, {len(evidences_data) - created_count} already existed")
+        return created_count
+        
+    except FileNotFoundError:
+        print("   ⚠️  No evidences.json found, skipping evidences loading")
+        return 0
+    except Exception as e:
+        print(f"❌ Error loading test evidences: {e}")
         raise
 
 

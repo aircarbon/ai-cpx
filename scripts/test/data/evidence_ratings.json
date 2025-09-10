@@ -1,0 +1,5670 @@
+[{
+  "_id": {
+    "$oid": "68c09751f328f82997b7505e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09751f328f82997b7505f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09751f328f82997b75060"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "program-wide",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09751f328f82997b75061"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09751f328f82997b75062"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09751f328f82997b75063"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0975af328f82997b75065"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c0975af328f82997b75066"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c0975af328f82997b75067"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0975af328f82997b75068"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "old",
+  "score": 0.4,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c0975af328f82997b75069"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c0975af328f82997b7506a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b7506c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b7506d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b7506e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b7506f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b75070"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b75071"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b75073"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b75074"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b75075"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b75076"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "old",
+  "score": 0.4,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b75077"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09769f328f82997b75078"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b7507a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b7507b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b7507c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b7507d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "stale",
+  "score": 0.1,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b7507e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b7507f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b75081"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b75082"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b75083"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b75084"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "old",
+  "score": 0.4,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b75085"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09775f328f82997b75086"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0977df328f82997b75088"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c0977df328f82997b75089"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c0977df328f82997b7508a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "program-wide",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0977df328f82997b7508b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c0977df328f82997b7508c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c0977df328f82997b7508d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09785f328f82997b7508f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09785f328f82997b75090"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09785f328f82997b75091"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09785f328f82997b75092"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09785f328f82997b75093"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09785f328f82997b75094"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0978cf328f82997b75096"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c0978cf328f82997b75097"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c0978cf328f82997b75098"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0978cf328f82997b75099"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c0978cf328f82997b7509a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c0978cf328f82997b7509b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09792f328f82997b7509d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09792f328f82997b7509e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09792f328f82997b7509f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09792f328f82997b750a0"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09792f328f82997b750a1"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09792f328f82997b750a2"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0979df328f82997b750a4"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c0979df328f82997b750a5"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c0979df328f82997b750a6"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0979df328f82997b750a7"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c0979df328f82997b750a8"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c0979df328f82997b750a9"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "limited",
+  "score": 0.7,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097a8f328f82997b750ab"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c097a8f328f82997b750ac"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c097a8f328f82997b750ad"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097a8f328f82997b750ae"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "old",
+  "score": 0.4,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c097a8f328f82997b750af"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c097a8f328f82997b750b0"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097b1f328f82997b750b2"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "major",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c097b1f328f82997b750b3"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c097b1f328f82997b750b4"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "program-wide",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097b1f328f82997b750b5"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "very recent",
+  "score": 1,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c097b1f328f82997b750b6"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c097b1f328f82997b750b7"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097bdf328f82997b750b9"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c097bdf328f82997b750ba"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c097bdf328f82997b750bb"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097bdf328f82997b750bc"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c097bdf328f82997b750bd"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c097bdf328f82997b750be"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "limited",
+  "score": 0.7,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097c4f328f82997b750c0"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c097c4f328f82997b750c1"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "speculative",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c097c4f328f82997b750c2"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097c4f328f82997b750c3"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "stale",
+  "score": 0.1,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c097c4f328f82997b750c4"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "weak",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c097c4f328f82997b750c5"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097cef328f82997b750c7"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c097cef328f82997b750c8"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c097cef328f82997b750c9"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097cef328f82997b750ca"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c097cef328f82997b750cb"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c097cef328f82997b750cc"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097daf328f82997b750ce"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c097daf328f82997b750cf"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c097daf328f82997b750d0"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097daf328f82997b750d1"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "old",
+  "score": 0.4,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c097daf328f82997b750d2"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c097daf328f82997b750d3"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097f8f328f82997b750d5"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c097f8f328f82997b750d6"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c097f8f328f82997b750d7"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c097f8f328f82997b750d8"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c097f8f328f82997b750d9"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c097f8f328f82997b750da"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "limited",
+  "score": 0.7,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09801f328f82997b750dc"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09801f328f82997b750dd"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09801f328f82997b750de"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09801f328f82997b750df"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09801f328f82997b750e0"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09801f328f82997b750e1"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "limited",
+  "score": 0.7,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09810f328f82997b750e3"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09810f328f82997b750e4"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09810f328f82997b750e5"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09810f328f82997b750e6"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09810f328f82997b750e7"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09810f328f82997b750e8"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09819f328f82997b750ea"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09819f328f82997b750eb"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09819f328f82997b750ec"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09819f328f82997b750ed"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09819f328f82997b750ee"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09819f328f82997b750ef"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0985af328f82997b750f1"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c0985af328f82997b750f2"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c0985af328f82997b750f3"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0985af328f82997b750f4"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c0985af328f82997b750f5"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c0985af328f82997b750f6"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0986ff328f82997b750f8"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c0986ff328f82997b750f9"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "near-certain",
+  "score": 1,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c0986ff328f82997b750fa"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0986ff328f82997b750fb"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c0986ff328f82997b750fc"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c0986ff328f82997b750fd"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0987ff328f82997b750ff"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "major",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c0987ff328f82997b75100"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c0987ff328f82997b75101"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0987ff328f82997b75102"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c0987ff328f82997b75103"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c0987ff328f82997b75104"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09886f328f82997b75106"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "major",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09886f328f82997b75107"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09886f328f82997b75108"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "program-wide",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09886f328f82997b75109"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09886f328f82997b7510a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09886f328f82997b7510b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c098acf328f82997b7510d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c098acf328f82997b7510e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c098acf328f82997b7510f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c098acf328f82997b75110"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c098acf328f82997b75111"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c098acf328f82997b75112"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d331"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b75122"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b75123"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b75124"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b75125"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b75126"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b75127"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b75129"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b7512a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b7512b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b7512c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "old",
+  "score": 0.4,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b7512d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09947f328f82997b7512e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d326"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09955f328f82997b75130"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09955f328f82997b75131"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09955f328f82997b75132"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09955f328f82997b75133"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09955f328f82997b75134"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09955f328f82997b75135"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09960f328f82997b75137"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09960f328f82997b75138"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09960f328f82997b75139"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09960f328f82997b7513a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09960f328f82997b7513b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09960f328f82997b7513c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09967f328f82997b7513e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09967f328f82997b7513f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09967f328f82997b75140"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09967f328f82997b75141"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09967f328f82997b75142"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09967f328f82997b75143"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09977f328f82997b75145"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "major",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09977f328f82997b75146"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09977f328f82997b75147"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09977f328f82997b75148"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09977f328f82997b75149"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09977f328f82997b7514a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0997ef328f82997b7514c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c0997ef328f82997b7514d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c0997ef328f82997b7514e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0997ef328f82997b7514f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c0997ef328f82997b75150"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c0997ef328f82997b75151"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09986f328f82997b75153"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c09986f328f82997b75154"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c09986f328f82997b75155"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c09986f328f82997b75156"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c09986f328f82997b75157"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c09986f328f82997b75158"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0998ff328f82997b7515a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c0998ff328f82997b7515b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c0998ff328f82997b7515c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0998ff328f82997b7515d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c0998ff328f82997b7515e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c0998ff328f82997b7515f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d325"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0999ef328f82997b75161"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "major",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c0999ef328f82997b75162"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c0999ef328f82997b75163"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c0999ef328f82997b75164"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c0999ef328f82997b75165"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c0999ef328f82997b75166"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d327"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099a8f328f82997b75168"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "major",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c099a8f328f82997b75169"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c099a8f328f82997b7516a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099a8f328f82997b7516b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c099a8f328f82997b7516c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c099a8f328f82997b7516d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d328"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099adf328f82997b7516f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c099adf328f82997b75170"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c099adf328f82997b75171"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099adf328f82997b75172"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c099adf328f82997b75173"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c099adf328f82997b75174"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d329"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099b7f328f82997b75176"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c099b7f328f82997b75177"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c099b7f328f82997b75178"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099b7f328f82997b75179"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c099b7f328f82997b7517a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c099b7f328f82997b7517b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32a"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099c1f328f82997b7517d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c099c1f328f82997b7517e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c099c1f328f82997b7517f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099c1f328f82997b75180"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c099c1f328f82997b75181"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c099c1f328f82997b75182"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32b"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099c6f328f82997b75184"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c099c6f328f82997b75185"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "likely",
+  "score": 0.8,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c099c6f328f82997b75186"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "multi-site",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099c6f328f82997b75187"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c099c6f328f82997b75188"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c099c6f328f82997b75189"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32c"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099cef328f82997b7518b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c099cef328f82997b7518c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c099cef328f82997b7518d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099cef328f82997b7518e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c099cef328f82997b7518f"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "mixed",
+  "score": 0.6,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c099cef328f82997b75190"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32d"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099d5f328f82997b75192"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c099d5f328f82997b75193"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "speculative",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c099d5f328f82997b75194"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099d5f328f82997b75195"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "stale",
+  "score": 0.1,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c099d5f328f82997b75196"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "weak",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c099d5f328f82997b75197"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32e"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099dbf328f82997b75199"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "minor",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c099dbf328f82997b7519a"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c099dbf328f82997b7519b"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099dbf328f82997b7519c"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c099dbf328f82997b7519d"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c099dbf328f82997b7519e"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d32f"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.4,
+  "higher_is_riskier": false,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099eaf328f82997b751a0"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d31f"
+    }
+  },
+  "scale_value": "moderate",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.35
+},
+{
+  "_id": {
+    "$oid": "68c099eaf328f82997b751a1"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d320"
+    }
+  },
+  "scale_value": "plausible",
+  "score": 0.5,
+  "higher_is_riskier": true,
+  "weight": 0.25
+},
+{
+  "_id": {
+    "$oid": "68c099eaf328f82997b751a2"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d321"
+    }
+  },
+  "scale_value": "localized",
+  "score": 0.2,
+  "higher_is_riskier": true,
+  "weight": 0.15
+},
+{
+  "_id": {
+    "$oid": "68c099eaf328f82997b751a3"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d322"
+    }
+  },
+  "scale_value": "recent",
+  "score": 0.7,
+  "higher_is_riskier": true,
+  "weight": 0.1
+},
+{
+  "_id": {
+    "$oid": "68c099eaf328f82997b751a4"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d323"
+    }
+  },
+  "scale_value": "strong",
+  "score": 0.3,
+  "higher_is_riskier": false,
+  "weight": 0.2
+},
+{
+  "_id": {
+    "$oid": "68c099eaf328f82997b751a5"
+  },
+  "risk_type_id": {
+    "$ref": "risk_types",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d330"
+    }
+  },
+  "risk_dimension_spec_id": {
+    "$ref": "risk_dimensions",
+    "$id": {
+      "$oid": "68c08de3859e0be5d877d324"
+    }
+  },
+  "scale_value": "none",
+  "score": 1,
+  "higher_is_riskier": false,
+  "weight": 0.15
+}]

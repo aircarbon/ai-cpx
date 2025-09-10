@@ -14,7 +14,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 
 from app.core.database import ensure_database_connection, close_database, get_database_status
 from app.core.data_loader import initialize_configuration_data
-from test_data_loader import load_test_projects, load_test_documents, load_test_chunks
+from test_data_loader import load_test_projects, load_test_documents, load_test_chunks, load_test_evidence_ratings, load_test_evidences
 from app.core.models import (
     Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec,
     EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
@@ -214,6 +214,46 @@ def init_chunks():
         print("   ❌ Test chunks initialization failed")
         raise Exception("Test chunks initialization failed")
 
+def load_evidences():
+    """Stage 6: Load evidences - load test evidence ratings and evidences data"""
+    print("🔍 Stage 6: Loading evidences...")
+    print("   - Loading test evidence ratings and evidences from JSON fixtures")
+    
+    async def load_evidence_data():
+        try:
+            connection_success = await ensure_database_connection(ALL_MODELS)
+            if not connection_success:
+                print("❌ Failed to connect to database")
+                return False
+            
+            print("✅ Database connection successful!")
+            
+            # Load evidence ratings first (they are referenced by evidences)
+            ratings_count = await load_test_evidence_ratings()
+            evidences_count = await load_test_evidences()
+            
+            print(f"✅ Test evidences initialized successfully!")
+            print(f"   📊 Evidence ratings: {ratings_count} loaded")
+            print(f"   🔍 Evidences: {evidences_count} loaded")
+            
+            return True
+            
+        except Exception as e:
+            print(f"❌ Test evidences initialization failed: {e}")
+            return False
+        
+        finally:
+            await close_database()
+    
+    # Run async evidence data loading
+    success = asyncio.run(load_evidence_data())
+    
+    if success:
+        print("   ✅ Test evidences initialized successfully")
+    else:
+        print("   ❌ Test evidences initialization failed")
+        raise Exception("Test evidences initialization failed")
+
 def run_stages_up_to(target_stage):
     """Run all stages up to and including the target stage"""
     stages = [
@@ -221,7 +261,8 @@ def run_stages_up_to(target_stage):
         ("init-db", init_db, "🛠️  Stage 2: Initializing database schema..."),
         ("init-projects", init_projects, "📁 Stage 3: Loading test projects..."),
         ("init-docs", init_docs, "📚 Stage 4: Loading test documents..."),
-        ("init-chunks", init_chunks, "🧩 Stage 5: Loading test chunks...")
+        ("init-chunks", init_chunks, "🧩 Stage 5: Loading test chunks..."),
+        ("load-evidences", load_evidences, "🔍 Stage 6: Loading test evidences...")
     ]
     
     if target_stage == "all":
@@ -248,7 +289,7 @@ def main():
         "stage",
         nargs="?",  # Make argument optional
         default="all",  # Default value when no argument provided
-        choices=["empty-db", "init-db", "init-projects", "init-docs", "init-chunks", "all"],
+        choices=["empty-db", "init-db", "init-projects", "init-docs", "init-chunks", "load-evidences", "all"],
         help="Initialization stage to run (default: all)"
     )
     
