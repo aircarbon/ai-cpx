@@ -1,43 +1,170 @@
-<Description of the project and what is it's goal>
-- The application is structured as modules, where each part runs in their own docker container
-More Descriptiuon in the README.md file and in scripts/README.md file
+# AI-CPX: Carbon Project Risk Assessment Platform
 
-# Some guidelines
-- Keep the project in an existing style
-- All interractions with the database from the application should be handled through the repository.
-- Only the repository should Should interract with models
-- For business logic, use types
-- When making new types, make functions for conversion from and to models
-- API uses their own schemas
-- LLM related things should be handled in the llm_service.py file and should use Langfuse (in langfuse_tracer.py)
+## Project Overview
+AI-CPX is a comprehensive system for risk calculation and analysis of carbon projects. The platform processes documents from various carbon projects, extracts relevant information using Large Language Models (LLMs), and calculates associated risks to help stakeholders make informed investment and development decisions.
 
+The system transforms unstructured carbon project documentation into structured risk assessments through automated document processing, evidence extraction, and multi-dimensional risk scoring.
 
-- When writing new code, avoid lengthy comments - good code should be intuitive enough to make comments redundant. Use comments only when absolutely necessary, avoid documentation types of comments (e.g. description of the parameters and return types)
-- Put all imports in the same place - on top of the file. Avoid imports inside classes/functions.
+## Architecture & Data Flow
+The system follows a microservices architecture with three core services that process data through distinct stages:
 
-# Autonomous testing
-When developing a new feature or changing anything in the code, try to test it right away.
-Here is an approximate workflow and project stages that will help you better understand how it should be tested:
-1. A starting point: There is just an empty database and an S3 bucket with some files.
-2. Database initialization: init_db.py is called to initialize the database - it initializes the right collections and imports some config data from config/database/risk_dimensions.json and config/database/risk_types.json
-3. A docparser container is launched - it parses and improts PDF documents from an S3 bucket into a MongoDB database. during that process, it identifies project names and creates project records in the MongoDB, as well as documents linked to those project in the documents collection.
-4. A risk-calculator contianer is launched. It does the following:
-- Iterates through projects and documents, splits each document into chunks and saves them in the chunks collection in mongoDB
-- Iterates for each chunk, for each risk type, uses Large Language Models to find evidences. Parses return data from the large language models and creates evidence ratings and evidences records in the MongoDB database.
-- Uses those evidence ratings and evidence records to make calculations and create risk_assessments records and save in the mongo DB database.
-- Uses the risk assessments records to calculate and create project_score records and save them in the MongoDB database
-- Uses evidences to generate summaries for project_scores and update the project_score records in the MongoDB database
+### Core Services
+1. **Document Parser** - Monitors S3/MinIO for new documents, extracts text, identifies projects, creates structured records
+2. **Risk Calculator** - Chunks documents, uses LLMs to find evidence, calculates risk scores and project summaries  
+3. **API Service** - FastAPI server providing RESTful access to calculated risks and project data
 
-It is important that you don't confuse local development containers and MongoDB with the testing ones. Local MongoDB, api, doc-parser and risk-calculation containers are for others to use manually. While `mongodb-test`, `api-test`,`doc-parser-test`, `risk-calculator-test` and `test-setup` are purely for Claude code to autonomously orchestrate them and use them for testing it's code and changes in an isolated environment.
+### Data Storage
+- **MongoDB** - Primary database storing projects, documents, chunks, evidences, risk assessments, and scores
+- **MinIO/S3** - Object storage for raw PDF documents and processed files
+- **LangFuse** - LLM observability platform for tracing model interactions and performance
 
-During the development, new features may affect the worflow. That's why there is a test environment that can be easily spinned on locally for testing purposes. You can setup temporary MongoDB and api, doc-parser and risk-calculation containers. They can stay in the `internal` network to be able to connect to MinIO bucket (the MinIO bucket can be reused because it just serves the files and is not affected by the code).
+### Processing Pipeline
+```
+S3 Documents → Document Parser → Projects/Documents → Risk Calculator → 
+Chunks → Evidence Extraction (LLM) → Risk Assessments → Project Scores → API
+```
 
-Assume tha the `.env.test` file is already created (or you can check it in advance if you want).
+## Configuration System
+The system uses configuration-driven risk assessment through JSON files in `config/database/`:
+
+- **risk_dimensions.json** - Defines scoring dimensions (e.g., additionality, permanence) with scales, weights, and mapping rules
+- **risk_types.json** - Defines risk categories (e.g., technical, regulatory) that can be identified in projects
+- These configurations are loaded during database initialization and drive the LLM evidence extraction and scoring processes
+
+# Development Guidelines
+
+## Architecture Patterns
+- **Repository Pattern** - All database interactions must go through repository classes. Only repositories should interact with MongoDB models directly
+- **Type-Driven Business Logic** - Use Python types for business logic. When creating new types, always provide conversion functions to/from database models
+- **Schema Separation** - API endpoints use their own Pydantic schemas, separate from internal types and database models
+- **LLM Centralization** - All LLM interactions must be handled in `llm_service.py` with Langfuse tracing via `langfuse_tracer.py`
+
+## Code Style & Structure
+- **Consistency First** - Always match the existing code style in the file/module you're working on
+- **Minimal Comments** - Write self-documenting code. Only add comments when the logic is unavoidably complex
+- **Import Organization** - All imports at the top of the file. No imports inside functions or classes
+- **Dependency Management** - When adding dependencies, update `dependencies.txt`
+
+## Data Layer Understanding
+Understand the data flow stages when making changes:
+1. **Raw Documents** (S3/MinIO) → PDF files uploaded by users
+2. **Projects & Documents** (MongoDB) → Structured metadata extracted from PDFs  
+3. **Chunks** (MongoDB) → Documents split into smaller pieces for LLM processing
+4. **Evidences** (MongoDB) → LLM-extracted evidence linked to risk types and dimensions
+5. **Risk Assessments** (MongoDB) → Calculated risk scores based on evidence
+6. **Project Scores** (MongoDB) → Aggregated project-level risk scores with summaries
+
+# Autonomous Testing Strategy
+
+## Testing Philosophy
+Always test changes immediately after implementation. Use isolated test environments to avoid interfering with development containers. The system has distinct processing stages, and you should test at the appropriate stage for your changes.
+
+## Processing Stages & Test Data Requirements
+Understanding the processing pipeline helps determine what test data you need:
+
+1. **Empty Database** → Fresh start with S3 files ready for processing
+2. **Database Initialization** → Collections created, risk dimensions and types loaded from config files  
+3. **Document Processing** → Projects identified, documents parsed and stored in MongoDB
+4. **Document Chunking** → Documents split into chunks for LLM processing
+5. **Evidence Extraction** → LLMs analyze chunks, create evidence ratings and evidence records
+6. **Risk Assessment** → Evidence aggregated into risk assessment scores
+7. **Project Scoring** → Project-level scores calculated from risk assessments
+8. **Summary Generation** → LLM-generated summaries added to project scores
+
+## Test Data Stages
+Use `test-setup` container with these commands to populate data up to different stages:
+- `empty-db` → Clean slate
+- `init-db` → Database schema + configurations  
+- `init-projects` → Projects are loaded
+- `init-docs` → Documents are loaded
+- `init-chunks` → Documents chunked and ready for evidence extraction
+- `load-evidences` → Evidence extraction completed
+- `load-risk-assessments` → Risk assessments calculated
+- `load-project-scores` → Project scores calculated
+- `load-project-score-summaries` → Complete pipeline with summaries
+
+## Container Separation
+**CRITICAL**: Never confuse development and test containers:
+- **Development**: `mongodb`, `api`, `doc-parser`, `risk-calculator` → For manual use by developers
+- **Testing**: `mongodb-test`, `api-test`, `doc-parser-test`, `risk-calculator-test`, `test-setup` → For automated testing only
+
+All test containers use the `internal` network and can reuse the existing MinIO instance since it only serves static files.
+
+## Debugging & Troubleshooting Tools
+
+### Essential Commands for Testing
+1. **Container Status**: `docker ps -a` → See all containers and their states
+2. **Log Monitoring**: `docker logs <container-name>` → Check container output and errors
+3. **Real-time Logs**: `docker logs -f <container-name>` → Follow logs in real-time
+4. **MongoDB Shell**: Connect directly to test database to inspect data
+5. **API Testing**: Use `curl` commands to test endpoints (test API typically runs on port 8002)
+6. **Clean Environment**: Always stop and remove test containers before starting new tests
+
+### MongoDB Inspection
+Access the test MongoDB to verify data:
+```bash
+# Connect to test database using environment variables
+source ./.env.test
+mongosh "mongodb://${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest}:${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123}@localhost:27018/admin?authSource=admin"
+
+# Switch to application database
+use aicpx-test
+
+# Common inspection queries
+db.projects.countDocuments()
+db.documents.countDocuments()  
+db.chunks.countDocuments()
+db.evidences.countDocuments()
+db.risk_assessments.countDocuments()
+db.project_scores.countDocuments()
+
+# Get actual IDs for API testing
+db.projects.find({}, {_id: 1, name: 1}).limit(3)
+db.risk_assessments.find({}, {_id: 1}).limit(3)
+db.evidence_ratings.find({}, {_id: 1}).limit(3)
+db.chunks.find({}, {_id: 1}).limit(3)
+```
+
+### API Testing Examples
+**Important**: Always check the current FastAPI code for up-to-date endpoints. Look in the API router files to see available endpoints and their exact paths.
+
+```bash
+# Get all projects with total scores
+curl -X 'GET' 'http://localhost:8002/risk/projects-with-total-scores'
+
+# Get project risk breakdown (use actual project ID from database)
+curl -X 'GET' 'http://localhost:8002/risk/project-risk-breakdown/{project_id}'
+
+# Get specific risk assessment details  
+curl -X 'GET' 'http://localhost:8002/risk/risk-assessment/{risk_assessment_id}'
+
+# Get evidence rating breakdown
+curl -X 'GET' 'http://localhost:8002/risk/evidence-rating-breakdown/{evidence_rating_id}'
+
+# Get specific document chunk
+curl -X 'GET' 'http://localhost:8002/risk/get-chunk/{chunk_id}'
+```
+
+To find current endpoints and get real IDs for testing:
+1. Check FastAPI router files in the codebase for available endpoints
+2. Query MongoDB to get actual IDs: 
+   ```bash
+   source ./.env.test
+   mongosh "mongodb://${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest}:${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123}@localhost:27018/admin?authSource=admin"
+   use aicpx-test
+   ```
+3. Use FastAPI's auto-generated docs: `http://localhost:8002/docs`
+
+## Test Environment Setup
+
+Assume the `.env.test` file exists (verify with `ls .env.test` if needed).
 
 You can spin on a brand new MongoDB database for that prurpose using the following commands:
-# MongoDB database:
-To create new one:
+### Test Container Commands
+
+#### MongoDB Test Database
 ```bash
+# Create test database
 source ./.env.test
 docker run -d --name mongodb-test \
   --network internal \
@@ -46,146 +173,229 @@ docker run -d --name mongodb-test \
   -p 27018:27017 \
   --rm \
   mongo:noble
-```
-To check logs:
-```bash
+
+# Monitor startup
 docker logs mongodb-test
-```
-To stop and delete it:
-```bash
+
+# Stop and cleanup
 docker stop mongodb-test
 ```
 
-### FastAPI service
-To create new one:
+#### API Test Service  
 ```bash
+# Build and run API test container
 docker build -t api-test -f docker/Dockerfile.api .
 docker run -d --rm --name api-test -v $(pwd)/.env.test:/app/.env -p 8002:8001 --network internal api-test
-```
-To check logs:
-```bash
+
+# Monitor logs and test with curl
 docker logs api-test
-```
-To stop and delete it:
-```bash
-docker stop api-test
+curl "http://localhost:8002/health"  # Test API is responding
 ```
 
-You can use curl commands to test API calls. For that, you can check what is the port of the api-test container.
-
-### Document parsing service
+#### Document Parser Test Service
 ```bash
 docker build -t doc-parser-test -f docker/Dockerfile.docparser .
 docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test
-```
-To check logs:
-```bash
-docker logs doc-parser-test
-```
-To stop and delete it:
-```bash
-docker stop doc-parser-test
+docker logs doc-parser-test  # Monitor document processing
 ```
 
-### Risk calculation service
+#### Risk Calculator Test Service  
 ```bash
 docker build -t risk-calculator-test -f docker/Dockerfile.risk-calculator .
 docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test
-```
-To check logs:
-```bash
-docker logs risk-calculator-test
-```
-To stop and delete it:
-```bash
-docker stop risk-calculator-test
+docker logs risk-calculator-test  # Monitor LLM processing and scoring
 ```
 
-
-###
-To better test it, you can use the `test-setup` container with different parameters to quickly setup testing envronment. You need to identify how much it should be set up and then to use the respective parameter.
-# To run test setup: 
-
+### Test Data Population
+Use `test-setup` container to populate database with test data:
 ```bash
-# Build the database initialization container
+# Build test setup container
 docker build -t test-setup -f docker/Dockerfile.test-setup .
 
-# Run database initialization
-docker run --rm --network internal test-setup
+# Populate to specific stage (choose appropriate level for your test)
+docker run --rm --network internal test-setup <stage>
 ```
+**Available stages**: `empty-db`, `init-db`, `init-projects`, `init-docs`, `init-chunks`, `load-evidences`, `load-risk-assessments`, `load-project-scores`, `load-project-score-summaries`
 
-You can also run with the following commands:
-```
-empty-db
-init-db
-init-projects
-init-docs
-init-chunks
-load-evidences
-load-risk-assessments
-load-project-scores
-load-project-score-summaries
-```
+# Testing Workflow Examples
 
-So command would look something like this:
-```bash
-docker run --rm --network internal test-setup init-chunks
-```
+## Example 1: Testing a New API Endpoint
 
-# Claude autonomous testing workflow examples
-## Example 1
-Imagine you were asked to create a new API endpoint. You made some changes in the router and maybe added new schemas. Now it can check if there is already running test environment. It can use `docker ps -a` command to see the running containers. If any of the `mongodb-test`, `api-test`,`doc-parser-test`, `risk-calculator-test` or `test-setup` containers are running, it can stop them to make things clean before testing anything. Then it can create a new MongoDB container using the following command (and use `.env.test` env file):
-```
-source ./.env.test
-docker run -d --name mongodb-test \
-  --network internal \
-  -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest} \
-  -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123} \
-  -p 27018:27017 \
-  --rm \
-  mongo:noble
-```
-It can even check the logs if it wants to double check that it was set up and running properly:
-```bash
-docker logs mongodb-test
-```
-Then, it can use the `test-setup` container to populate the database with the test data. Here it should think how much test data it needs. Since we are testing the API, which is the very end of the application stage (the application starts with the file processing, then risk calculation, then when evrything is ready, an API is used to serve all this data), we can use the latest stage of the test data - so we can use the `load-project-score-summaries` parameter. But also we will build the continer first, to have the most recent changes in the code:
-```
-docker build -t test-setup -f docker/Dockerfile.test-setup .
-docker run --rm --network internal test-setup load-project-score-summaries
-```
+**Scenario**: You've added a new API endpoint and need to test it end-to-end.
 
-We can monitor the logs to make sure that everything is built and executed correctly. Once it's done, we can run our API container with this command:
-```bash
-docker build -t api-test -f docker/Dockerfile.api .
-docker run -d --rm --name api-test -v $(pwd)/.env.test:/app/.env -p 8002:8001 --network internal api-test
-```
-Then we can test our new API endpoints with a customly generated curl request to localhost:8002 and check if it is responding an expected value. On top of that, we can query MongoDB directly to compare if the data returned from the APi matches the data that is stored in the MongoDB database. We cna use the MongoDB Shell cli tool for that.
+**Testing Strategy**: Since APIs serve processed data, you need the complete dataset including summaries.
 
-Let's say we got some error. We can check logs of the docker container:
-```bash
-docker logs api-test
-```
-For example, we identified the issue, and rebuilt the API container and tested again and now everyhting works well.
+### Step-by-Step Workflow:
 
-Now, since everything is successful, we can clean up our testing environemnt.
-We can run this command to stop and delete the api testing container:
-```bash
-docker stop api-test
-```
-And also to stop and delete the temporary testing MongoDB container:
-```
-docker stop mongodb-test
-```
-Great, the Claude added new endpoint in the API, and tested the end-to-end worflow by creating a temporary MongoDB database for testing, populated it with test data, created a temporary api container for testing, and made some curl calls to it to test it and maybe even compared the results with the data from the test mongodb database using mongo shell and maybe even debugged and made some changes by monitoring logs.
+1. **Clean Environment**
+   ```bash
+   # Check for existing test containers
+   docker ps -a
+   
+   # Stop any running test containers
+   docker stop mongodb-test api-test doc-parser-test risk-calculator-test 2>/dev/null || true
+   ```
 
+2. **Setup Test Database**
+   ```bash
+   # Create fresh test MongoDB
+   source ./.env.test
+   docker run -d --name mongodb-test \
+     --network internal \
+     -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest} \
+     -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123} \
+     -p 27018:27017 \
+     --rm \
+     mongo:noble
+   
+   # Verify database is ready
+   docker logs mongodb-test
+   ```
 
-## Example 1
-For exmaple, we want to change the way we identify evidences in a chunk. Claude can do the following steps:
-Start with creating a new temporary MongoDB for testing.
-Then preparing some test data. It identified that for those changes, we need data of projects and documents and chunks, but not the data of evidences, since those are the things that we want to test. For this, we should initilize test database up until the stage "init-chunks". So we will run the command:
-```bash
-docker run --rm --network internal test-setup init-chunks
-```
-And then we will build the risk-calculation container and monitor it's logs to see if everything is going as planned. On top of that, we can use MongoDB shell cli tool to query the test database directly and check if it generated evidences and evidence ratings as expected.
-After everything is tested and works properly, we can clean up the testing environment by stoping and deleting the temporary MongoDB and risk-calculation container.
+3. **Load Complete Test Dataset**
+   ```bash
+   # Build test setup with latest code
+   docker build -t test-setup -f docker/Dockerfile.test-setup .
+   
+   # Load full dataset including summaries (needed for API testing)
+   docker run --rm --network internal test-setup load-project-score-summaries
+   ```
+
+4. **Deploy and Test API**
+   ```bash
+   # Build and run API with your changes
+   docker build -t api-test -f docker/Dockerfile.api .
+   docker run -d --rm --name api-test -v $(pwd)/.env.test:/app/.env -p 8002:8001 --network internal api-test
+   
+   # Test your new endpoint
+   curl "http://localhost:8002/your-new-endpoint"
+   
+   # Compare API response with database data
+   source ./.env.test
+   mongosh "mongodb://${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest}:${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123}@localhost:27018/admin?authSource=admin"
+   use aicpx-test
+   ```
+
+5. **Debug if Needed**
+   ```bash
+   # Check API logs for errors
+   docker logs api-test
+   
+   # Rebuild and retry if needed
+   docker stop api-test
+   docker build -t api-test -f docker/Dockerfile.api .
+   docker run -d --rm --name api-test -v $(pwd)/.env.test:/app/.env -p 8002:8001 --network internal api-test
+   ```
+
+6. **Cleanup**
+   ```bash
+   docker stop api-test mongodb-test
+   ```
+
+## Example 2: Testing Evidence Extraction Changes
+
+**Scenario**: You've modified the LLM evidence extraction logic in the risk calculator.
+
+**Testing Strategy**: You need data up to chunks stage, then test evidence generation.
+
+### Step-by-Step Workflow:
+
+1. **Setup Environment**
+   ```bash
+   # Clean and create test database
+   docker stop mongodb-test risk-calculator-test 2>/dev/null || true
+   source ./.env.test
+   docker run -d --name mongodb-test \
+     --network internal \
+     -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest} \
+     -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123} \
+     -p 27018:27017 \
+     --rm \
+     mongo:noble
+   ```
+
+2. **Load Prerequisites Only**
+   ```bash
+   # Load data up to chunks (but not existing evidence)
+   docker build -t test-setup -f docker/Dockerfile.test-setup .
+   docker run --rm --network internal test-setup init-chunks
+   ```
+
+3. **Test Evidence Generation**
+   ```bash
+   # Build risk calculator with your changes
+   docker build -t risk-calculator-test -f docker/Dockerfile.risk-calculator .
+   docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test
+   
+   # Monitor evidence extraction process
+   docker logs -f risk-calculator-test
+   ```
+
+4. **Validate Results**
+   ```bash
+   # Check generated evidence in database
+   source ./.env.test
+   mongosh "mongodb://${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest}:${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123}@localhost:27018/admin?authSource=admin"
+   use aicpx-test
+   db.evidences.find().limit(5)
+   db.evidence_ratings.find().limit(5)
+   
+   # Verify evidence quality and structure
+   ```
+
+5. **Cleanup**
+   ```bash
+   docker stop risk-calculator-test mongodb-test
+   ```
+
+## Example 3: Testing Document Parser Changes
+
+**Scenario**: You've modified the document parsing logic.
+
+**Testing Strategy**: Start fresh and test document ingestion from S3.
+
+### Step-by-Step Workflow:
+
+1. **Setup Clean Environment**
+   ```bash
+   docker stop mongodb-test doc-parser-test 2>/dev/null || true
+   source ./.env.test
+   docker run -d --name mongodb-test \
+     --network internal \
+     -e MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest} \
+     -e MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123} \
+     -p 27018:27017 \
+     --rm \
+     mongo:noble
+   ```
+
+2. **Initialize Database Only**
+   ```bash
+   docker build -t test-setup -f docker/Dockerfile.test-setup .
+   docker run --rm --network internal test-setup init-db
+   ```
+
+3. **Test Document Processing**
+   ```bash
+   # Build and run document parser with your changes
+   docker build -t doc-parser-test -f docker/Dockerfile.docparser .
+   docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test
+   
+   # Monitor document processing
+   docker logs -f doc-parser-test
+   ```
+
+4. **Validate Results**
+   ```bash
+   # Check parsed projects and documents
+   source ./.env.test
+   mongosh "mongodb://${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest}:${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123}@localhost:27018/admin?authSource=admin"
+   use aicpx-test
+   db.projects.find()
+   db.documents.find().limit(3)
+   ```
+
+5. **Cleanup**
+   ```bash
+   docker stop doc-parser-test mongodb-test
+   ```
