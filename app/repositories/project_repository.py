@@ -2,9 +2,18 @@ from typing import Optional, List
 
 from app.core.models import Project as ProjectModel
 from app.core.types import Project as ProjectType
+from beanie import PydanticObjectId
 
 
 class ProjectRepository:
+    
+    @staticmethod
+    async def get_by_id(project_id: str) -> Optional[ProjectType]:
+        try:
+            project = await ProjectModel.get(PydanticObjectId(project_id))
+            return ProjectType.from_model(project) if project else None
+        except Exception:
+            return None
     
     @staticmethod
     async def get_all() -> List[ProjectType]:

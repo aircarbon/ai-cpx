@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional
-from datetime import datetime
 
 
 # Base schemas
@@ -25,6 +24,13 @@ class RiskBreakdownItem(BaseModel):
     weight: float = Field(..., description="Weight of this risk type in overall scoring", ge=0.0)
     score: float = Field(..., description="Calculated risk score", ge=0.0, le=1.0)
     number_of_evidences: int = Field(..., description="Number of evidences supporting this risk assessment", ge=0)
+
+
+class ProjectRiskBreakdown(BaseModel):
+    project_id: str = Field(..., description="Unique identifier for the project")
+    project_name: str = Field(..., description="Name of the project")
+    total_risk_score: Optional[float] = Field(None, description="Total aggregated risk score for the project")
+    risk_breakdowns: List[RiskBreakdownItem] = Field(..., description="List of individual risk assessments for this project")
 
 
 class RatingDetail(BaseModel):

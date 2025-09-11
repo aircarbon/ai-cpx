@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from app.core.models import ProjectScore as ProjectScoreModel
+from app.core.models import ProjectScore as ProjectScoreModel, Project as ProjectModel
 from app.core.types import Project, ProjectScore, RiskAssessment
 from beanie import PydanticObjectId
 
@@ -22,10 +22,13 @@ class ProjectScoreRepository:
     @staticmethod
     async def get_by_project(project_id: str) -> Optional[ProjectScore]:
         """Get existing project score for a project."""
-        model = await ProjectScoreModel.find_one(
-            ProjectScoreModel.project_id == PydanticObjectId(project_id)
-        )
-        return ProjectScore.from_model(model) if model else None
+        # Note: Direct Link field queries with PydanticObjectId don't work reliably in Beanie
+        # Using get_all() approach which is more reliable for Link field comparisons  
+        all_scores = await ProjectScoreRepository.get_all()
+        for score in all_scores:
+            if score.project_id == project_id:
+                return score
+        return None
     
     @staticmethod
     async def get_all() -> List[ProjectScore]:

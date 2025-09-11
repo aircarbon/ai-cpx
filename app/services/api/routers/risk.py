@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from typing import List
 from app.services.api.schemas.risk_schemas import (
-    ProjectSummary, RiskBreakdownItem, RiskAssessmentDetail, EvidenceDetail,
+    ProjectSummary, RiskBreakdownItem, ProjectRiskBreakdown, RiskAssessmentDetail, EvidenceDetail,
     EvidenceRatingBreakdown, RatingDetail, ChunkDetail
 )
 from app.repositories.project_repository import ProjectRepository
@@ -37,52 +37,52 @@ async def get_projects_with_total_scores():
     return result
 
 
-@router.get("/project-risk-breakdown/{project_id}", response_model=List[RiskBreakdownItem])
+@router.get("/project-risk-breakdown/{project_id}", response_model=ProjectRiskBreakdown)
 async def get_project_risk_breakdown(project_id: str):
-    all_project_scores = await ProjectScoreRepository.get_all()
-    project_score = None
+    project = await ProjectRepository.get_by_id(project_id)
+    if not project:
+        raise HTTPException(status_code=404, detail=f"Project not found with ID: {project_id}")
     
-    for ps in all_project_scores:
-        if ps.project_id == project_id:
-            project_score = ps
-            break
-    
+    project_score = await ProjectScoreRepository.get_by_project(project_id)
     if not project_score:
         raise HTTPException(status_code=404, detail=f"No project score found for project ID: {project_id}")
     
-    if not project_score.risk_scores:
-        return []
-    
-    all_risk_types = await RiskTypeRepository.get_all()
-    risk_type_mapping = {risk_type.id: risk_type for risk_type in all_risk_types}
-    
     risk_breakdown = []
-    for risk_assessment_id in project_score.risk_scores:
-        risk_assessment = await RiskAssessmentRepository.get_by_id(risk_assessment_id)
+    if project_score.risk_scores:
+        all_risk_types = await RiskTypeRepository.get_all()
+        risk_type_mapping = {risk_type.id: risk_type for risk_type in all_risk_types}
         
-        if risk_assessment:
-            risk_type_obj = risk_type_mapping.get(risk_assessment.risk_type_id)
+        for risk_assessment_id in project_score.risk_scores:
+            risk_assessment = await RiskAssessmentRepository.get_by_id(risk_assessment_id)
             
-            if risk_type_obj:
-                risk_breakdown.append(RiskBreakdownItem(
-                    risk_assessment_id=risk_assessment.id,
-                    risk_type=risk_type_obj.risk_type,
-                    description=risk_type_obj.description,
-                    weight=risk_type_obj.weight,
-                    score=risk_assessment.score,
-                    number_of_evidences=len(risk_assessment.evidence_ids)
-                ))
-            else:
-                risk_breakdown.append(RiskBreakdownItem(
-                    risk_assessment_id=risk_assessment.id,
-                    risk_type="Unknown Risk Type",
-                    description="Unknown",
-                    weight=0.0,
-                    score=risk_assessment.score,
-                    number_of_evidences=len(risk_assessment.evidence_ids)
-                ))
+            if risk_assessment:
+                risk_type_obj = risk_type_mapping.get(risk_assessment.risk_type_id)
+                
+                if risk_type_obj:
+                    risk_breakdown.append(RiskBreakdownItem(
+                        risk_assessment_id=risk_assessment.id,
+                        risk_type=risk_type_obj.risk_type,
+                        description=risk_type_obj.description,
+                        weight=risk_type_obj.weight,
+                        score=risk_assessment.score,
+                        number_of_evidences=len(risk_assessment.evidence_ids)
+                    ))
+                else:
+                    risk_breakdown.append(RiskBreakdownItem(
+                        risk_assessment_id=risk_assessment.id,
+                        risk_type="Unknown Risk Type",
+                        description="Unknown",
+                        weight=0.0,
+                        score=risk_assessment.score,
+                        number_of_evidences=len(risk_assessment.evidence_ids)
+                    ))
     
-    return risk_breakdown
+    return ProjectRiskBreakdown(
+        project_id=project_id,
+        project_name=project.name,
+        total_risk_score=project_score.total_score,
+        risk_breakdowns=risk_breakdown
+    )
 
 
 @router.get("/risk-assessment/{risk_assessment_id}", response_model=RiskAssessmentDetail)
