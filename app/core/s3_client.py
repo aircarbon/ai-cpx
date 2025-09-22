@@ -4,12 +4,14 @@ import io
 from botocore.exceptions import ClientError, NoCredentialsError
 from dotenv import load_dotenv
 from typing import Optional, List, Dict, Any
+from urllib.parse import quote
 
 # Load environment variables
 load_dotenv()
 
 # MinIO/S3 Configuration
 S3_ENDPOINT = os.getenv('S3_ENDPOINT', 'http://localhost:9000')
+S3_PUBLIC_ENDPOINT = os.getenv('S3_PUBLIC_ENDPOINT', 'http://localhost:9100')
 S3_ACCESS_KEY = os.getenv('S3_ROOT_USER', 'minioadmin')
 S3_SECRET_KEY = os.getenv('S3_ROOT_PASSWORD', 'minioadmin')
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME', 'documents')
@@ -142,3 +144,16 @@ def file_exists(file_key: str,
     except Exception as e:
         print(f"Unexpected error checking file {file_key}: {e}")
         return False
+
+
+def generate_document_url(project_name: str, file_name: str, bucket_name: Optional[str] = None) -> str:
+    if not bucket_name:
+        bucket_name = get_bucket_name()
+
+    # URL encode the project name and file name to handle spaces and special characters
+    encoded_project_name = quote(project_name, safe='')
+    encoded_file_name = quote(file_name, safe='')
+    
+    document_url = f"{S3_PUBLIC_ENDPOINT}/{bucket_name}/{encoded_project_name}/{encoded_file_name}"
+
+    return document_url

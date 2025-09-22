@@ -12,7 +12,8 @@ from app.core.database import init_database, close_database
 from app.core.models import Project, SourceDocument
 from app.core.types import Project as ProjectType, SourceDocument as SourceDocumentType
 from app.core.s3_client import (
-    list_pdf_files_by_folder, 
+    list_pdf_files_by_folder,
+    generate_document_url,
 )
 from app.repositories.project_repository import ProjectRepository
 from app.repositories.source_document_repository import SourceDocumentRepository
@@ -63,7 +64,9 @@ async def process_documents_for_project(project: ProjectType, files: List[Dict[s
         error = parsing_result['error'] if not parsing_result['success'] else None
         page_count = parsing_result['page_count']
         metadata = parsing_result['metadata'] or {}
-        
+
+        document_url = generate_document_url(project.name, file_name)
+
         document_data = SourceDocumentType(
             project_id=project.id,
             file_name=file_name,
@@ -75,6 +78,7 @@ async def process_documents_for_project(project: ProjectType, files: List[Dict[s
             error=error,
             file_size=file_info['size'],
             page_count=page_count,
+            document_url=document_url,
             metadata=metadata
         )
         

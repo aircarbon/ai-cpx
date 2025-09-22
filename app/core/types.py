@@ -129,6 +129,7 @@ class SourceDocument:
     error: Optional[str] = None
     file_size: Optional[int] = None
     page_count: Optional[int] = None
+    document_url: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
     created_at: Optional[datetime] = None
     id: Optional[str] = None
@@ -149,7 +150,7 @@ class SourceDocument:
     def from_model(cls, model: 'SourceDocumentModel') -> 'SourceDocument':
         # Extract ObjectId from DBRef for Link fields
         project_id_str = str(model.project_id.to_ref().id) if hasattr(model.project_id, 'to_ref') else str(model.project_id)
-        
+
         return cls(
             project_id=project_id_str,
             file_name=model.file_name,
@@ -161,6 +162,7 @@ class SourceDocument:
             error=model.error,
             file_size=model.file_size,
             page_count=model.page_count,
+            document_url=model.document_url,
             metadata=model.metadata,
             created_at=model.created_at,
             id=str(model.id)
@@ -178,6 +180,7 @@ class SourceDocument:
             error=self.error,
             file_size=self.file_size,
             page_count=self.page_count,
+            document_url=self.document_url,
             metadata=self.metadata,
             created_at=self.created_at
         )

@@ -231,6 +231,7 @@ async def get_chunk(chunk_id: str):
         chunk_id=chunk_id,
         project_name=project_obj.name if project_obj else "Unknown Project",
         document_name=document.file_name,
+        document_url=document.document_url,
         chunk_index=chunk.chunk_index,
         content=chunk.content
     )

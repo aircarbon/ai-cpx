@@ -28,20 +28,21 @@ class Project(Document):
 # Individual parsed file from S3 file
 class SourceDocument(Document):
     project_id: Link[Project] = Field(..., description="Reference to the project this document belongs to")
-    
+
     file_name: str = Field(..., description="Name of the file")
     source_type: str = Field(..., description="Type of source (file, url, etc.)")
     source_path: str = Field(..., description="Source path or URL of the document")
-    
+
     title: str = Field(..., description="Title of the document")
     content: str = Field(..., description="Extracted text content from the document")
-    
+
     success: bool = Field(..., description="Whether processing was successful")
     error: Optional[str] = Field(None, description="Error message if processing failed")
-    
+
     file_size: Optional[int] = Field(None, description="Size of the file in bytes")
     page_count: Optional[int] = Field(None, description="Number of pages in the document")
-    
+    document_url: Optional[str] = Field(None, description="Public URL to access the document")
+
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional document metadata")
     
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the document was created")

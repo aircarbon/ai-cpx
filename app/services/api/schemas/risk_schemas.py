@@ -66,5 +66,6 @@ class ChunkDetail(BaseModel):
     chunk_id: str = Field(..., description="Unique identifier for the chunk")
     project_name: str = Field(..., description="Name of the project this chunk belongs to")
     document_name: str = Field(..., description="Name of the source document")
+    document_url: Optional[str] = Field(None, description="Public URL to access the document")
     chunk_index: int = Field(..., description="Index of this chunk within the document", ge=0)
     content: str = Field(..., description="Text content of the chunk")

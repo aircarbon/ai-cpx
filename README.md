@@ -101,6 +101,15 @@ docker run -d --name minio \
   quay.io/minio/minio server /data --console-address ":9001"
 ```
 
+You will need to use MinIO `mc` client to make the files public.
+To isntall `mc`: https://docs.min.io/community/minio-object-store/reference/minio-mc.html
+Then run these commands to make MinIO files public (adjust credentials in the commands):
+```bash
+mc alias set myminio http://localhost:9100 admin minio_password
+mc anonymous set download myminio/test-bucket
+```
+
+
 ### FastAPI service
 ```bash
 docker build -t api -f docker/Dockerfile.api .
