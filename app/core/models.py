@@ -199,7 +199,7 @@ class RiskAssessment(Document):
     project_id: Link[Project] = Field(..., description="Reference to the project this assessment belongs to")
     risk_type_id: Link[RiskType] = Field(..., description="Reference to the risk type")
     evidence_ids: List[Link[Evidence]] = Field(default_factory=list, description="Array of links to Evidence objects (each risk type can have multiple evidences)")
-    score: float = Field(..., description="Risk assessment score for this risk type")
+    score: Optional[float] = Field(None, description="Risk assessment score for this risk type (null if no evidences)")
     
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the assessment was created")
     

@@ -22,7 +22,7 @@ class RiskBreakdownItem(BaseModel):
     risk_type: str = Field(..., description="Name of the risk type")
     description: str = Field(..., description="Detailed description of the risk type")
     weight: float = Field(..., description="Weight of this risk type in overall scoring", ge=0.0)
-    score: float = Field(..., description="Calculated risk score", ge=0.0, le=1.0)
+    score: Optional[float] = Field(None, description="Calculated risk score (null if no evidences)", ge=0.0, le=1.0)
     number_of_evidences: int = Field(..., description="Number of evidences supporting this risk assessment", ge=0)
 
 
@@ -47,7 +47,7 @@ class RiskAssessmentDetail(BaseModel):
     risk_name: str = Field(..., description="Name of the risk type")
     risk_description: str = Field(..., description="Detailed description of the risk")
     project_name: str = Field(..., description="Name of the project this assessment belongs to")
-    score: float = Field(..., description="Overall risk assessment score", ge=0.0, le=1.0)
+    score: Optional[float] = Field(None, description="Overall risk assessment score (null if no evidences)", ge=0.0, le=1.0)
     number_of_evidences: int = Field(..., description="Total number of evidences", ge=0)
     evidences: List[EvidenceDetail] = Field(..., description="List of evidences supporting this assessment")
 

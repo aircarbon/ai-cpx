@@ -13,11 +13,18 @@ async def calculate_total_project_score(risk_assessments: List[RiskAssessment]) 
     """
     Calculate total project score from all risk assessments.
     Uses the average of all risk assessment scores for now.
+    Excludes risk assessments with None scores (no evidences).
     """
     if not risk_assessments:
         return 0.0
-    
-    scores = [ra.score for ra in risk_assessments]
+
+    # Filter out None scores (risk types with no evidences)
+    valid_scores = [ra.score for ra in risk_assessments if ra.score is not None]
+
+    if not valid_scores:
+        return 0.0
+
+    scores = valid_scores
     
     # For now, use simple average. Could be enhanced with:
     # - Weighted average based on risk type importance
@@ -31,8 +38,9 @@ async def get_top_risk_evidences_for_summary(project: Project, risk_assessments:
     if not risk_assessments:
         return []
     
-    # Sort risk assessments by score (highest first) and take top 3
-    sorted_assessments = sorted(risk_assessments, key=lambda ra: ra.score, reverse=True)
+    # Filter out assessments with None scores and sort by score (highest first) and take top 3
+    valid_assessments = [ra for ra in risk_assessments if ra.score is not None]
+    sorted_assessments = sorted(valid_assessments, key=lambda ra: ra.score, reverse=True)
     top_3_assessments = sorted_assessments[:3]
     
     print(f"    📋 Getting evidences from top {len(top_3_assessments)} risk assessments for summary")

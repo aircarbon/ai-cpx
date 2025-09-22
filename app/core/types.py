@@ -323,7 +323,7 @@ class RiskAssessment:
     project_id: str
     risk_type_id: str
     evidence_ids: List[str]  # List of Evidence IDs
-    score: float
+    score: Optional[float]
     created_at: Optional[datetime] = None
     id: Optional[str] = None
     

@@ -148,9 +148,14 @@ async def scheduled_task() -> None:
                     
                     # Display summary
                     print(f"📋 Risk Assessment Summary:")
-                    for risk_type_name, score in sorted(risk_scores.items(), key=lambda x: x[1], reverse=True):
+                    # Sort with null scores at the end
+                    sorted_scores = sorted(risk_scores.items(), key=lambda x: (x[1] is None, x[1] or 0), reverse=True)
+                    for risk_type_name, score in sorted_scores:
                         evidence_count = evidence_summary.get(risk_type_name, 0)
-                        print(f"  • {risk_type_name}: {score:.3f} (based on {evidence_count} evidences)")
+                        if score is None:
+                            print(f"  • {risk_type_name}: null (no evidences)")
+                        else:
+                            print(f"  • {risk_type_name}: {score:.3f} (based on {evidence_count} evidences)")
                 else:
                     print(f"⚠️  No evidences found for project '{project.name}' - skipping risk assessment calculation")
             

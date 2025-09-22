@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Optional
 import statistics
 
 from app.core.types import Project, RiskType, Evidence
@@ -7,13 +7,14 @@ from app.repositories.risk_assessment_repository import RiskAssessmentRepository
 from app.repositories.risk_type_repository import RiskTypeRepository
 
 
-async def calculate_risk_assessment_score(evidences: List[Evidence]) -> float:
+async def calculate_risk_assessment_score(evidences: List[Evidence]) -> Optional[float]:
     """
     Calculate risk assessment score from multiple evidences.
     Uses the average of all evidence scores for now.
+    Returns None if no evidences provided.
     """
     if not evidences:
-        return 0.0
+        return None
     
     scores = [evidence.score for evidence in evidences]
     
@@ -24,7 +25,7 @@ async def calculate_risk_assessment_score(evidences: List[Evidence]) -> float:
     return statistics.mean(scores)
 
 
-async def process_project_risk_assessments(project: Project) -> Dict[str, float]:
+async def process_project_risk_assessments(project: Project) -> Dict[str, Optional[float]]:
     """
     Process all risk assessments for a project by aggregating evidences.
     """
@@ -58,11 +59,11 @@ async def process_project_risk_assessments(project: Project) -> Dict[str, float]
         
         if not evidences:
             print(f"    📄 No evidences found for {risk_type.risk_type}")
-            # Create risk assessment with score 0.0 for risk types with no evidence
+            # Create risk assessment with score None for risk types with no evidence
             await RiskAssessmentRepository.update_or_create_risk_assessment(
-                project, risk_type, [], 0.0
+                project, risk_type, [], None
             )
-            risk_assessment_scores[risk_type.risk_type] = 0.0
+            risk_assessment_scores[risk_type.risk_type] = None
             continue
         
         print(f"    📈 Found {len(evidences)} evidences")
@@ -82,7 +83,7 @@ async def process_project_risk_assessments(project: Project) -> Dict[str, float]
             
         except Exception as e:
             print(f"    ❌ Error saving risk assessment for {risk_type.risk_type}: {str(e)}")
-            risk_assessment_scores[risk_type.risk_type] = 0.0
+            risk_assessment_scores[risk_type.risk_type] = None
     
     print(f"✅ Processed {processed_count} risk assessments for project '{project.name}'")
     return risk_assessment_scores

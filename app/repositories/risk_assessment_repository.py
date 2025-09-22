@@ -8,7 +8,7 @@ from beanie import PydanticObjectId
 class RiskAssessmentRepository:
     
     @staticmethod
-    async def create_risk_assessment(project: Project, risk_type: RiskType, evidences: List[Evidence], score: float) -> RiskAssessment:
+    async def create_risk_assessment(project: Project, risk_type: RiskType, evidences: List[Evidence], score: Optional[float]) -> RiskAssessment:
         """Create a new risk assessment from evidences."""
         # Get the actual model objects to create Links
         project_model = await ProjectModel.get(PydanticObjectId(project.id))
@@ -55,7 +55,7 @@ class RiskAssessmentRepository:
         return [RiskAssessment.from_model(model) for model in matching_models]
     
     @staticmethod
-    async def update_or_create_risk_assessment(project: Project, risk_type: RiskType, evidences: List[Evidence], score: float) -> RiskAssessment:
+    async def update_or_create_risk_assessment(project: Project, risk_type: RiskType, evidences: List[Evidence], score: Optional[float]) -> RiskAssessment:
         """Update existing risk assessment or create new one."""
         project_model = await ProjectModel.get(PydanticObjectId(project.id))
         risk_type_model = await RiskTypeModel.get(PydanticObjectId(risk_type.id))
