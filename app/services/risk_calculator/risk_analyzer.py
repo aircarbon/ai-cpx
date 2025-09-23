@@ -1,6 +1,5 @@
 from typing import List
 import json
-import traceback
 import asyncio
 
 from app.core.types import Project, Chunk, RiskType, LLMRiskAnalysisResponse, RiskDimensionSpec, LLMEvidence, LLMDimensionRating
@@ -15,6 +14,9 @@ from app.core.llm_service import get_llm_service
 # Retry configuration for LLM analysis
 MAX_RETRIES = 3
 RETRY_DELAY = 1  # seconds
+
+# Batch processing configuration
+BATCH_SIZE = 5  # Number of concurrent LLM queries
 
 
 async def get_all_risk_types() -> List[RiskType]:
@@ -277,9 +279,31 @@ async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project
 
 
 async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType], project_index: int, total_projects: int, chunk_index: int, total_chunks: int) -> None:
-    """Analyze a single chunk against all risk types."""
-    for risk_index, risk_type in enumerate(risk_types):
-        await analyze_chunk_for_risk_type(chunk, risk_type, project_index, total_projects, chunk_index, total_chunks, risk_index + 1, len(risk_types))
+    """Analyze a single chunk against all risk types using parallel batches."""
+    # Process risk types in batches for parallel execution
+    for batch_start in range(0, len(risk_types), BATCH_SIZE):
+        batch_end = min(batch_start + BATCH_SIZE, len(risk_types))
+        batch_risk_types = risk_types[batch_start:batch_end]
+
+        # Create tasks for this batch
+        tasks = []
+        for i, risk_type in enumerate(batch_risk_types):
+            risk_index = batch_start + i + 1  # 1-based index
+            task = analyze_chunk_for_risk_type(
+                chunk, risk_type, project_index, total_projects,
+                chunk_index, total_chunks, risk_index, len(risk_types)
+            )
+            tasks.append(task)
+
+        # Execute batch in parallel
+        print(f"    📦 Processing batch {batch_start//BATCH_SIZE + 1} ({len(batch_risk_types)} risk types in parallel)")
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # Log any exceptions that occurred
+        for i, result in enumerate(results):
+            if isinstance(result, Exception):
+                risk_type = batch_risk_types[i]
+                print(f"      ❌ Error processing {risk_type.risk_type}: {str(result)}")
 
 
 async def process_project_risk_analysis(project: Project, risk_types: List[RiskType], project_index: int, total_projects: int) -> int:
