@@ -1,6 +1,7 @@
 from typing import List
 import json
 import traceback
+import asyncio
 
 from app.core.types import Project, Chunk, RiskType, LLMRiskAnalysisResponse, RiskDimensionSpec, LLMEvidence, LLMDimensionRating
 from app.repositories.chunk_repository import ChunkRepository
@@ -10,6 +11,10 @@ from app.repositories.risk_dimension_repository import RiskDimensionRepository
 from app.repositories.evidence_rating_repository import EvidenceRatingRepository
 from app.repositories.evidence_repository import EvidenceRepository
 from app.core.llm_service import get_llm_service
+
+# Retry configuration for LLM analysis
+MAX_RETRIES = 3
+RETRY_DELAY = 1  # seconds
 
 
 async def get_all_risk_types() -> List[RiskType]:
@@ -202,6 +207,57 @@ async def get_project_chunks(project: Project) -> List[Chunk]:
         return []
 
 
+async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: List[RiskDimensionSpec]) -> int:
+    """Analyze chunk with retry logic for LLM failures. Returns number of evidences saved."""
+    for attempt in range(MAX_RETRIES):
+        try:
+            prompt = build_risk_analysis_prompt(chunk.content, risk_type, dimensions)
+            llm_service = get_llm_service()
+            session_id = f"risk_analysis_{risk_type.risk_type}_{chunk.chunk_index}"
+            response = await llm_service.query(prompt, session_id=session_id)
+
+            # Try to parse JSON response
+            try:
+                response_data = json.loads(response)
+                llm_response = parse_llm_response(response_data)
+
+                if llm_response.has_evidences:
+                    saved_count = await save_evidences_to_database(llm_response, risk_type, chunk, dimensions)
+                    return saved_count
+                else:
+                    # No evidences found, but this is not an error
+                    return 0
+
+            except json.JSONDecodeError as e:
+                if attempt < MAX_RETRIES - 1:
+                    print(f"      ⚠️ Attempt {attempt + 1}/{MAX_RETRIES}: JSON parsing failed, retrying in {RETRY_DELAY}s...")
+                    await asyncio.sleep(RETRY_DELAY)
+                    continue
+                else:
+                    print(f"      ❌ Failed to parse JSON response after {MAX_RETRIES} attempts: {str(e)}")
+                    return 0
+
+            except Exception as e:
+                if attempt < MAX_RETRIES - 1:
+                    print(f"      ⚠️ Attempt {attempt + 1}/{MAX_RETRIES}: Processing error, retrying in {RETRY_DELAY}s...")
+                    await asyncio.sleep(RETRY_DELAY)
+                    continue
+                else:
+                    print(f"      ❌ Error processing LLM response after {MAX_RETRIES} attempts: {str(e)}")
+                    return 0
+
+        except Exception as e:
+            if attempt < MAX_RETRIES - 1:
+                print(f"      ⚠️ Attempt {attempt + 1}/{MAX_RETRIES}: LLM query failed, retrying in {RETRY_DELAY}s...")
+                await asyncio.sleep(RETRY_DELAY)
+                continue
+            else:
+                print(f"      ❌ LLM query failed after {MAX_RETRIES} attempts: {str(e)}")
+                return 0
+
+    return 0
+
+
 async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project_index: int, total_projects: int, chunk_index: int, total_chunks: int, risk_index: int, total_risks: int) -> None:
     """Analyze a single chunk for a specific risk type."""
     print(f"    🔍 Analyzing project {project_index}/{total_projects}, chunk {chunk_index}/{total_chunks}, risk type {risk_index}/{total_risks}: {risk_type.risk_type}")
@@ -211,24 +267,10 @@ async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project
         if not dimensions:
             return
 
-        prompt = build_risk_analysis_prompt(chunk.content, risk_type, dimensions)
-        llm_service = get_llm_service()
-        session_id = f"risk_analysis_{risk_type.risk_type}_{chunk.chunk_index}"
-        response = await llm_service.query(prompt, session_id=session_id)
-
-        # Try to parse JSON response
-        try:
-            response_data = json.loads(response)
-            llm_response = parse_llm_response(response_data)
-
-            if llm_response.has_evidences:
-                saved_count = await save_evidences_to_database(llm_response, risk_type, chunk, dimensions)
-                print(f"      ✅ Saved {saved_count} evidences")
-
-        except json.JSONDecodeError as e:
-            print(f"      ❌ Failed to parse JSON response: {str(e)}")
-        except Exception as e:
-            print(f"      ❌ Error processing LLM response: {str(e)}")
+        # Retry LLM analysis with error handling
+        saved_count = await analyze_with_retry(chunk, risk_type, dimensions)
+        if saved_count > 0:
+            print(f"      ✅ Saved {saved_count} evidences")
 
     except Exception as e:
         print(f"      ❌ Error in LLM analysis: {str(e)}")
