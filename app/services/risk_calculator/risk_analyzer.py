@@ -1,7 +1,6 @@
 from typing import List
-import sys
 import json
-import os
+import traceback
 
 from app.core.types import Project, Chunk, RiskType, LLMRiskAnalysisResponse, RiskDimensionSpec, LLMEvidence, LLMDimensionRating
 from app.repositories.chunk_repository import ChunkRepository
@@ -203,123 +202,54 @@ async def get_project_chunks(project: Project) -> List[Chunk]:
         return []
 
 
-async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType) -> None:
+async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project_index: int, total_projects: int, chunk_index: int, total_chunks: int, risk_index: int, total_risks: int) -> None:
     """Analyze a single chunk for a specific risk type."""
-    print(f"    🔍 Analyzing chunk {chunk.chunk_index} for risk type: {risk_type.risk_type}")
-    
+    print(f"    🔍 Analyzing project {project_index}/{total_projects}, chunk {chunk_index}/{total_chunks}, risk type {risk_index}/{total_risks}: {risk_type.risk_type}")
+
     try:
-        # For debugging, analyze all risk types for all chunks (no chunk restriction)
-        print(f"    📋 Loading risk dimensions...")
-        try:
-            dimensions = await get_all_risk_dimensions()
-            print(f"    ✅ Risk dimensions loaded successfully")
-        except Exception as e:
-            print(f"    ❌ Failed to load risk dimensions: {type(e).__name__}: {str(e)}")
-            print(f"    🔍 Error details: {repr(e)}")
-            import traceback
-            traceback.print_exc()
-            return
-        
+        dimensions = await get_all_risk_dimensions()
         if not dimensions:
-            print(f"    ⚠️ No risk dimensions found in database - cannot perform analysis")
             return
-        
-        print(f"    📊 Found {len(dimensions)} risk dimensions")
-        
-        print(f"    🤖 Building analysis prompt...")
+
         prompt = build_risk_analysis_prompt(chunk.content, risk_type, dimensions)
-        
-        print(f"    🧠 Querying LLM for risk analysis...")
         llm_service = get_llm_service()
         session_id = f"risk_analysis_{risk_type.risk_type}_{chunk.chunk_index}"
         response = await llm_service.query(prompt, session_id=session_id)
-        
-        print(f"    📝 Raw LLM Response:")
-        print(f"{'='*50}")
-        print(response)
-        print(f"{'='*50}")
-        
+
         # Try to parse JSON response
         try:
             response_data = json.loads(response)
-            print(f"    ✅ Successfully parsed JSON response")
-            
-            # Parse into our dataclass structure
             llm_response = parse_llm_response(response_data)
-            print(f"    📈 Found {llm_response.evidence_count} evidences")
-            
+
             if llm_response.has_evidences:
-                # Display evidences summary
-                for i, evidence in enumerate(llm_response.evidences, 1):
-                    print(f"        Evidence {i}: {evidence.claim_text[:50]}...")
-                    print(f"        Confidence: {evidence.confidence}")
-                    print(f"        Dimensions rated: {len(evidence.dimension_ratings)}")
-                
-                # Save evidences and evidence ratings to database
-                print(f"    💾 Saving evidences to database...")
                 saved_count = await save_evidences_to_database(llm_response, risk_type, chunk, dimensions)
-                print(f"    ✅ Saved {saved_count} evidences to database")
-                
-            else:
-                print(f"    📄 No evidence reasoning: {llm_response.no_evidence_reasoning}")
-                
+                print(f"      ✅ Saved {saved_count} evidences")
+
         except json.JSONDecodeError as e:
-            print(f"    ❌ Failed to parse JSON response: {str(e)}")
-            print(f"    📝 Response may not be in valid JSON format")
+            print(f"      ❌ Failed to parse JSON response: {str(e)}")
         except Exception as e:
-            print(f"    ❌ Error processing LLM response: {str(e)}")
-            import traceback
-            traceback.print_exc()
-            
+            print(f"      ❌ Error processing LLM response: {str(e)}")
+
     except Exception as e:
-        print(f"    ❌ Error in LLM analysis: {str(e)}")
+        print(f"      ❌ Error in LLM analysis: {str(e)}")
 
 
-async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType]) -> None:
+async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType], project_index: int, total_projects: int, chunk_index: int, total_chunks: int) -> None:
     """Analyze a single chunk against all risk types."""
-    for risk_type in risk_types:
-        await analyze_chunk_for_risk_type(chunk, risk_type)
+    for risk_index, risk_type in enumerate(risk_types):
+        await analyze_chunk_for_risk_type(chunk, risk_type, project_index, total_projects, chunk_index, total_chunks, risk_index + 1, len(risk_types))
 
 
-async def process_project_risk_analysis(project: Project, risk_types: List[RiskType]) -> int:
-    """Process risk analysis for all chunks in a project. Returns number of chunks analyzed."""
-    print(f"\n🎯 Analyzing risks for project: {project.name}")
-    
-    try:
-        # Get all chunks for this project
-        chunks = await get_project_chunks(project)
-        
-        if not chunks:
-            print(f"⚠️  No chunks found for project '{project.name}'")
-            return 0
-        
-        # Apply mode-based chunk limiting
-        app_mode = os.getenv('APP_MODE', 'DEV').upper()
-        chunks_to_process = chunks
-        
-        if app_mode == 'DEV':
-            max_chunks = int(os.getenv('DEV_MAX_CHUNKS_PER_PROJECT', '10'))
-            if len(chunks) > max_chunks:
-                chunks_to_process = chunks[:max_chunks]
-                print(f"🔧 DEV MODE: Limiting processing to {max_chunks} chunks (out of {len(chunks)} total)")
-            else:
-                print(f"🔧 DEV MODE: Processing all {len(chunks)} chunks (under limit of {max_chunks})")
-        else:
-            print(f"🚀 PROD MODE: Processing all {len(chunks)} chunks")
-        
-        print(f"📝 Found {len(chunks)} total chunks, processing {len(chunks_to_process)} chunks")
-        print(f"⚡ Will analyze against {len(risk_types)} risk types")
-        
-        # Process each chunk against all risk types
-        analyzed_count = 0
-        for chunk in chunks_to_process:
-            print(f"  📊 Analyzing chunk {chunk.chunk_index + 1}/{len(chunks_to_process)}")
-            await analyze_chunk_for_all_risks(chunk, risk_types)
-            analyzed_count += 1
-        
-        print(f"✅ Completed risk analysis for {analyzed_count} chunks in project '{project.name}'")
-        return analyzed_count
-        
-    except Exception as e:
-        print(f"❌ Error in risk analysis for project '{project.name}': {str(e)}")
+async def process_project_risk_analysis(project: Project, risk_types: List[RiskType], project_index: int, total_projects: int) -> int:
+    """Process risk analysis for all chunks in a project."""
+    chunks = await get_project_chunks(project)
+
+    if not chunks:
         return 0
+
+    # Process each chunk against all risk types
+    for chunk_index, chunk in enumerate(chunks):
+        await analyze_chunk_for_all_risks(chunk, risk_types, project_index, total_projects, chunk_index + 1, len(chunks))
+
+    # Return total combinations processed
+    return len(chunks) * len(risk_types)

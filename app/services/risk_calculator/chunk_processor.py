@@ -6,7 +6,7 @@ from app.repositories.chunk_repository import ChunkRepository
 
 # Sliding window parameters
 CHUNK_SIZE = 10000  # Size of each chunk in characters
-OVERLAP_SIZE = 1000  # Overlap between chunks in characters
+OVERLAP_SIZE = 500  # Overlap between chunks in characters
 MIN_CHUNK_SIZE = 2000  # Minimum chunk size to process
 
 
@@ -68,58 +68,36 @@ async def get_project_documents(project: Project) -> List[SourceDocument]:
 
 async def process_document_chunks(project: Project, document: SourceDocument) -> int:
     """Process a document into chunks and save to database. Returns number of chunks created."""
-    try:
-        # Check if chunks already exist for this document
-        existing_chunks = await ChunkRepository.get_chunks_by_document(document.id)
-        if existing_chunks:
-            print(f"  ✅ Document already chunked: {document.file_name} ({len(existing_chunks)} chunks)")
-            return len(existing_chunks)
-        
-        # Skip documents with no content
-        if not document.content or len(document.content.strip()) == 0:
-            print(f"  ⚠️  Skipping empty document: {document.file_name}")
-            return 0
-        
-        # Create chunks from document content
-        chunk_texts = create_text_chunks(document.content)
-        
-        if not chunk_texts:
-            print(f"  ⚠️  No valid chunks created for document: {document.file_name}")
-            return 0
-        
-        # Save chunks to database
-        saved_chunks = await save_chunks_to_database(document.id, chunk_texts)
-        chunk_count = len(saved_chunks)
-        
-        print(f"  ✅ Created {chunk_count} chunks for document: {document.file_name}")
-        return chunk_count
-        
-    except Exception as e:
-        print(f"  ❌ Error processing document '{document.file_name}': {str(e)}")
+    # Skip documents with no content
+    if not document.content or len(document.content.strip()) == 0:
         return 0
+
+    # Create chunks from document content
+    chunk_texts = create_text_chunks(document.content)
+
+    if not chunk_texts:
+        return 0
+
+    # Save chunks to database
+    saved_chunks = await save_chunks_to_database(document.id, chunk_texts)
+    return len(saved_chunks)
 
 
 async def process_project_chunks(project: Project) -> int:
-    """Process all documents in a project into chunks. Returns total number of chunks created."""
-    print(f"\n🔄 Processing chunks for project: {project.name}")
-    
+    """Process all documents in a project into chunks. Returns total number of chunks processed."""
     try:
         documents = await get_project_documents(project)
-        
+
         if not documents:
-            print(f"⚠️  No documents found for project '{project.name}'")
             return 0
-        
-        print(f"📄 Found {len(documents)} documents in project '{project.name}'")
-        
+
         total_chunks = 0
         for doc in documents:
             chunk_count = await process_document_chunks(project, doc)
             total_chunks += chunk_count
-        
-        print(f"📝 Total chunks created for project '{project.name}': {total_chunks}")
+
         return total_chunks
-        
+
     except Exception as e:
-        print(f"❌ Error processing project '{project.name}': {str(e)}")
+        print(f"    ❌ Error processing chunks: {str(e)}")
         return 0

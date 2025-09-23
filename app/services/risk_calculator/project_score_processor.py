@@ -94,60 +94,27 @@ async def generate_project_summary(project: Project, risk_assessments: List[Risk
 
 
 async def process_project_total_score(project: Project) -> Dict[str, float]:
-    """
-    Process total project score by aggregating all risk assessments.
-    Implementation is decoupled: first save score with summary=null, then generate and update summary.
-    """
-    print(f"📊 Processing total project score for: {project.name}")
-    
+    """Process total project score by aggregating all risk assessments."""
     # Get all risk assessments for this project
     risk_assessments = await RiskAssessmentRepository.get_by_project(project.id)
-    print(f"    📊 Found {len(risk_assessments)} risk assessments")
-    
+
     if not risk_assessments:
-        print(f"    📄 No risk assessments found for {project.name}")
         # Create project score with score 0.0 for projects with no risk assessments
         project_score = await ProjectScoreRepository.update_or_create_project_score(
             project, [], 0.0
         )
-        return {"total_score": 0.0}
-    
-    print(f"    📈 Found {len(risk_assessments)} risk assessments")
-    
+        return 0.0
+
     # Calculate total project score
     total_score = await calculate_total_project_score(risk_assessments)
-    print(f"    📊 Calculated total project score: {total_score:.3f}")
-    
-    # STEP 1: Create or update project score in database (summary will be null initially)
-    try:
-        project_score = await ProjectScoreRepository.update_or_create_project_score(
-            project, risk_assessments, total_score
-        )
-        print(f"    ✅ Saved project score with summary=null (ID: {str(project_score.id)[:8]}...)")
-        
-        # Display risk assessment breakdown
-        print(f"    📋 Risk Assessment Breakdown:")
-        for ra in risk_assessments:
-            print(f"      • Risk Assessment {str(ra.id)[:8]}: {ra.score:.3f}")
-        
-    except Exception as e:
-        print(f"    ❌ Error saving project score: {str(e)}")
-        return {"total_score": 0.0}
-    
-    # STEP 2: Generate and update summary (decoupled from score calculation)
-    print(f"\n    🔄 STEP 2: Generating project summary...")
-    try:
-        summary = await generate_project_summary(project, risk_assessments)
-        
-        # Update the summary directly on the project score we just created/updated
-        updated_project_score = await ProjectScoreRepository.update_summary_by_id(project_score.id, summary)
-        if updated_project_score:
-            print(f"    ✅ Updated project score with summary")
-        else:
-            print(f"    ❌ Failed to update summary")
-            
-    except Exception as e:
-        print(f"    ❌ Error generating/updating summary: {str(e)}")
-        print(f"    ℹ️  Project score saved successfully, but summary generation failed")
-    
-    return {"total_score": total_score}
+
+    # Create project score in database (summary will be null initially)
+    project_score = await ProjectScoreRepository.update_or_create_project_score(
+        project, risk_assessments, total_score
+    )
+
+    # Generate and update summary
+    summary = await generate_project_summary(project, risk_assessments)
+    updated_project_score = await ProjectScoreRepository.update_summary_by_id(project_score.id, summary)
+
+    return total_score

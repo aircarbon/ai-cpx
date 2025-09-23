@@ -49,25 +49,6 @@ class EvidenceRepository:
         return Evidence.from_model(model) if model else None
     
     @staticmethod
-    async def get_by_chunk_and_risk_type(chunk_id: str, risk_type_id: str) -> List[Evidence]:
-        """Get all evidences for a specific chunk and risk type."""
-        models = await EvidenceModel.find(
-            EvidenceModel.chunk_id == PydanticObjectId(chunk_id),
-            EvidenceModel.risk_type_id == PydanticObjectId(risk_type_id),
-            fetch_links=True
-        ).to_list()
-        return [Evidence.from_model(model) for model in models]
-    
-    @staticmethod
-    async def get_by_chunk(chunk_id: str) -> List[Evidence]:
-        """Get all evidences for a specific chunk (any risk type)."""
-        models = await EvidenceModel.find(
-            EvidenceModel.chunk_id == PydanticObjectId(chunk_id),
-            fetch_links=True
-        ).to_list()
-        return [Evidence.from_model(model) for model in models]
-    
-    @staticmethod
     async def get_by_project_and_risk_type(project_id: str, risk_type_id: str) -> List[Evidence]:
         """Get all evidences for a specific project and risk type by querying through chunks."""
         
@@ -104,61 +85,6 @@ class EvidenceRepository:
                     filtered_evidences.append(evidence)
         
         return [Evidence.from_model(model) for model in filtered_evidences]
-    
-    @staticmethod
-    async def get_by_project(project_id: str) -> List[Evidence]:
-        """Get all evidences for a specific project (any risk type)."""
-        
-        # Get all documents for the project
-        documents = await SourceDocumentRepository.get_by_project(project_id)
-        if not documents:
-            return []
-        
-        # Get all chunks for these documents
-        all_chunk_ids = []
-        for document in documents:
-            chunks = await ChunkRepository.get_chunks_by_document(document.id)
-            all_chunk_ids.extend([chunk.id for chunk in chunks])
-        
-        if not all_chunk_ids:
-            return []
-        
-        # Due to Beanie Link field complexity, query all evidences and filter in memory
-        all_evidences = await EvidenceModel.find(fetch_links=True).to_list()
-        
-        # Filter evidences that match our project's chunks
-        filtered_evidences = []
-        chunk_id_set = set(all_chunk_ids)
-        
-        for evidence in all_evidences:
-            # Check if evidence has resolved chunk_id
-            if evidence.chunk_id:
-                evidence_chunk_id = str(evidence.chunk_id.id) if hasattr(evidence.chunk_id, 'id') else str(evidence.chunk_id)
-                
-                # Check if this evidence belongs to our project
-                if evidence_chunk_id in chunk_id_set:
-                    filtered_evidences.append(evidence)
-        
-        return [Evidence.from_model(model) for model in filtered_evidences]
-    
-    @staticmethod
-    async def project_has_evidences(project_id: str) -> bool:
-        """Check if evidences exist for a specific project."""
-        try:
-            # Get evidences for this specific project
-            evidences = await EvidenceRepository.get_by_project(project_id)
-            has_evidences = len(evidences) > 0
-            
-            if has_evidences:
-                print(f"    ✅ PROJECT CHECK: Found {len(evidences)} evidences for project {project_id}")
-            else:
-                print(f"    📝 PROJECT CHECK: No evidences found for project {project_id}")
-                
-            return has_evidences
-            
-        except Exception as e:
-            print(f"    ❌ ERROR in project_has_evidences: {str(e)}")
-            return False
     
     @staticmethod
     async def get_by_ids(evidence_ids: List[str]) -> List[Evidence]:
