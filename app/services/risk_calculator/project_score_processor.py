@@ -1,33 +1,43 @@
 from typing import List
-import statistics
 
-from app.core.types import Project, RiskAssessment, ProjectScore
+from app.core.types import Project, RiskAssessment
 from app.repositories.risk_assessment_repository import RiskAssessmentRepository
 from app.repositories.project_score_repository import ProjectScoreRepository
 from app.repositories.processing_state_repository import ProcessingStateRepository
+from app.repositories.risk_type_repository import RiskTypeRepository
 
 
 async def calculate_total_project_score(risk_assessments: List[RiskAssessment]) -> float:
     """
-    Calculate total project score from all risk assessments.
-    Uses the average of all risk assessment scores for now.
+    Calculate total project score from all risk assessments using weighted average.
+    Uses risk type weights from the database to calculate weighted average.
     Excludes risk assessments with None scores (no evidences).
     """
     if not risk_assessments:
         return 0.0
 
-    valid_scores = [ra.score for ra in risk_assessments if ra.score is not None]
+    # Get risk types with weights from database
+    risk_types = await RiskTypeRepository.get_all()
+    risk_type_weights = {rt.id: rt.weight for rt in risk_types}
 
-    if not valid_scores:
+    # Collect valid assessments with their weights
+    weighted_scores = []
+    total_weight = 0.0
+
+    for ra in risk_assessments:
+        if ra.score is not None:
+            weight = risk_type_weights.get(ra.risk_type_id, 1.0)  # Default weight of 1.0 if not found
+            weighted_scores.append(ra.score * weight)
+            total_weight += weight
+
+    if not weighted_scores or total_weight == 0.0:
         return 0.0
 
-    scores = valid_scores
-    
-    # For now, use simple average. Could be enhanced with:
-    # - Weighted average based on risk type importance
-    # - Maximum score (worst case scenario)
-    # - More sophisticated aggregation methods based on risk type categories
-    return statistics.mean(scores)
+    # Calculate weighted average
+    weighted_sum = sum(weighted_scores)
+    weighted_average = weighted_sum / total_weight
+
+    return weighted_average
 
 
 
