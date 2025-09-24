@@ -327,6 +327,7 @@ class RiskAssessment:
     risk_type_id: str
     evidence_ids: List[str]  # List of Evidence IDs
     score: Optional[float]
+    summary: Optional[str] = None
     created_at: Optional[datetime] = None
     id: Optional[str] = None
     
@@ -340,12 +341,13 @@ class RiskAssessment:
         project_id_str = str(model.project_id.to_ref().id) if hasattr(model.project_id, 'to_ref') else str(model.project_id)
         risk_type_id_str = str(model.risk_type_id.to_ref().id) if hasattr(model.risk_type_id, 'to_ref') else str(model.risk_type_id)
         evidence_ids_str = [str(evidence_id.to_ref().id if hasattr(evidence_id, 'to_ref') else evidence_id) for evidence_id in model.evidence_ids]
-        
+
         return cls(
             project_id=project_id_str,
             risk_type_id=risk_type_id_str,
             evidence_ids=evidence_ids_str,
             score=model.score,
+            summary=model.summary,
             created_at=model.created_at,
             id=str(model.id)
         )

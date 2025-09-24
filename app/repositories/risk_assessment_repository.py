@@ -111,3 +111,22 @@ class RiskAssessmentRepository:
         """Get risk assessment by ID."""
         model = await RiskAssessmentModel.get(PydanticObjectId(risk_assessment_id), fetch_links=True)
         return RiskAssessment.from_model(model) if model else None
+
+    @staticmethod
+    async def update_summary(project_id: str, risk_type_id: str, summary: str) -> bool:
+        """Update the summary field of a risk assessment."""
+        project_model = await ProjectModel.get(PydanticObjectId(project_id))
+        risk_type_model = await RiskTypeModel.get(PydanticObjectId(risk_type_id))
+
+        existing_model = await RiskAssessmentModel.find_one(
+            RiskAssessmentModel.project_id == project_model,
+            RiskAssessmentModel.risk_type_id == risk_type_model,
+            fetch_links=True
+        )
+
+        if existing_model:
+            existing_model.summary = summary
+            await existing_model.save()
+            return True
+
+        return False
