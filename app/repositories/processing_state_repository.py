@@ -107,3 +107,12 @@ class ProcessingStateRepository:
             stage="project_scoring",
             project_id=project_id
         )
+
+    @staticmethod
+    async def is_project_summary_completed(project_id: str) -> bool:
+        """Check if project summary generation is completed for a project"""
+
+        return await ProcessingStateRepository.is_completed(
+            stage="project_summary",
+            project_id=project_id
+        )

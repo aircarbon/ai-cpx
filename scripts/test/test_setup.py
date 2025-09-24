@@ -17,13 +17,13 @@ from app.core.data_loader import initialize_configuration_data
 from test_data_loader import load_test_projects, load_test_documents, load_test_chunks, load_test_evidence_ratings, load_test_evidences, load_test_risk_assessments, load_test_project_scores, load_test_project_score_summaries
 from app.core.models import (
     Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec,
-    EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
+    EvidenceRating, Evidence, RiskAssessment, ProjectScore, ProcessingState
 )
 
 # Define all models used in the application  
 ALL_MODELS = [
-    Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec, 
-    EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
+    Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec,
+    EvidenceRating, Evidence, RiskAssessment, ProjectScore, ProcessingState
 ]
 
 

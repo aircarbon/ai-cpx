@@ -23,6 +23,7 @@ from .chunk_processor import process_project_chunks
 from .risk_analyzer import process_project_risk_analysis, get_all_risk_types
 from .risk_assessment_processor import process_project_risk_assessments
 from .project_score_processor import process_project_total_score
+from .project_summary_processor import process_project_summary_generation
 
 # Load environment variables from .env file
 load_dotenv()
@@ -60,7 +61,7 @@ async def scheduled_task() -> None:
             return
         print(f"⚡ Loaded {len(risk_types)} risk types")
         
-        # Process each project in four phases with granular skip logic
+        # Process each project in five phases with granular skip logic
         for i, project in enumerate(projects):
             print(f"\n🔄 Processing project {i+1}/{len(projects)}: {project.name}")
 
@@ -73,7 +74,7 @@ async def scheduled_task() -> None:
             print(f"  📊 Phase 2: Evidence extraction")
             processed_evidences = await process_project_risk_analysis(project, risk_types, i+1, len(projects))
             print(f"  ✅ Evidence combinations processed: {processed_evidences}")
-            
+
             # STEP 3: Process risk assessments
             print(f"  📊 Phase 3: Risk assessment calculation")
             risk_scores = await process_project_risk_assessments(project, risk_types)
@@ -83,6 +84,11 @@ async def scheduled_task() -> None:
             print(f"  🏆 Phase 4: Project score calculation")
             total_score = await process_project_total_score(project)
             print(f"  ✅ Project score calculated: {total_score:.3f}")
+
+            # STEP 5: Process project summary generation
+            print(f"  📝 Phase 5: Project summary generation")
+            summary_success = await process_project_summary_generation(project)
+            print(f"  ✅ Project summary {'generated' if summary_success else 'failed'}")
         
         print("\n✅ Risk calculation completed successfully")
         
