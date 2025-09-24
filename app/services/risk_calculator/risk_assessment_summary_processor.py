@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from app.core.types import Project, RiskType, Evidence
+from app.core.types import Project, RiskType
 from app.repositories.evidence_repository import EvidenceRepository
 from app.repositories.risk_assessment_repository import RiskAssessmentRepository
 from app.repositories.processing_state_repository import ProcessingStateRepository
