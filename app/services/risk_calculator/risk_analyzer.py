@@ -1,3 +1,4 @@
+import os
 from typing import List
 import json
 import asyncio
@@ -24,6 +25,17 @@ async def get_all_risk_types() -> List[RiskType]:
     """Load all risk types from database. Cache this result to avoid repeated queries."""
     try:
         risk_types = await RiskTypeRepository.get_all()
+
+        # Apply DEV mode risk type limits
+        total_risk_types = len(risk_types)
+        if os.getenv('APP_MODE') == 'DEV':
+            max_risk_types = int(os.getenv('DEV_MAX_RISK_TYPES', '999'))
+            if max_risk_types < total_risk_types:
+                # Sort risk types by weight (descending) for most important risks first, then by name for consistency
+                risk_types = sorted(risk_types, key=lambda rt: (-rt.weight, rt.risk_type))[:max_risk_types]
+                print(f"🧪 DEV MODE: Using {len(risk_types)} of {total_risk_types} risk types (limited by DEV_MAX_RISK_TYPES={max_risk_types})")
+                print(f"    Selected risk types: {', '.join([f'{rt.risk_type} (weight: {rt.weight})' for rt in risk_types])}")
+
         return risk_types
     except Exception as e:
         print(f"❌ Error fetching risk types: {str(e)}")

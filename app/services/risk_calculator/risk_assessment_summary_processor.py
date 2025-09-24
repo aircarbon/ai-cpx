@@ -1,3 +1,4 @@
+import os
 from typing import List, Optional
 
 from app.core.types import Project, RiskType
@@ -70,6 +71,31 @@ Summary:"""
 async def process_project_risk_assessment_summaries(project: Project, risk_types: List[RiskType]) -> int:
     """Process risk assessment summary generation for all risk types in a project."""
     if not risk_types:
+        return 0
+
+    # Check DEV mode skip option
+    if os.getenv('APP_MODE') == 'DEV' and os.getenv('DEV_SKIP_RISK_ASSESSMENT_SUMMARIES', 'false').lower() == 'true':
+        print(f"    🧪 DEV MODE: Skipping all risk assessment summaries (DEV_SKIP_RISK_ASSESSMENT_SUMMARIES=true)")
+
+        # Mark all risk types as completed with skip status
+        skipped_count = 0
+        for risk_type in risk_types:
+            is_completed = await ProcessingStateRepository.is_completed(
+                stage="risk_assessment_summary",
+                project_id=project.id,
+                risk_type_id=risk_type.id
+            )
+            if not is_completed:
+                await ProcessingStateRepository.update_status(
+                    stage="risk_assessment_summary",
+                    project_id=project.id,
+                    risk_type_id=risk_type.id,
+                    status="completed",
+                    results={"skipped_dev_mode": True, "reason": "DEV_SKIP_RISK_ASSESSMENT_SUMMARIES"}
+                )
+                skipped_count += 1
+
+        print(f"    ✅ Skipped {skipped_count} risk assessment summaries in DEV mode")
         return 0
 
     processed_count = 0

@@ -1,3 +1,4 @@
+import os
 from typing import List, Dict
 
 from app.core.types import Project, RiskAssessment, ProjectScore
@@ -117,6 +118,17 @@ async def process_project_summary_generation(project: Project) -> bool:
 
     if is_completed:
         print(f"    ⏭️  Skipping project summary generation (already completed)")
+        return True
+
+    # Check DEV mode skip option
+    if os.getenv('APP_MODE') == 'DEV' and os.getenv('DEV_SKIP_PROJECT_SUMMARIES', 'false').lower() == 'true':
+        print(f"    🧪 DEV MODE: Skipping project summary generation (DEV_SKIP_PROJECT_SUMMARIES=true)")
+        await ProcessingStateRepository.update_status(
+            stage="project_summary",
+            project_id=project.id,
+            status="completed",
+            results={"skipped_dev_mode": True, "reason": "DEV_SKIP_PROJECT_SUMMARIES"}
+        )
         return True
 
     await ProcessingStateRepository.update_status(

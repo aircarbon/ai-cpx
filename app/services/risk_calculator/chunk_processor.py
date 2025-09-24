@@ -1,3 +1,4 @@
+import os
 from typing import List
 
 from app.core.types import Project, SourceDocument, Chunk
@@ -148,12 +149,33 @@ async def process_project_chunks(project: Project) -> int:
             print(f"    ⚠️  No documents found for project '{project.name}'")
             return 0
 
+        # Apply DEV mode document limits
+        total_documents = len(documents)
+        if os.getenv('APP_MODE') == 'DEV':
+            max_documents = int(os.getenv('DEV_MAX_DOCUMENTS_PER_PROJECT', '999'))
+            if max_documents < total_documents:
+                # Sort documents deterministically by filename for consistent selection across resumes
+                documents = sorted(documents, key=lambda d: d.file_name)[:max_documents]
+                print(f"    🧪 DEV MODE: Processing {len(documents)} of {total_documents} documents for '{project.name}' (limited by DEV_MAX_DOCUMENTS_PER_PROJECT={max_documents})")
+                print(f"        Selected documents: {', '.join([d.file_name for d in documents])}")
+
         total_chunks = 0
+        max_chunks_per_project = int(os.getenv('DEV_MAX_CHUNKS_PER_PROJECT', '999')) if os.getenv('APP_MODE') == 'DEV' else 999
+
         for doc in documents:
+            # Check if we've reached the project chunk limit
+            if os.getenv('APP_MODE') == 'DEV' and total_chunks >= max_chunks_per_project:
+                print(f"    🧪 DEV MODE: Reached project chunk limit ({max_chunks_per_project}), skipping remaining documents")
+                break
+
             chunk_count = await process_document_chunks(project, doc)
             total_chunks += chunk_count
             if chunk_count > 0:
                 print(f"    ✅ Chunked document '{doc.file_name}': {chunk_count} chunks")
+
+            # Log progress toward DEV limit
+            if os.getenv('APP_MODE') == 'DEV' and max_chunks_per_project < 999:
+                print(f"        Total chunks for project: {total_chunks}/{max_chunks_per_project}")
 
         return total_chunks
 

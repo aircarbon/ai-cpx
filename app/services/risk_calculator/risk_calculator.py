@@ -53,6 +53,16 @@ async def scheduled_task() -> None:
         if not projects:
             print("⚠️  No projects found to process")
             return
+
+        # Apply DEV mode project limits
+        total_projects = len(projects)
+        if os.getenv('APP_MODE') == 'DEV':
+            max_projects = int(os.getenv('DEV_MAX_PROJECTS', '999'))
+            if max_projects < total_projects:
+                # Sort projects deterministically by name for consistent selection across resumes
+                projects = sorted(projects, key=lambda p: p.name)[:max_projects]
+                print(f"🧪 DEV MODE: Processing {len(projects)} of {total_projects} projects (limited by DEV_MAX_PROJECTS={max_projects})")
+                print(f"    Selected projects: {', '.join([p.name for p in projects])}")
         
         # Load risk types once (cache for performance)
         print("🎯 Loading risk types...")
