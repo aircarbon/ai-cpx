@@ -9,6 +9,7 @@ from app.repositories.source_document_repository import SourceDocumentRepository
 from app.repositories.risk_dimension_repository import RiskDimensionRepository
 from app.repositories.evidence_rating_repository import EvidenceRatingRepository
 from app.repositories.evidence_repository import EvidenceRepository
+from app.repositories.processing_state_repository import ProcessingStateRepository
 from app.core.llm_service import get_llm_service
 
 # Retry configuration for LLM analysis
@@ -191,13 +192,11 @@ async def save_evidences_to_database(llm_response: LLMRiskAnalysisResponse, risk
 async def get_project_chunks(project: Project) -> List[Chunk]:
     """Get all chunks for a project by getting chunks from all its documents."""
     try:
-        # First, get all documents for this project
         documents = await SourceDocumentRepository.get_by_project(project.id)
         
         if not documents:
             return []
         
-        # Then, get all chunks for each document
         all_chunks = []
         for document in documents:
             chunks = await ChunkRepository.get_chunks_by_document(document.id)
@@ -260,25 +259,73 @@ async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: List
     return 0
 
 
-async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project_index: int, total_projects: int, chunk_index: int, total_chunks: int, risk_index: int, total_risks: int) -> None:
+async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project_id: str, project_index: int, total_projects: int, chunk_index: int, total_chunks: int, risk_index: int, total_risks: int) -> None:
     """Analyze a single chunk for a specific risk type."""
     print(f"    🔍 Analyzing project {project_index}/{total_projects}, chunk {chunk_index}/{total_chunks}, risk type {risk_index}/{total_risks}: {risk_type.risk_type}")
+
+    # Check if evidence extraction is already completed for this chunk + risk type
+    is_completed = await ProcessingStateRepository.is_completed(
+        stage="evidence_extraction",
+        project_id=project_id,
+        chunk_id=chunk.id,
+        risk_type_id=risk_type.id
+    )
+
+    if is_completed:
+        print(f"      ⏭️  Skipping (already completed)")
+        return
+
+    # Update status to in_progress
+    await ProcessingStateRepository.update_status(
+        stage="evidence_extraction",
+        project_id=project_id,
+        chunk_id=chunk.id,
+        risk_type_id=risk_type.id,
+        status="in_progress"
+    )
 
     try:
         dimensions = await get_all_risk_dimensions()
         if not dimensions:
+            await ProcessingStateRepository.update_status(
+                stage="evidence_extraction",
+                project_id=project_id,
+                chunk_id=chunk.id,
+                risk_type_id=risk_type.id,
+                status="failed",
+                error_message="No risk dimensions found"
+            )
             return
 
         # Retry LLM analysis with error handling
         saved_count = await analyze_with_retry(chunk, risk_type, dimensions)
+
+        # Mark as completed with results
+        await ProcessingStateRepository.update_status(
+            stage="evidence_extraction",
+            project_id=project_id,
+            chunk_id=chunk.id,
+            risk_type_id=risk_type.id,
+            status="completed",
+            results={"evidence_count": saved_count}
+        )
+
         if saved_count > 0:
             print(f"      ✅ Saved {saved_count} evidences")
 
     except Exception as e:
+        await ProcessingStateRepository.update_status(
+            stage="evidence_extraction",
+            project_id=project_id,
+            chunk_id=chunk.id,
+            risk_type_id=risk_type.id,
+            status="failed",
+            error_message=str(e)
+        )
         print(f"      ❌ Error in LLM analysis: {str(e)}")
 
 
-async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType], project_index: int, total_projects: int, chunk_index: int, total_chunks: int) -> None:
+async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType], project_id: str, project_index: int, total_projects: int, chunk_index: int, total_chunks: int) -> None:
     """Analyze a single chunk against all risk types using parallel batches."""
     # Process risk types in batches for parallel execution
     for batch_start in range(0, len(risk_types), BATCH_SIZE):
@@ -290,7 +337,7 @@ async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType], 
         for i, risk_type in enumerate(batch_risk_types):
             risk_index = batch_start + i + 1  # 1-based index
             task = analyze_chunk_for_risk_type(
-                chunk, risk_type, project_index, total_projects,
+                chunk, risk_type, project_id, project_index, total_projects,
                 chunk_index, total_chunks, risk_index, len(risk_types)
             )
             tasks.append(task)
@@ -311,11 +358,12 @@ async def process_project_risk_analysis(project: Project, risk_types: List[RiskT
     chunks = await get_project_chunks(project)
 
     if not chunks:
+        print(f"    ⚠️  No chunks found for project '{project.name}'")
         return 0
 
     # Process each chunk against all risk types
     for chunk_index, chunk in enumerate(chunks):
-        await analyze_chunk_for_all_risks(chunk, risk_types, project_index, total_projects, chunk_index + 1, len(chunks))
+        await analyze_chunk_for_all_risks(chunk, risk_types, project.id, project_index, total_projects, chunk_index + 1, len(chunks))
 
     # Return total combinations processed
     return len(chunks) * len(risk_types)

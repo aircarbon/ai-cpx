@@ -3,6 +3,7 @@ from typing import List
 from app.core.types import Project, SourceDocument, Chunk
 from app.repositories.source_document_repository import SourceDocumentRepository
 from app.repositories.chunk_repository import ChunkRepository
+from app.repositories.processing_state_repository import ProcessingStateRepository
 
 # Sliding window parameters
 CHUNK_SIZE = 10000  # Size of each chunk in characters
@@ -68,19 +69,74 @@ async def get_project_documents(project: Project) -> List[SourceDocument]:
 
 async def process_document_chunks(project: Project, document: SourceDocument) -> int:
     """Process a document into chunks and save to database. Returns number of chunks created."""
-    # Skip documents with no content
-    if not document.content or len(document.content.strip()) == 0:
+    # Check if chunking is already completed for this document
+    is_completed = await ProcessingStateRepository.is_completed(
+        stage="chunking",
+        project_id=project.id,
+        document_id=document.id
+    )
+
+    if is_completed:
+        print(f"    ⏭️  Skipping chunking for document '{document.file_name}' (already completed)")
         return 0
 
-    # Create chunks from document content
-    chunk_texts = create_text_chunks(document.content)
+    # Update status to in_progress
+    await ProcessingStateRepository.update_status(
+        stage="chunking",
+        project_id=project.id,
+        document_id=document.id,
+        status="in_progress"
+    )
 
-    if not chunk_texts:
+    try:
+        # Skip documents with no content
+        if not document.content or len(document.content.strip()) == 0:
+            await ProcessingStateRepository.update_status(
+                stage="chunking",
+                project_id=project.id,
+                document_id=document.id,
+                status="completed",
+                results={"chunk_count": 0, "reason": "no_content"}
+            )
+            return 0
+
+        # Create chunks from document content
+        chunk_texts = create_text_chunks(document.content)
+
+        if not chunk_texts:
+            await ProcessingStateRepository.update_status(
+                stage="chunking",
+                project_id=project.id,
+                document_id=document.id,
+                status="completed",
+                results={"chunk_count": 0, "reason": "no_chunks_generated"}
+            )
+            return 0
+
+        # Save chunks to database
+        saved_chunks = await save_chunks_to_database(document.id, chunk_texts)
+
+        # Mark as completed
+        await ProcessingStateRepository.update_status(
+            stage="chunking",
+            project_id=project.id,
+            document_id=document.id,
+            status="completed",
+            results={"chunk_count": len(saved_chunks)}
+        )
+
+        return len(saved_chunks)
+
+    except Exception as e:
+        await ProcessingStateRepository.update_status(
+            stage="chunking",
+            project_id=project.id,
+            document_id=document.id,
+            status="failed",
+            error_message=str(e)
+        )
+        print(f"    ❌ Error processing chunks for document '{document.file_name}': {str(e)}")
         return 0
-
-    # Save chunks to database
-    saved_chunks = await save_chunks_to_database(document.id, chunk_texts)
-    return len(saved_chunks)
 
 
 async def process_project_chunks(project: Project) -> int:
@@ -89,12 +145,15 @@ async def process_project_chunks(project: Project) -> int:
         documents = await get_project_documents(project)
 
         if not documents:
+            print(f"    ⚠️  No documents found for project '{project.name}'")
             return 0
 
         total_chunks = 0
         for doc in documents:
             chunk_count = await process_document_chunks(project, doc)
             total_chunks += chunk_count
+            if chunk_count > 0:
+                print(f"    ✅ Chunked document '{doc.file_name}': {chunk_count} chunks")
 
         return total_chunks
 

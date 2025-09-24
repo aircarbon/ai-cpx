@@ -240,25 +240,50 @@ class ProjectScore(Document):
             datetime: lambda v: v.isoformat()
         }
 
-# Model for tracking processing coverage of chunks and evidence counts.
-class CoverageLedger(Document):
+# Model for tracking processing state to enable resumable operations
+class ProcessingState(Document):
+    """Track processing state for all stages to enable precise resume capability"""
+
+    # Processing stage identifier
+    stage: str = Field(..., description="Processing stage: chunking, evidence_extraction, risk_assessment, project_scoring")
+
+    # Core references (project_id always present, others depend on stage)
     project_id: Link[Project] = Field(..., description="Reference to the project")
-    document_id: Link[SourceDocument] = Field(..., description="Reference to the source document")
-    chunk_id: Link[Chunk] = Field(..., description="Reference to the chunk")
-    processed: bool = Field(..., description="Whether this chunk has been processed")
-    processed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the chunk was processed")
-    evidence_counts: Dict[str, int] = Field(default_factory=dict, description="Count of evidences found by risk type (e.g., {'PoliticalRegulatory':2,...})")
-    
+    document_id: Optional[Link[SourceDocument]] = Field(None, description="Reference to document (for chunking stage)")
+    chunk_id: Optional[Link[Chunk]] = Field(None, description="Reference to chunk (for evidence_extraction stage)")
+    risk_type_id: Optional[Link[RiskType]] = Field(None, description="Reference to risk type (for evidence_extraction, risk_assessment stages)")
+
+    # Status tracking
+    status: str = Field(..., description="Status: pending, in_progress, completed, failed")
+    started_at: Optional[datetime] = Field(None, description="When processing started")
+    completed_at: Optional[datetime] = Field(None, description="When processing completed")
+    error_message: Optional[str] = Field(None, description="Error message if failed")
+    retry_count: int = Field(default=0, description="Number of retry attempts")
+
+    # Results and metadata
+    results: Dict[str, Any] = Field(default_factory=dict, description="Stage-specific results (e.g., chunk_count, evidence_count)")
+    processing_version: str = Field(default="1.0", description="Algorithm version for invalidation on changes")
+
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the record was created")
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the record was last updated")
+
     class Settings:
-        name = "coverage_ledger"
+        name = "processing_state"
         indexes = [
+            "stage",
+            "status",
             "project_id",
-            "document_id", 
+            "document_id",
             "chunk_id",
-            "processed",
-            "processed_at"
+            "risk_type_id",
+            [("project_id", "stage", "status")],
+            [("project_id", "document_id", "stage")],
+            [("project_id", "chunk_id", "risk_type_id", "stage")],
+            [("project_id", "risk_type_id", "stage")],
+            "created_at",
+            "updated_at"
         ]
-    
+
     class Config:
         json_encoders = {
             datetime: lambda v: v.isoformat()

@@ -6,6 +6,7 @@ from app.repositories.risk_assessment_repository import RiskAssessmentRepository
 from app.repositories.project_score_repository import ProjectScoreRepository
 from app.repositories.risk_type_repository import RiskTypeRepository
 from app.repositories.evidence_repository import EvidenceRepository
+from app.repositories.processing_state_repository import ProcessingStateRepository
 from app.core.llm_service import get_llm_service
 
 
@@ -18,7 +19,6 @@ async def calculate_total_project_score(risk_assessments: List[RiskAssessment]) 
     if not risk_assessments:
         return 0.0
 
-    # Filter out None scores (risk types with no evidences)
     valid_scores = [ra.score for ra in risk_assessments if ra.score is not None]
 
     if not valid_scores:
@@ -93,28 +93,61 @@ async def generate_project_summary(project: Project, risk_assessments: List[Risk
         return f"Summary generation failed due to technical issues."
 
 
-async def process_project_total_score(project: Project) -> Dict[str, float]:
+async def process_project_total_score(project: Project) -> float:
     """Process total project score by aggregating all risk assessments."""
-    # Get all risk assessments for this project
-    risk_assessments = await RiskAssessmentRepository.get_by_project(project.id)
+    is_completed = await ProcessingStateRepository.is_project_scoring_completed(project.id)
 
-    if not risk_assessments:
-        # Create project score with score 0.0 for projects with no risk assessments
-        project_score = await ProjectScoreRepository.update_or_create_project_score(
-            project, [], 0.0
-        )
-        return 0.0
+    if is_completed:
+        print(f"    ⏭️  Skipping project scoring (already completed)")
+        project_score = await ProjectScoreRepository.get_by_project(project.id)
+        return project_score.total_score if project_score else 0.0
 
-    # Calculate total project score
-    total_score = await calculate_total_project_score(risk_assessments)
-
-    # Create project score in database (summary will be null initially)
-    project_score = await ProjectScoreRepository.update_or_create_project_score(
-        project, risk_assessments, total_score
+    await ProcessingStateRepository.update_status(
+        stage="project_scoring",
+        project_id=project.id,
+        status="in_progress"
     )
 
-    # Generate and update summary
-    summary = await generate_project_summary(project, risk_assessments)
-    updated_project_score = await ProjectScoreRepository.update_summary_by_id(project_score.id, summary)
+    try:
+        risk_assessments = await RiskAssessmentRepository.get_by_project(project.id)
 
-    return total_score
+        if not risk_assessments:
+            project_score = await ProjectScoreRepository.update_or_create_project_score(
+                project, [], 0.0
+            )
+
+            await ProcessingStateRepository.update_status(
+                stage="project_scoring",
+                project_id=project.id,
+                status="completed",
+                results={"total_score": 0.0, "risk_assessment_count": 0}
+            )
+            return 0.0
+
+        total_score = await calculate_total_project_score(risk_assessments)
+
+        project_score = await ProjectScoreRepository.update_or_create_project_score(
+            project, risk_assessments, total_score
+        )
+
+        summary = await generate_project_summary(project, risk_assessments)
+        updated_project_score = await ProjectScoreRepository.update_summary_by_id(project_score.id, summary)
+
+        await ProcessingStateRepository.update_status(
+            stage="project_scoring",
+            project_id=project.id,
+            status="completed",
+            results={"total_score": total_score, "risk_assessment_count": len(risk_assessments)}
+        )
+
+        return total_score
+
+    except Exception as e:
+        await ProcessingStateRepository.update_status(
+            stage="project_scoring",
+            project_id=project.id,
+            status="failed",
+            error_message=str(e)
+        )
+        print(f"    ❌ Error processing project score: {str(e)}")
+        return 0.0

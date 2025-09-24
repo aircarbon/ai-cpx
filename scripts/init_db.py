@@ -9,13 +9,13 @@ from app.core.database import ensure_database_connection, close_database, get_da
 from app.core.data_loader import initialize_configuration_data
 from app.core.models import (
     Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec,
-    EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
+    EvidenceRating, Evidence, RiskAssessment, ProjectScore, ProcessingState
 )
 
 # Define all models used in the application
 ALL_MODELS = [
-    Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec, 
-    EvidenceRating, Evidence, RiskAssessment, ProjectScore, CoverageLedger
+    Project, SourceDocument, Chunk, RiskType, RiskDimensionSpec,
+    EvidenceRating, Evidence, RiskAssessment, ProjectScore, ProcessingState
 ]
 
 
@@ -91,8 +91,8 @@ async def check_database_status():
         collection_counts = status.get("collection_counts", {})
         expected_collections = [
             'projects', 'documents', 'chunks', 'risk_types', 'risk_dimensions',
-            'evidence_ratings', 'evidences', 'risk_assessments', 
-            'project_scores', 'coverage_ledger'
+            'evidence_ratings', 'evidences', 'risk_assessments',
+            'project_scores', 'processing_state'
         ]
         
         for collection_name in collections:

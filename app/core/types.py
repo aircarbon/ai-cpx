@@ -379,3 +379,63 @@ class ProjectScore:
             created_at=model.created_at,
             id=str(model.id)
         )
+
+
+@dataclass
+class ProcessingState:
+    """Processing state for tracking intermediate results and enabling resume capability"""
+    stage: str                              # "chunking", "evidence_extraction", "risk_assessment", "project_scoring"
+    project_id: str                         # Always present
+    status: str                             # "pending", "in_progress", "completed", "failed"
+
+    # Optional references (depend on stage)
+    document_id: Optional[str] = None       # For chunking stage
+    chunk_id: Optional[str] = None          # For evidence_extraction stage
+    risk_type_id: Optional[str] = None      # For evidence_extraction, risk_assessment stages
+
+    # Timing
+    started_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+    # Error handling
+    error_message: Optional[str] = None
+    retry_count: int = 0
+
+    # Results and metadata
+    results: Dict[str, Any] = field(default_factory=dict)
+    processing_version: str = "1.0"
+    id: Optional[str] = None
+
+    def __post_init__(self):
+        if self.created_at is None:
+            self.created_at = datetime.now()
+        if self.updated_at is None:
+            self.updated_at = datetime.now()
+
+    @classmethod
+    def from_model(cls, model) -> 'ProcessingState':
+        # Extract ObjectId from DBRef for Link fields
+        project_id_str = str(model.project_id.to_ref().id) if hasattr(model.project_id, 'to_ref') else str(model.project_id)
+        document_id_str = str(model.document_id.to_ref().id) if model.document_id and hasattr(model.document_id, 'to_ref') else (str(model.document_id) if model.document_id else None)
+        chunk_id_str = str(model.chunk_id.to_ref().id) if model.chunk_id and hasattr(model.chunk_id, 'to_ref') else (str(model.chunk_id) if model.chunk_id else None)
+        risk_type_id_str = str(model.risk_type_id.to_ref().id) if model.risk_type_id and hasattr(model.risk_type_id, 'to_ref') else (str(model.risk_type_id) if model.risk_type_id else None)
+
+        return cls(
+            stage=model.stage,
+            project_id=project_id_str,
+            document_id=document_id_str,
+            chunk_id=chunk_id_str,
+            risk_type_id=risk_type_id_str,
+            status=model.status,
+            started_at=model.started_at,
+            completed_at=model.completed_at,
+            error_message=model.error_message,
+            retry_count=model.retry_count,
+            results=model.results,
+            processing_version=model.processing_version,
+            created_at=model.created_at,
+            updated_at=model.updated_at,
+            id=str(model.id)
+        )
