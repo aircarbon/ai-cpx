@@ -277,10 +277,10 @@ class ProcessingState(Document):
             "document_id",
             "chunk_id",
             "risk_type_id",
-            [("project_id", "stage", "status")],
-            [("project_id", "document_id", "stage")],
-            [("project_id", "chunk_id", "risk_type_id", "stage")],
-            [("project_id", "risk_type_id", "stage")],
+            ("project_id", "stage", "status"),
+            ("project_id", "document_id", "stage"),
+            ("project_id", "chunk_id", "risk_type_id", "stage"),
+            ("project_id", "risk_type_id", "stage"),
             "created_at",
             "updated_at"
         ]

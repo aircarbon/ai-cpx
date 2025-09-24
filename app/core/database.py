@@ -4,8 +4,12 @@ from pymongo import AsyncMongoClient
 from beanie import Document, init_beanie
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load environment variables - check for mounted .env first, then default
+import os
+if os.path.exists("/app/.env"):
+    load_dotenv("/app/.env")
+else:
+    load_dotenv()
 
 # Global state
 _client: Optional[AsyncMongoClient] = None
