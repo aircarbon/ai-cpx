@@ -107,7 +107,9 @@ async def scheduled_task() -> None:
             print(f"  ✅ Project summary {'generated' if summary_success else 'failed'}")
         
         print("\n✅ Risk calculation completed successfully")
-        
+        print("🔚 TEMPORARY: Exiting after one run for testing")
+        sys.exit(0)
+
     except Exception as e:
         print(f"❌ Error in scheduled task: {str(e)}")
 
