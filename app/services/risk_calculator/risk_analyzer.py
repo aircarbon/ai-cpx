@@ -205,15 +205,23 @@ async def get_project_chunks(project: Project) -> List[Chunk]:
     """Get all chunks for a project by getting chunks from all its documents."""
     try:
         documents = await SourceDocumentRepository.get_by_project(project.id)
-        
+
         if not documents:
             return []
-        
+
         all_chunks = []
         for document in documents:
             chunks = await ChunkRepository.get_chunks_by_document(document.id)
             all_chunks.extend(chunks)
-        
+
+        # Apply DEV mode chunk limits for consistency with chunk creation
+        if os.getenv('APP_MODE') == 'DEV':
+            max_chunks_per_project = int(os.getenv('DEV_MAX_CHUNKS_PER_PROJECT', '999'))
+            if max_chunks_per_project < len(all_chunks):
+                # Sort chunks deterministically by document_id and chunk_index for consistent selection
+                all_chunks = sorted(all_chunks, key=lambda c: (c.document_id, c.chunk_index))[:max_chunks_per_project]
+                print(f"    🧪 DEV MODE: Processing {len(all_chunks)} chunks (limited by DEV_MAX_CHUNKS_PER_PROJECT={max_chunks_per_project})")
+
         return all_chunks
     except Exception as e:
         print(f"❌ Error fetching chunks for project '{project.name}': {str(e)}")
