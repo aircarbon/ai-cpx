@@ -31,14 +31,18 @@ class RiskAssessmentRepository:
     @staticmethod
     async def get_by_project_and_risk_type(project_id: str, risk_type_id: str) -> Optional[RiskAssessment]:
         """Get existing risk assessment for a project and risk type."""
-        project_model = await ProjectModel.get(PydanticObjectId(project_id))
-        risk_type_model = await RiskTypeModel.get(PydanticObjectId(risk_type_id))
-        model = await RiskAssessmentModel.find_one(
-            RiskAssessmentModel.project_id == project_model,
-            RiskAssessmentModel.risk_type_id == risk_type_model,
-            fetch_links=True
-        )
-        return RiskAssessment.from_model(model) if model else None
+        # Use the same filtering approach as get_by_project for consistency
+        all_models = await RiskAssessmentModel.find_all(fetch_links=True).to_list()
+
+        for model in all_models:
+            # Check if the project_id and risk_type_id Links match
+            if (model.project_id and model.risk_type_id and
+                hasattr(model.project_id, 'id') and hasattr(model.risk_type_id, 'id') and
+                str(model.project_id.id) == project_id and
+                str(model.risk_type_id.id) == risk_type_id):
+                return RiskAssessment.from_model(model)
+
+        return None
     
     @staticmethod
     async def get_by_project(project_id: str) -> List[RiskAssessment]:
@@ -115,18 +119,17 @@ class RiskAssessmentRepository:
     @staticmethod
     async def update_summary(project_id: str, risk_type_id: str, summary: str) -> bool:
         """Update the summary field of a risk assessment."""
-        project_model = await ProjectModel.get(PydanticObjectId(project_id))
-        risk_type_model = await RiskTypeModel.get(PydanticObjectId(risk_type_id))
+        # Use the same filtering approach as get_by_project_and_risk_type for consistency
+        all_models = await RiskAssessmentModel.find_all(fetch_links=True).to_list()
 
-        existing_model = await RiskAssessmentModel.find_one(
-            RiskAssessmentModel.project_id == project_model,
-            RiskAssessmentModel.risk_type_id == risk_type_model,
-            fetch_links=True
-        )
-
-        if existing_model:
-            existing_model.summary = summary
-            await existing_model.save()
-            return True
+        for model in all_models:
+            # Check if the project_id and risk_type_id Links match
+            if (model.project_id and model.risk_type_id and
+                hasattr(model.project_id, 'id') and hasattr(model.risk_type_id, 'id') and
+                str(model.project_id.id) == project_id and
+                str(model.risk_type_id.id) == risk_type_id):
+                model.summary = summary
+                await model.save()
+                return True
 
         return False

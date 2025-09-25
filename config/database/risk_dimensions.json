@@ -106,7 +106,7 @@
       "weight": 0.2
     },
     {
-      "key": "controllability-mitigation",
+      "key": "controllability",
       "label": "Controllability",
       "description": "Feasibility of mitigation or contingency to neutralize the risk.",
       "rationale": "Controllable risks can be reduced, limiting credit delivery impacts.",

@@ -62,24 +62,25 @@ class EvidenceRepository:
         for document in documents:
             chunks = await ChunkRepository.get_chunks_by_document(document.id)
             all_chunk_ids.extend([chunk.id for chunk in chunks])
-        
+
         if not all_chunk_ids:
             return []
-        
+
         # Due to Beanie Link field complexity, query all evidences and filter in memory
         # This is less efficient but more reliable for Link field matching
         all_evidences = await EvidenceModel.find(fetch_links=True).to_list()
-        
+
         # Filter evidences that match our project's chunks and risk type
         filtered_evidences = []
-        chunk_id_set = set(all_chunk_ids)
-        
+        chunk_id_set = set(str(chunk_id) for chunk_id in all_chunk_ids)
+
         for evidence in all_evidences:
             # Check if evidence has resolved chunk_id and risk_type_id
             if evidence.chunk_id and evidence.risk_type_id:
-                evidence_chunk_id = str(evidence.chunk_id.id) if hasattr(evidence.chunk_id, 'id') else str(evidence.chunk_id)
-                evidence_risk_type_id = str(evidence.risk_type_id.id) if hasattr(evidence.risk_type_id, 'id') else str(evidence.risk_type_id)
-                
+                # Since we use fetch_links=True, Link fields are resolved to document objects
+                evidence_chunk_id = str(evidence.chunk_id.id)
+                evidence_risk_type_id = str(evidence.risk_type_id.id)
+
                 # Check if this evidence belongs to our project and risk type
                 if evidence_chunk_id in chunk_id_set and evidence_risk_type_id == risk_type_id:
                     filtered_evidences.append(evidence)
