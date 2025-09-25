@@ -130,13 +130,10 @@ db.chunks.find({}, {_id: 1}).limit(3)
 
 ```bash
 # Get all projects with total scores
-curl -X 'GET' 'http://localhost:8002/risk/projects-with-total-scores'
+curl -X 'GET' 'http://localhost:8002/projects'
 
-# Get project risk breakdown (use actual project ID from database)
-curl -X 'GET' 'http://localhost:8002/risk/project-risk-breakdown/{project_id}'
-
-# Get specific risk assessment details
-curl -X 'GET' 'http://localhost:8002/risk/risk-assessment/{risk_assessment_id}'
+# Get detailed project information (use actual project ID from database)
+curl -X 'GET' 'http://localhost:8002/projects/{project_id}'
 ```
 
 To find current endpoints and get real IDs for testing:
