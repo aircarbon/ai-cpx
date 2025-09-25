@@ -34,7 +34,7 @@ async def get_all_risk_types() -> List[RiskType]:
                 # Sort risk types by weight (descending) for most important risks first, then by name for consistency
                 risk_types = sorted(risk_types, key=lambda rt: (-rt.weight, rt.risk_type))[:max_risk_types]
                 print(f"🧪 DEV MODE: Using {len(risk_types)} of {total_risk_types} risk types (limited by DEV_MAX_RISK_TYPES={max_risk_types})")
-                print(f"    Selected risk types: {', '.join([f'{rt.risk_type} (weight: {rt.weight})' for rt in risk_types])}")
+                print(f"    Selected risk types: {', '.join([f'{rt.name} (weight: {rt.weight})' for rt in risk_types])}")
 
         return risk_types
     except Exception as e:
@@ -64,7 +64,7 @@ def build_risk_analysis_prompt(chunk_content: str, risk_type: RiskType, dimensio
     prompt = f"""You are an expert risk analyst for carbon credit projects. Your task is to analyze a text chunk for evidence of a specific risk type and rate each evidence across multiple dimensions.
 
 **RISK TYPE TO ANALYZE:**
-- **Name**: {risk_type.risk_type}
+- **Name**: {risk_type.name}
 - **Description**: {risk_type.description}
 
 **RATING DIMENSIONS:**
@@ -76,7 +76,7 @@ def build_risk_analysis_prompt(chunk_content: str, risk_type: RiskType, dimensio
 ```
 
 **INSTRUCTIONS:**
-1. Carefully read and analyze the text for ANY evidence related to "{risk_type.risk_type}" risks
+1. Carefully read and analyze the text for ANY evidence related to "{risk_type.name}" risks
 2. For each piece of evidence found:
    - Write a clear claim summarizing the evidence
    - Extract the exact supporting text from the chunk
@@ -273,7 +273,7 @@ async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: List
 
 async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project_id: str, project_index: int, total_projects: int, chunk_index: int, total_chunks: int, risk_index: int, total_risks: int) -> None:
     """Analyze a single chunk for a specific risk type."""
-    print(f"    🔍 Analyzing project {project_index}/{total_projects}, chunk {chunk_index}/{total_chunks}, risk type {risk_index}/{total_risks}: {risk_type.risk_type}")
+    print(f"    🔍 Analyzing project {project_index}/{total_projects}, chunk {chunk_index}/{total_chunks}, risk type {risk_index}/{total_risks}: {risk_type.name}")
 
     # Check if evidence extraction is already completed for this chunk + risk type
     is_completed = await ProcessingStateRepository.is_completed(
@@ -362,7 +362,7 @@ async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType], 
         for i, result in enumerate(results):
             if isinstance(result, Exception):
                 risk_type = batch_risk_types[i]
-                print(f"      ❌ Error processing {risk_type.risk_type}: {str(result)}")
+                print(f"      ❌ Error processing {risk_type.name}: {str(result)}")
 
 
 async def process_project_risk_analysis(project: Project, risk_types: List[RiskType], project_index: int, total_projects: int) -> int:

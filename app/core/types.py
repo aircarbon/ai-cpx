@@ -96,6 +96,7 @@ class Chunk:
 @dataclass
 class RiskType:
     risk_type: str
+    name: str
     description: str
     weight: float
     id: Optional[str] = None
@@ -104,6 +105,7 @@ class RiskType:
     def from_model(cls, model: 'RiskTypeModel') -> 'RiskType':
         return cls(
             risk_type=model.risk_type,
+            name=model.name,
             description=model.description,
             weight=model.weight,
             id=str(model.id)
@@ -112,6 +114,7 @@ class RiskType:
     def to_model(self) -> 'RiskTypeModel':
         return RiskTypeModel(
             risk_type=self.risk_type,
+            name=self.name,
             description=self.description,
             weight=self.weight
         )

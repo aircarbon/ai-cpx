@@ -2,66 +2,79 @@
   "risks": [
     {
       "risk_type": "policy_regulatory",
+      "name": "Policy/Regulatory",
       "description": "Government or jurisdictional policy changes (e.g., moratoria, taxes, transfer restrictions, eligibility rules) suspend crediting or restrict transfers, reducing or delaying issuance and delivery.",
       "weight": 0.17
     },
     {
       "risk_type": "mrv_data_integrity",
+      "name": "MRV/Data Integrity",
       "description": "Inaccurate measurements, missing data, or tampering in monitoring lead to adverse verification findings and downscaled or rejected credits, delaying issuance.",
       "weight": 0.15
     },
     {
       "risk_type": "finance_counterparty",
+      "name": "Finance/Counterparty",
       "description": "Failure to secure/maintain project finance or offtaker/counterparty default disrupts build/operations or settlement, preventing generation or timely delivery of contracted credits.",
       "weight": 0.12
     },
     {
       "risk_type": "execution_schedule",
+      "name": "Execution/Schedule",
       "description": "EPC delays, logistics bottlenecks, or contractor underperformance push commissioning and monitoring milestones, shifting or missing issuance windows.",
       "weight": 0.09
     },
     {
       "risk_type": "legal_permitting",
+      "name": "Legal/Permitting",
       "description": "Missing or revoked permits, licenses, or compliance breaches halt activities or invalidate monitoring, blocking verification and issuance.",
       "weight": 0.07
     },
     {
       "risk_type": "methodology_baseline",
+      "name": "Methodology/Baseline",
       "description": "Incorrect baseline/additionality or adverse updates to approved methodologies reduce eligible volumes or require re-baselining, cutting units or stalling issuance.",
       "weight": 0.07
     },
     {
       "risk_type": "technology_perf",
+      "name": "Technology/Performance",
       "description": "Equipment or process underperformance versus design (e.g., capture/destruction efficiency) yields fewer abated/removed tonnes than forecast, lowering issuance.",
       "weight": 0.06
     },
     {
       "risk_type": "operations_feedstock",
+      "name": "Operations/Feedstock",
       "description": "Operational downtime, maintenance gaps, adoption shortfalls, or shortages of required inputs/feedstock reduce realized activity and monitoring completeness, decreasing or delaying issuances.",
       "weight": 0.06
     },
     {
       "risk_type": "permanence_reversal",
+      "name": "Permanence/Reversal",
       "description": "For sequestration projects, fires, pests, harvest, or soil/biomass loss reverse stored carbon, triggering buffer deductions or invalidation that cuts available issuance.",
       "weight": 0.06
     },
     {
       "risk_type": "force_majeure",
+      "name": "Force Majeure",
       "description": "Extreme weather, natural disasters, or conflict physically damage assets or restrict site access, interrupting monitoring periods and postponing credit generation and delivery.",
       "weight": 0.05
     },
     {
       "risk_type": "land_tenure_fpic",
+      "name": "Land Tenure/FPIC",
       "description": "Disputed land/resource rights or lack of Free, Prior and Informed Consent (FPIC) lead to injunctions or community blockades, suspending activities and jeopardizing verification.",
       "weight": 0.05
     },
     {
       "risk_type": "leakage_displacement",
+      "name": "Leakage/Displacement",
       "description": "Project activities induce emissions outside the boundary (activity or market leakage), requiring deductions that reduce credited quantity at issuance.",
       "weight": 0.03
     },
     {
       "risk_type": "registry_issuance",
+      "name": "Registry/Issuance",
       "description": "Registry account issues, serial generation errors, or platform backlogs delay credit issuance or transfer, hindering timely delivery/settlement.",
       "weight": 0.02
     }

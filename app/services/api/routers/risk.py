@@ -104,7 +104,7 @@ async def get_project_risk_breakdown(project_id: str):
                 if risk_type_obj:
                     risk_breakdown.append(RiskBreakdownItem(
                         risk_assessment_id=risk_assessment.id,
-                        risk_name=risk_type_obj.risk_type,
+                        risk_name=risk_type_obj.name,
                         risk_description=risk_type_obj.description,
                         risk_weight=risk_type_obj.weight,
                         total_risk_score=risk_assessment.score,

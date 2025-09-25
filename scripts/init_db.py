@@ -110,7 +110,7 @@ async def check_database_status():
         if risk_types_count > 0:
             print("   📝 Risk Types loaded:")
             async for risk_type in RiskType.find().limit(5):
-                print(f"      • {risk_type.risk_type} (weight: {risk_type.weight})")
+                print(f"      • {risk_type.name} (weight: {risk_type.weight})")
             if risk_types_count > 5:
                 print(f"      ... and {risk_types_count - 5} more")
         

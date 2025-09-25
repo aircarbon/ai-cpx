@@ -35,9 +35,9 @@ async def generate_risk_assessment_summary(project: Project, risk_type: RiskType
     evidence_list = "\n".join(evidence_texts)
 
     # Create detailed prompt for LLM
-    prompt = f"""You are a carbon project risk analyst. You will be provided with the top {len(top_evidences)} evidences for the "{risk_type.risk_type}" risk type.
+    prompt = f"""You are a carbon project risk analyst. You will be provided with the top {len(top_evidences)} evidences for the "{risk_type.name}" risk type.
 
-Risk Type: {risk_type.risk_type}
+Risk Type: {risk_type.name}
 Risk Description: {risk_type.description}
 Total Risk Assessment Score: {risk_assessment.score:.2f}
 
@@ -110,7 +110,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
         )
 
         if is_completed:
-            print(f"    ⏭️  Skipping risk assessment summary for '{risk_type.risk_type}' (already completed)")
+            print(f"    ⏭️  Skipping risk assessment summary for '{risk_type.name}' (already completed)")
             skipped_count += 1
             continue
 
@@ -142,7 +142,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
                         status="completed",
                         results={"summary_generated": True, "summary_length": len(summary)}
                     )
-                    print(f"    ✅ Generated summary for '{risk_type.risk_type}' ({len(summary)} chars)")
+                    print(f"    ✅ Generated summary for '{risk_type.name}' ({len(summary)} chars)")
                 else:
                     await ProcessingStateRepository.update_status(
                         stage="risk_assessment_summary",
@@ -151,7 +151,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
                         status="failed",
                         error_message="Failed to update risk assessment with summary"
                     )
-                    print(f"    ❌ Failed to update risk assessment with summary for '{risk_type.risk_type}'")
+                    print(f"    ❌ Failed to update risk assessment with summary for '{risk_type.name}'")
             else:
                 # Mark as completed with no summary (no evidences or risk assessment)
                 await ProcessingStateRepository.update_status(
@@ -161,7 +161,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
                     status="completed",
                     results={"summary_generated": False, "reason": "no_evidences_or_risk_assessment"}
                 )
-                print(f"    ⏭️  No summary needed for '{risk_type.risk_type}' (no evidences or risk assessment)")
+                print(f"    ⏭️  No summary needed for '{risk_type.name}' (no evidences or risk assessment)")
 
         except Exception as e:
             await ProcessingStateRepository.update_status(
@@ -171,7 +171,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
                 status="failed",
                 error_message=str(e)
             )
-            print(f"    ❌ Error processing risk assessment summary for '{risk_type.risk_type}': {str(e)}")
+            print(f"    ❌ Error processing risk assessment summary for '{risk_type.name}': {str(e)}")
 
     print(f"✅ Processed {processed_count} risk assessment summaries, skipped {skipped_count} for project '{project.name}'")
     return processed_count

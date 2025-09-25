@@ -97,6 +97,7 @@ class Chunk(Document):
 # Risk type, taken from config, LLM will have to find evidences for each risk type in each chunk
 class RiskType(Document):
     risk_type: str = Field(..., description="Unique risk type identifier/name", unique=True)
+    name: str = Field(..., description="Human-readable name of the risk type")
     description: str = Field(..., description="Description of the risk type")
     weight: float = Field(..., description="Weight factor for this risk type in calculations")
     

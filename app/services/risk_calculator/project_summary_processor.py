@@ -26,7 +26,7 @@ async def get_risk_assessment_data_for_summary(project_score: ProjectScore, risk
     for assessment in risk_assessments:
         # Get risk type name
         risk_type_obj = risk_type_mapping.get(assessment.risk_type_id)
-        risk_type_name = risk_type_obj.risk_type if risk_type_obj else "Unknown Risk Type"
+        risk_type_name = risk_type_obj.name if risk_type_obj else "Unknown Risk Type"
 
         total_assessments += 1
 

@@ -43,7 +43,7 @@ async def process_project_risk_assessments(project: Project, risk_types: List[Ri
         )
 
         if is_completed:
-            print(f"    ⏭️  Skipping risk assessment for '{risk_type.risk_type}' (already completed)")
+            print(f"    ⏭️  Skipping risk assessment for '{risk_type.name}' (already completed)")
             skipped_count += 1
             continue
 
@@ -103,7 +103,7 @@ async def process_project_risk_assessments(project: Project, risk_types: List[Ri
                 status="failed",
                 error_message=str(e)
             )
-            print(f"    ❌ Error processing risk assessment for '{risk_type.risk_type}': {str(e)}")
+            print(f"    ❌ Error processing risk assessment for '{risk_type.name}': {str(e)}")
 
     print(f"✅ Processed {processed_count} risk assessments, skipped {skipped_count} for project '{project.name}'")
     return risk_assessment_scores
