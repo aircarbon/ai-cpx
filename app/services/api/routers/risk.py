@@ -1,18 +1,13 @@
 from fastapi import APIRouter, HTTPException
 from typing import List
 from app.services.api.schemas.risk_schemas import (
-    ProjectSummary, RiskBreakdownItem, ProjectRiskBreakdown, RiskAssessmentDetail, EvidenceDetail,
-    EvidenceRatingBreakdown, RatingDetail, ChunkDetail
+    ProjectSummary, RiskBreakdownItem, ProjectRiskBreakdown, RiskAssessmentDetail, EvidenceDetail
 )
 from app.repositories.project_repository import ProjectRepository
 from app.repositories.project_score_repository import ProjectScoreRepository
 from app.repositories.risk_assessment_repository import RiskAssessmentRepository
 from app.repositories.risk_type_repository import RiskTypeRepository
-from app.repositories.risk_dimension_repository import RiskDimensionRepository
 from app.repositories.evidence_repository import EvidenceRepository
-from app.repositories.evidence_rating_repository import EvidenceRatingRepository
-from app.repositories.chunk_repository import ChunkRepository
-from app.repositories.source_document_repository import SourceDocumentRepository
 
 router = APIRouter(prefix="/risk", tags=["risk"])
 
@@ -137,103 +132,3 @@ async def get_risk_assessment(risk_assessment_id: str):
     
     return response
 
-
-@router.get("/evidence-rating-breakdown/{evidence_id}", response_model=EvidenceRatingBreakdown)
-async def get_evidence_rating_breakdown(evidence_id: str):
-    evidence = await EvidenceRepository.get_by_id(evidence_id)
-    
-    if not evidence:
-        raise HTTPException(status_code=404, detail=f"Evidence not found with ID: {evidence_id}")
-    
-    all_risk_types = await RiskTypeRepository.get_all()
-    risk_type_mapping = {rt.id: rt for rt in all_risk_types}
-    
-    all_dimension_specs = await RiskDimensionRepository.get_all()
-    dimension_spec_mapping = {ds.id: ds for ds in all_dimension_specs}
-    
-    risk_type_name = None
-    risk_type_description = None
-    
-    chunk = await ChunkRepository.get_by_id(evidence.chunk_id)
-    project_name = "Unknown Project"
-    
-    if chunk:
-        all_documents = await SourceDocumentRepository.get_all()
-        document = None
-        for doc in all_documents:
-            if doc.id == chunk.document_id:
-                document = doc
-                break
-        
-        if document:
-            all_projects = await ProjectRepository.get_all()
-            for project in all_projects:
-                if project.id == document.project_id:
-                    project_name = project.name
-                    break
-    
-    evidence_ratings = await EvidenceRatingRepository.get_by_evidence_id(evidence_id)
-    
-    rating_breakdown = []
-    for evidence_rating in evidence_ratings:
-        risk_type_obj = risk_type_mapping.get(evidence_rating.risk_type_id)
-        dimension_spec_obj = dimension_spec_mapping.get(evidence_rating.risk_dimension_spec_id)
-        
-        if risk_type_name is None and risk_type_obj:
-            risk_type_name = risk_type_obj.risk_type
-            risk_type_description = risk_type_obj.description
-        
-        rating_breakdown.append(RatingDetail(
-            evidence_rating_id=evidence_rating.id,
-            risk_dimension_name=dimension_spec_obj.label if dimension_spec_obj else "Unknown Dimension",
-            scale_value=evidence_rating.scale_value,
-            score=evidence_rating.score,
-            higher_is_riskier=evidence_rating.higher_is_riskier,
-            weight=evidence_rating.weight
-        ))
-    
-    response = EvidenceRatingBreakdown(
-        evidence_id=evidence_id,
-        chunk_id=evidence.chunk_id,
-        claim_text=evidence.claim_text,
-        project_name=project_name,
-        risk_type_name=risk_type_name or "Unknown Risk Type",
-        risk_type_description=risk_type_description or "Unknown",
-        ratings=rating_breakdown
-    )
-    
-    return response
-
-
-@router.get("/get-chunk/{chunk_id}", response_model=ChunkDetail)
-async def get_chunk(chunk_id: str):
-    chunk = await ChunkRepository.get_by_id(chunk_id)
-    
-    if not chunk:
-        raise HTTPException(status_code=404, detail=f"Chunk not found with ID: {chunk_id}")
-    
-    all_projects = await ProjectRepository.get_all()
-    project_mapping = {p.id: p for p in all_projects}
-    
-    all_documents = await SourceDocumentRepository.get_all()
-    document = None
-    for doc in all_documents:
-        if doc.id == chunk.document_id:
-            document = doc
-            break
-    
-    if not document:
-        raise HTTPException(status_code=500, detail="Failed to fetch linked document")
-    
-    project_obj = project_mapping.get(document.project_id)
-    
-    response = ChunkDetail(
-        chunk_id=chunk_id,
-        project_name=project_obj.name if project_obj else "Unknown Project",
-        document_name=document.file_name,
-        document_url=document.document_url,
-        chunk_index=chunk.chunk_index,
-        content=chunk.content
-    )
-    
-    return response

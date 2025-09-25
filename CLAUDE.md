@@ -135,14 +135,8 @@ curl -X 'GET' 'http://localhost:8002/risk/projects-with-total-scores'
 # Get project risk breakdown (use actual project ID from database)
 curl -X 'GET' 'http://localhost:8002/risk/project-risk-breakdown/{project_id}'
 
-# Get specific risk assessment details  
+# Get specific risk assessment details
 curl -X 'GET' 'http://localhost:8002/risk/risk-assessment/{risk_assessment_id}'
-
-# Get evidence rating breakdown
-curl -X 'GET' 'http://localhost:8002/risk/evidence-rating-breakdown/{evidence_rating_id}'
-
-# Get specific document chunk
-curl -X 'GET' 'http://localhost:8002/risk/get-chunk/{chunk_id}'
 ```
 
 To find current endpoints and get real IDs for testing:
