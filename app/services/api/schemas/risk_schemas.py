@@ -29,7 +29,6 @@ class RiskBreakdownItem(BaseModel):
     total_risk_score: Optional[float] = Field(None, description="Calculated risk score (null if no evidences)", ge=0.0, le=1.0)
     risk_assessment_summary: Optional[str] = Field(None, description="AI-generated summary explaining the risk assessment score")
     number_of_total_evidences: int = Field(..., description="Number of evidences supporting this risk assessment", ge=0)
-    top_evidences: List[TopEvidence] = Field(..., description="Top 5 evidences for this specific risk assessment")
 
 
 class ProjectRiskBreakdown(BaseModel):
