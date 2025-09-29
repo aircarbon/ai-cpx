@@ -54,6 +54,7 @@ Understand the data flow stages when making changes:
 5. **Risk Assessments** (MongoDB) → Calculated risk scores based on evidence
 6. **Project Scores** (MongoDB) → Aggregated project-level risk scores with summaries
 
+<!--
 # Autonomous Testing Strategy
 
 ## Testing Philosophy
@@ -63,7 +64,7 @@ Always test changes immediately after implementation. Use isolated test environm
 Understanding the processing pipeline helps determine what test data you need:
 
 1. **Empty Database** → Fresh start with S3 files ready for processing
-2. **Database Initialization** → Collections created, risk dimensions and types loaded from config files  
+2. **Database Initialization** → Collections created, risk dimensions and types loaded from config files
 3. **Document Processing** → Projects identified, documents parsed and stored in MongoDB
 4. **Document Chunking** → Documents split into chunks for LLM processing
 5. **Evidence Extraction** → LLMs analyze chunks, create evidence ratings and evidence records
@@ -74,7 +75,7 @@ Understanding the processing pipeline helps determine what test data you need:
 ## Test Data Stages
 Use `test-setup` container with these commands to populate data up to different stages:
 - `empty-db` → Clean slate
-- `init-db` → Database schema + configurations  
+- `init-db` → Database schema + configurations
 - `init-projects` → Projects are loaded
 - `init-docs` → Documents are loaded
 - `init-chunks` → Documents chunked and ready for evidence extraction
@@ -112,7 +113,7 @@ use aicpx-test
 
 # Common inspection queries
 db.projects.countDocuments()
-db.documents.countDocuments()  
+db.documents.countDocuments()
 db.chunks.countDocuments()
 db.evidences.countDocuments()
 db.risk_assessments.countDocuments()
@@ -138,7 +139,7 @@ curl -X 'GET' 'http://localhost:8002/projects/{project_id}'
 
 To find current endpoints and get real IDs for testing:
 1. Check FastAPI router files in the codebase for available endpoints
-2. Query MongoDB to get actual IDs: 
+2. Query MongoDB to get actual IDs:
    ```bash
    source ./.env.test
    mongosh "mongodb://${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest}:${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123}@localhost:27018/admin?authSource=admin"
@@ -172,7 +173,7 @@ docker logs mongodb-test
 docker stop mongodb-test
 ```
 
-#### API Test Service  
+#### API Test Service
 ```bash
 # Build and run API test container
 docker build -t api-test -f docker/Dockerfile.api .
@@ -190,7 +191,7 @@ docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --networ
 docker logs doc-parser-test  # Monitor document processing
 ```
 
-#### Risk Calculator Test Service  
+#### Risk Calculator Test Service
 ```bash
 docker build -t risk-calculator-test -f docker/Dockerfile.risk-calculator .
 docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test
@@ -222,7 +223,7 @@ docker run --rm --network internal test-setup <stage>
    ```bash
    # Check for existing test containers
    docker ps -a
-   
+
    # Stop any running test containers
    docker stop mongodb-test api-test doc-parser-test risk-calculator-test 2>/dev/null || true
    ```
@@ -238,7 +239,7 @@ docker run --rm --network internal test-setup <stage>
      -p 27018:27017 \
      --rm \
      mongo:noble
-   
+
    # Verify database is ready
    docker logs mongodb-test
    ```
@@ -247,7 +248,7 @@ docker run --rm --network internal test-setup <stage>
    ```bash
    # Build test setup with latest code
    docker build -t test-setup -f docker/Dockerfile.test-setup .
-   
+
    # Load full dataset including summaries (needed for API testing)
    docker run --rm --network internal test-setup load-project-score-summaries
    ```
@@ -257,10 +258,10 @@ docker run --rm --network internal test-setup <stage>
    # Build and run API with your changes
    docker build -t api-test -f docker/Dockerfile.api .
    docker run -d --rm --name api-test -v $(pwd)/.env.test:/app/.env -p 8002:8001 --network internal api-test
-   
+
    # Test your new endpoint
    curl "http://localhost:8002/your-new-endpoint"
-   
+
    # Compare API response with database data
    source ./.env.test
    mongosh "mongodb://${MONGO_INITDB_ROOT_USERNAME:-mongoadmintest}:${MONGO_INITDB_ROOT_PASSWORD:-strongpassword123}@localhost:27018/admin?authSource=admin"
@@ -271,7 +272,7 @@ docker run --rm --network internal test-setup <stage>
    ```bash
    # Check API logs for errors
    docker logs api-test
-   
+
    # Rebuild and retry if needed
    docker stop api-test
    docker build -t api-test -f docker/Dockerfile.api .
@@ -317,7 +318,7 @@ docker run --rm --network internal test-setup <stage>
    # Build risk calculator with your changes
    docker build -t risk-calculator-test -f docker/Dockerfile.risk-calculator .
    docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test
-   
+
    # Monitor evidence extraction process
    docker logs -f risk-calculator-test
    ```
@@ -330,7 +331,7 @@ docker run --rm --network internal test-setup <stage>
    use aicpx-test
    db.evidences.find().limit(5)
    db.evidence_ratings.find().limit(5)
-   
+
    # Verify evidence quality and structure
    ```
 
@@ -371,7 +372,7 @@ docker run --rm --network internal test-setup <stage>
    # Build and run document parser with your changes
    docker build -t doc-parser-test -f docker/Dockerfile.docparser .
    docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test
-   
+
    # Monitor document processing
    docker logs -f doc-parser-test
    ```
@@ -390,3 +391,4 @@ docker run --rm --network internal test-setup <stage>
    ```bash
    docker stop doc-parser-test mongodb-test
    ```
+-->
