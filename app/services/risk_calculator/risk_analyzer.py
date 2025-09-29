@@ -87,41 +87,47 @@ def build_risk_analysis_prompt(chunk_content: str, risk_type: RiskType, dimensio
 4. Provide a brief summary of what the text chunk contains
 
 **RESPONSE FORMAT:**
-You MUST respond with valid JSON in exactly this structure:
+You MUST respond with ONLY valid JSON. No other text before or after the JSON.
 
+**CASE 1: If you find evidences, use this structure:**
 {{
   "risk_type": "{risk_type.risk_type}",
   "evidences": [
     {{
-      "title": "Concise Evidence Title",
+      "title": "Brief Risk Title",
       "evidence_description": "Explain what evidence of the risk you found and why it indicates this risk",
-      "dimension_ratings": [
+      "dimension_ratings": [{', '.join([f'''
         {{
-          "dimension_key": "impact",
-          "scale_value": "moderate",
-          "reasoning": "Explanation for this rating",
+          "dimension_key": "{dim.key}",
+          "scale_value": "{dim.scale[1] if len(dim.scale) > 1 else dim.scale[0]}",
+          "reasoning": "Why this {dim.key} rating fits the evidence",
           "confidence": 0.8
-        }},
-        // ... ratings for all {len(dimensions)} dimensions
+        }}''' for dim in dimensions])}
       ],
-      "confidence": 0.7,
-      "metadata": {{}}
+      "confidence": 0.75
     }}
-    // ... more evidences if found
   ],
   "chunk_summary": "Brief description of chunk content",
-  "no_evidence_reasoning": "ONLY provide if evidences array is empty - explain why no risk indicators found, otherwise set to null"
+  "no_evidence_reasoning": null
+}}
+
+**CASE 2: If you find NO evidences, use this structure:**
+{{
+  "risk_type": "{risk_type.risk_type}",
+  "evidences": [],
+  "chunk_summary": "Brief description of chunk content",
+  "no_evidence_reasoning": "Explain why no risk indicators found"
 }}
 
 **CRITICAL REQUIREMENTS:**
-- Use ONLY the exact dimension keys provided: {', '.join([dim.key for dim in dimensions])}
-- Use ONLY the exact scale values provided for each dimension
-- Rate ALL {len(dimensions)} dimensions for each evidence found
-- If evidences are found, set "no_evidence_reasoning" to null
-- If NO evidences are found, provide "no_evidence_reasoning" and empty "evidences" array
-- Be thorough but precise - don't fabricate evidence
-- Maintain objectivity and accuracy
-- Provide clear, specific reasoning for each rating"""
+- RESPOND WITH ONLY JSON - no explanatory text, no markdown formatting
+- Use exact dimension keys: {', '.join([dim.key for dim in dimensions])}
+- Use exact scale values from the provided scales
+- Include ALL {len(dimensions)} dimension ratings for each evidence
+- If evidences found: set "no_evidence_reasoning": null
+- If NO evidences found: set "evidences": [] and explain in "no_evidence_reasoning"
+- Ensure valid JSON syntax - no trailing commas, proper quotes
+- confidence values must be numbers between 0.0 and 1.0"""
 
     return prompt
 
@@ -242,7 +248,23 @@ async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: List
 
             # Try to parse JSON response
             try:
-                response_data = json.loads(response)
+                # Clean response - remove any markdown formatting or extra text
+                cleaned_response = response.strip()
+                if cleaned_response.startswith('```json'):
+                    cleaned_response = cleaned_response[7:]  # Remove ```json
+                if cleaned_response.endswith('```'):
+                    cleaned_response = cleaned_response[:-3]  # Remove ```
+                cleaned_response = cleaned_response.strip()
+
+                # Try to find JSON if response contains other text
+                if not cleaned_response.startswith('{'):
+                    # Look for first { to last }
+                    start = cleaned_response.find('{')
+                    end = cleaned_response.rfind('}')
+                    if start != -1 and end != -1 and end > start:
+                        cleaned_response = cleaned_response[start:end+1]
+
+                response_data = json.loads(cleaned_response)
                 llm_response = parse_llm_response(response_data)
 
                 if llm_response.has_evidences:
@@ -255,10 +277,18 @@ async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: List
             except json.JSONDecodeError as e:
                 if attempt < MAX_RETRIES - 1:
                     print(f"      ⚠️ Attempt {attempt + 1}/{MAX_RETRIES}: JSON parsing failed, retrying in {RETRY_DELAY}s...")
+                    if len(response.strip()) == 0:
+                        print(f"        🔍 Empty response received from LLM")
+                    else:
+                        print(f"        🔍 Response preview: {response[:100]}...")
                     await asyncio.sleep(RETRY_DELAY)
                     continue
                 else:
                     print(f"      ❌ Failed to parse JSON response after {MAX_RETRIES} attempts: {str(e)}")
+                    if len(response.strip()) == 0:
+                        print(f"        🔍 Final response was empty")
+                    else:
+                        print(f"        🔍 Final response preview: {response[:200]}...")
                     return 0
 
             except Exception as e:
