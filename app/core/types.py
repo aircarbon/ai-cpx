@@ -201,6 +201,7 @@ class LLMDimensionRating:
 @dataclass
 class LLMEvidence:
     """Individual evidence found by LLM in a text chunk"""
+    title: str                                   # Short 2-4 word title for the evidence
     claim_text: str                              # Summary of the evidence claim
     supporting_text: str                         # Actual text snippet from chunk that supports this evidence
     dimension_ratings: List[LLMDimensionRating]  # Ratings for each required dimension
@@ -292,6 +293,7 @@ class EvidenceRating:
 class Evidence:
     """Evidence found for a specific risk type in a chunk"""
     risk_type_id: str
+    title: Optional[str]
     claim_text: str
     chunk_id: str
     evidence_ratings: List[str]  # List of EvidenceRating IDs
@@ -310,9 +312,10 @@ class Evidence:
         risk_type_id_str = str(model.risk_type_id.to_ref().id) if hasattr(model.risk_type_id, 'to_ref') else str(model.risk_type_id)
         chunk_id_str = str(model.chunk_id.to_ref().id) if hasattr(model.chunk_id, 'to_ref') else str(model.chunk_id)
         evidence_ratings_str = [str(rating_id.to_ref().id if hasattr(rating_id, 'to_ref') else rating_id) for rating_id in model.evidence_ratings]
-        
+
         return cls(
             risk_type_id=risk_type_id_str,
+            title=model.title,
             claim_text=model.claim_text,
             chunk_id=chunk_id_str,
             evidence_ratings=evidence_ratings_str,

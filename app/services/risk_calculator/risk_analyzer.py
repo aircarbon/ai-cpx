@@ -78,6 +78,7 @@ def build_risk_analysis_prompt(chunk_content: str, risk_type: RiskType, dimensio
 **INSTRUCTIONS:**
 1. Carefully read and analyze the text for ANY evidence related to "{risk_type.name}" risks
 2. For each piece of evidence found:
+   - Create a concise 2-4 word title for the evidence
    - Write a clear claim summarizing the evidence
    - Extract the exact supporting text from the chunk
    - Rate the evidence on ALL {len(dimensions)} dimensions using the provided scales
@@ -93,6 +94,7 @@ You MUST respond with valid JSON in exactly this structure:
   "risk_type": "{risk_type.risk_type}",
   "evidences": [
     {{
+      "title": "Concise Evidence Title",
       "claim_text": "Clear summary of the evidence",
       "supporting_text": "Exact quote from the text",
       "dimension_ratings": [
@@ -140,6 +142,7 @@ def parse_llm_response(response_data: dict) -> LLMRiskAnalysisResponse:
             dimension_ratings.append(dimension_rating)
         
         evidence = LLMEvidence(
+            title=evidence_data.get('title', ''),
             claim_text=evidence_data.get('claim_text', ''),
             supporting_text=evidence_data.get('supporting_text', ''),
             dimension_ratings=dimension_ratings,

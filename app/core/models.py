@@ -173,6 +173,7 @@ class EvidenceRating(Document):
 # the final score of the evidence is calculated as a weighted average.
 class Evidence(Document):
     risk_type_id: Link[RiskType] = Field(..., description="Reference to the risk type")
+    title: Optional[str] = Field(None, description="Short 2-4 word title for the evidence")
     claim_text: str = Field(..., description="Summary of an evidence")
     chunk_id: Link[Chunk] = Field(..., description="Reference to the chunk")
     

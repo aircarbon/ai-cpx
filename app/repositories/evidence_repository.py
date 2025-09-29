@@ -28,6 +28,7 @@ class EvidenceRepository:
         
         evidence_model = EvidenceModel(
             risk_type_id=PydanticObjectId(risk_type.id),
+            title=llm_evidence.title,
             claim_text=llm_evidence.claim_text,
             chunk_id=PydanticObjectId(chunk.id),
             evidence_ratings=[rating.id for rating in evidence_ratings],

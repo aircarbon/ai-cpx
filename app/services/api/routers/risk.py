@@ -92,6 +92,7 @@ async def get_project_risk_breakdown(project_id: str):
                                 chunk_text = chunk.content[:100] + "..." if len(chunk.content) > 100 else chunk.content
 
                                 top_evidences_for_risk.append(TopEvidence(
+                                    title=evidence.title,
                                     claim_text=evidence.claim_text,
                                     score=evidence.score,
                                     chunk_id=evidence.chunk_id,

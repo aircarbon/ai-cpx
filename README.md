@@ -128,7 +128,7 @@ docker build -t risk-calculator -f docker/Dockerfile.risk-calculator .
 docker run -d --name risk-calculator --network internal risk-calculator
 ```
 
-# Testing
+<!-- # Testing
 For testing purposes (mostly for claud to be able to spin on a quick testing environment to test and debug), you can setup temporary MongoDB and api, doc-parser and risk-calculation containers. They can stay in the `internal` network to be able to connect to MinIO bucket (the MinIO bucket can be reused because it just serves the files and is not affected by the code).
 
 Create `.env.test` file with different credentials than in the `.env` file to avoid confusion (especially ports).
@@ -189,4 +189,4 @@ load-project-score-summaries
 So command would look something like this:
 ```bash
 docker run --rm --network internal test-setup init-chunks
-```
+``` -->

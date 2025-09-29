@@ -11,6 +11,7 @@ class ProjectSummary(BaseModel):
 
 
 class TopEvidence(BaseModel):
+    title: Optional[str] = Field(None, description="Short 2-4 word title for the evidence")
     claim_text: str = Field(..., description="The main claim or finding text")
     score: float = Field(..., description="Calculated evidence score", ge=0.0, le=1.0)
     chunk_id: str = Field(..., description="ID of the chunk this evidence was extracted from")
