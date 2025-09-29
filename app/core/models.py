@@ -174,7 +174,7 @@ class EvidenceRating(Document):
 class Evidence(Document):
     risk_type_id: Link[RiskType] = Field(..., description="Reference to the risk type")
     title: Optional[str] = Field(None, description="Short 2-4 word title for the evidence")
-    claim_text: str = Field(..., description="Summary of an evidence")
+    evidence_description: str = Field(..., description="Description of what evidence of risk was found")
     chunk_id: Link[Chunk] = Field(..., description="Reference to the chunk")
     
     evidence_ratings: List[Link[EvidenceRating]] = Field(default_factory=list, description="List of evidence ratings for different dimensions (one for each dimension with the assigned score)")

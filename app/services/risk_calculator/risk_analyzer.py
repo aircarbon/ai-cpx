@@ -79,8 +79,7 @@ def build_risk_analysis_prompt(chunk_content: str, risk_type: RiskType, dimensio
 1. Carefully read and analyze the text for ANY evidence related to "{risk_type.name}" risks
 2. For each piece of evidence found:
    - Create a concise 2-4 word title for the evidence
-   - Write a clear claim summarizing the evidence
-   - Extract the exact supporting text from the chunk
+   - Describe what evidence of the risk you found (explain the risk indicator)
    - Rate the evidence on ALL {len(dimensions)} dimensions using the provided scales
    - Provide reasoning for each dimension rating
    - Assign overall confidence (0.0-1.0) in this evidence
@@ -95,8 +94,7 @@ You MUST respond with valid JSON in exactly this structure:
   "evidences": [
     {{
       "title": "Concise Evidence Title",
-      "claim_text": "Clear summary of the evidence",
-      "supporting_text": "Exact quote from the text",
+      "evidence_description": "Explain what evidence of the risk you found and why it indicates this risk",
       "dimension_ratings": [
         {{
           "dimension_key": "impact",
@@ -104,7 +102,7 @@ You MUST respond with valid JSON in exactly this structure:
           "reasoning": "Explanation for this rating",
           "confidence": 0.8
         }},
-        // ... ratings for all dimensions
+        // ... ratings for all {len(dimensions)} dimensions
       ],
       "confidence": 0.7,
       "metadata": {{}}
@@ -112,12 +110,15 @@ You MUST respond with valid JSON in exactly this structure:
     // ... more evidences if found
   ],
   "chunk_summary": "Brief description of chunk content",
-  "no_evidence_reasoning": "If no evidences found, explain why"
+  "no_evidence_reasoning": "ONLY provide if evidences array is empty - explain why no risk indicators found, otherwise set to null"
 }}
 
 **CRITICAL REQUIREMENTS:**
+- Use ONLY the exact dimension keys provided: {', '.join([dim.key for dim in dimensions])}
 - Use ONLY the exact scale values provided for each dimension
-- Rate ALL dimensions for each evidence found
+- Rate ALL {len(dimensions)} dimensions for each evidence found
+- If evidences are found, set "no_evidence_reasoning" to null
+- If NO evidences are found, provide "no_evidence_reasoning" and empty "evidences" array
 - Be thorough but precise - don't fabricate evidence
 - Maintain objectivity and accuracy
 - Provide clear, specific reasoning for each rating"""
@@ -143,8 +144,7 @@ def parse_llm_response(response_data: dict) -> LLMRiskAnalysisResponse:
         
         evidence = LLMEvidence(
             title=evidence_data.get('title', ''),
-            claim_text=evidence_data.get('claim_text', ''),
-            supporting_text=evidence_data.get('supporting_text', ''),
+            evidence_description=evidence_data.get('evidence_description', ''),
             dimension_ratings=dimension_ratings,
             confidence=evidence_data.get('confidence', 0.0)
         )
@@ -187,7 +187,7 @@ async def save_evidences_to_database(llm_response: LLMRiskAnalysisResponse, risk
                 evidence_ratings.append(rating)
             
             if not evidence_ratings:
-                print(f"        ⚠️ No valid evidence ratings created for evidence: {llm_evidence.claim_text[:50]}...")
+                print(f"        ⚠️ No valid evidence ratings created for evidence: {llm_evidence.evidence_description[:50]}...")
                 continue
             
             # Create evidence with associated ratings
@@ -196,10 +196,10 @@ async def save_evidences_to_database(llm_response: LLMRiskAnalysisResponse, risk
             )
             
             saved_count += 1
-            print(f"        ✅ Saved evidence: {evidence.claim_text[:50]}... (score: {evidence.score:.2f})")
-            
+            print(f"        ✅ Saved evidence: {evidence.evidence_description[:50]}... (score: {evidence.score:.2f})")
+
         except Exception as e:
-            print(f"        ❌ Error saving evidence '{llm_evidence.claim_text[:50]}...': {str(e)}")
+            print(f"        ❌ Error saving evidence '{llm_evidence.evidence_description[:50]}...': {str(e)}")
     
     return saved_count
 

@@ -29,12 +29,11 @@ class EvidenceRepository:
         evidence_model = EvidenceModel(
             risk_type_id=PydanticObjectId(risk_type.id),
             title=llm_evidence.title,
-            claim_text=llm_evidence.claim_text,
+            evidence_description=llm_evidence.evidence_description,
             chunk_id=PydanticObjectId(chunk.id),
             evidence_ratings=[rating.id for rating in evidence_ratings],
             score=overall_score,
             metadata={
-                "supporting_text": llm_evidence.supporting_text,
                 "llm_confidence": llm_evidence.confidence
             }
         )

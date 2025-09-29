@@ -30,7 +30,7 @@ async def generate_risk_assessment_summary(project: Project, risk_type: RiskType
     # Build evidence text for prompt
     evidence_texts = []
     for i, evidence in enumerate(top_evidences, 1):
-        evidence_texts.append(f"{i}. {evidence.claim_text} (Score: {evidence.score:.2f})")
+        evidence_texts.append(f"{i}. {evidence.evidence_description} (Score: {evidence.score:.2f})")
 
     evidence_list = "\n".join(evidence_texts)
 

@@ -133,7 +133,7 @@ async def get_risk_assessment_top_evidences(risk_assessment_id: str):
 
                 top_evidences.append(TopEvidence(
                     title=evidence.title,
-                    claim_text=evidence.claim_text,
+                    evidence_description=evidence.evidence_description,
                     score=evidence.score,
                     chunk_id=evidence.chunk_id,
                     document_name=document.file_name,
