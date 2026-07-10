@@ -97,21 +97,25 @@ class LLMService:
 
         all_evidences = "\n\n".join(evidence_sections)
 
-        prompt = f"""You are analyzing a carbon credit project for risk assessment. Based on the most significant risk evidences found in the project documents, create a concise summary that highlights the key risk factors.
-
-Project: {project_name}
-
-Key Risk Evidences:
-{all_evidences}
-
-Instructions:
-- Write a 1-3 sentence summary that captures the most important risk concerns
-- Focus on the highest-impact findings that would be most relevant for decision-making
-- Use clear, professional language suitable for stakeholders
-- Avoid technical jargon where possible
-- Be specific about the risks rather than generic
-
-Summary:"""
+        prompt = (
+            f"You are analyzing a carbon credit project for risk assessment. Based on the most significant risk "
+            f"evidences found in the project documents, create a concise summary that highlights the key "
+            f"risk factors.\n"
+            f"\n"
+            f"Project: {project_name}\n"
+            f"\n"
+            f"Key Risk Evidences:\n"
+            f"{all_evidences}\n"
+            f"\n"
+            f"Instructions:\n"
+            f"- Write a 1-3 sentence summary that captures the most important risk concerns\n"
+            f"- Focus on the highest-impact findings that would be most relevant for decision-making\n"
+            f"- Use clear, professional language suitable for stakeholders\n"
+            f"- Avoid technical jargon where possible\n"
+            f"- Be specific about the risks rather than generic\n"
+            f"\n"
+            f"Summary:"
+        )
 
         return await self.query(prompt, session_id=f"project_summary_{project_name}")
 

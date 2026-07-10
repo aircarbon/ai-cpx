@@ -46,14 +46,16 @@ async def get_risk_assessment_data_for_summary(
 
             risk_data.append(risk_entry)
             print(
-                f"      • {risk_type_name}: {assessment.score:.3f} ({'with' if assessment.summary else 'without'} summary)"
+                f"      \u2022 {risk_type_name}: {assessment.score:.3f} "
+                f"({'with' if assessment.summary else 'without'} summary)"
             )
 
     # Sort by score descending for better prompt organization
     risk_data.sort(key=lambda x: x["score"], reverse=True)
 
     print(
-        f"    📋 Prepared {len(risk_data)} risk assessments for summary ({assessments_with_scores}/{total_assessments} with scores, {assessments_with_summaries} with summaries)"
+        f"    \U0001f4cb Prepared {len(risk_data)} risk assessments for summary "
+        f"({assessments_with_scores}/{total_assessments} with scores, {assessments_with_summaries} with summaries)"
     )
 
     return {
@@ -85,25 +87,30 @@ Risk Assessment Summary: {risk_info["summary"]}"""
 
     all_risk_info = "\n\n".join(risk_sections)
 
-    prompt = f"""You are a carbon project risk analyst. You will be provided with the final project score, individual risk type scores, and detailed summaries for each risk type assessment.
-
-Project: {project.name}
-Final Project Score: {risk_data["project_total_score"]:.2f}
-
-Individual Risk Type Assessments:
-{all_risk_info}
-
-Your job is to create a comprehensive project summary (2-3 sentences) that explains why the final project score is {risk_data["project_total_score"]:.2f} based on the individual risk type scores and their detailed assessment summaries.
-
-Instructions:
-- Focus on the most significant risk factors that drive the overall project score
-- Synthesize insights from the individual risk assessment summaries
-- Explain how the different risk types contribute to the final score
-- Use clear, professional language suitable for stakeholders and decision-makers
-- Be specific about the key risk drivers rather than providing generic statements
-- Connect the individual risk scores and their explanations to the overall project assessment
-
-Project Summary:"""
+    prompt = (
+        f"You are a carbon project risk analyst. You will be provided with the final project score, "
+        f"individual risk type scores, and detailed summaries for each risk type assessment.\n"
+        f"\n"
+        f"Project: {project.name}\n"
+        f"Final Project Score: {risk_data['project_total_score']:.2f}\n"
+        f"\n"
+        f"Individual Risk Type Assessments:\n"
+        f"{all_risk_info}\n"
+        f"\n"
+        f"Your job is to create a comprehensive project summary (2-3 sentences) that explains why "
+        f"the final project score is {risk_data['project_total_score']:.2f} based on the individual "
+        f"risk type scores and their detailed assessment summaries.\n"
+        f"\n"
+        f"Instructions:\n"
+        f"- Focus on the most significant risk factors that drive the overall project score\n"
+        f"- Synthesize insights from the individual risk assessment summaries\n"
+        f"- Explain how the different risk types contribute to the final score\n"
+        f"- Use clear, professional language suitable for stakeholders and decision-makers\n"
+        f"- Be specific about the key risk drivers rather than providing generic statements\n"
+        f"- Connect the individual risk scores and their explanations to the overall project assessment\n"
+        f"\n"
+        f"Project Summary:"
+    )
 
     # Generate summary using LLM
     try:

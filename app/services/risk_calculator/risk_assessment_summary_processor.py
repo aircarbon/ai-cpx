@@ -34,25 +34,29 @@ async def generate_risk_assessment_summary(project: Project, risk_type: RiskType
     evidence_list = "\n".join(evidence_texts)
 
     # Create detailed prompt for LLM
-    prompt = f"""You are a carbon project risk analyst. You will be provided with the top {len(top_evidences)} evidences for the "{risk_type.name}" risk type.
-
-Risk Type: {risk_type.name}
-Risk Description: {risk_type.description}
-Total Risk Assessment Score: {risk_assessment.score:.2f}
-
-Top Evidences (ranked by risk score):
-{evidence_list}
-
-Your job is to create a short summary (2-3 sentences) explaining why the total risk assessment score is {risk_assessment.score:.2f} based on these evidences.
-
-Instructions:
-- Focus on the most significant evidence findings that drive the risk score
-- Explain the key factors that contribute to this risk level
-- Use clear, professional language suitable for risk assessment reports
-- Be specific about the evidence rather than generic
-- Connect the individual evidence scores to the overall assessment
-
-Summary:"""
+    prompt = (
+        f"You are a carbon project risk analyst. You will be provided with the top {len(top_evidences)} evidences "
+        f'for the "{risk_type.name}" risk type.\n'
+        f"\n"
+        f"Risk Type: {risk_type.name}\n"
+        f"Risk Description: {risk_type.description}\n"
+        f"Total Risk Assessment Score: {risk_assessment.score:.2f}\n"
+        f"\n"
+        f"Top Evidences (ranked by risk score):\n"
+        f"{evidence_list}\n"
+        f"\n"
+        f"Your job is to create a short summary (2-3 sentences) explaining why the total risk assessment score "
+        f"is {risk_assessment.score:.2f} based on these evidences.\n"
+        f"\n"
+        f"Instructions:\n"
+        f"- Focus on the most significant evidence findings that drive the risk score\n"
+        f"- Explain the key factors that contribute to this risk level\n"
+        f"- Use clear, professional language suitable for risk assessment reports\n"
+        f"- Be specific about the evidence rather than generic\n"
+        f"- Connect the individual evidence scores to the overall assessment\n"
+        f"\n"
+        f"Summary:"
+    )
 
     # Get LLM service and generate summary
     llm_service = get_llm_service()
@@ -161,6 +165,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
             print(f"    ❌ Error processing risk assessment summary for '{risk_type.name}': {str(e)}")
 
     print(
-        f"✅ Processed {processed_count} risk assessment summaries, skipped {skipped_count} for project '{project.name}'"
+        f"✅ Processed {processed_count} risk assessment summaries, skipped {skipped_count} "
+        f"for project '{project.name}'"
     )
     return processed_count
