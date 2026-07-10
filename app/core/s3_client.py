@@ -24,7 +24,7 @@ def get_s3_client(
     access_key: str | None = None,
     secret_key: str | None = None,
     region_name: str = "us-east-1",
-) -> boto3.client | None:
+) -> Any | None:
     try:
         endpoint = endpoint_url or S3_ENDPOINT
         access = access_key or S3_ACCESS_KEY
@@ -58,7 +58,7 @@ def get_bucket_name() -> str:
     return S3_BUCKET_NAME
 
 
-def _list_all_objects(s3_client: boto3.client, bucket_name: str, prefix: str = "") -> list[dict[str, Any]]:
+def _list_all_objects(s3_client: Any, bucket_name: str, prefix: str = "") -> list[dict[str, Any]]:
     """Paginate through list_objects_v2 to return all objects."""
     all_contents: list[dict[str, Any]] = []
     continuation_token: str | None = None
@@ -83,7 +83,7 @@ def _list_all_objects(s3_client: boto3.client, bucket_name: str, prefix: str = "
 
 
 def list_pdf_files_by_folder(
-    s3_client: boto3.client | None = None, bucket_name: str | None = None
+    s3_client: Any | None = None, bucket_name: str | None = None
 ) -> dict[str, list[dict[str, Any]]]:
     if not s3_client:
         s3_client = get_s3_client()
@@ -127,7 +127,7 @@ def list_pdf_files_by_folder(
 
 
 def download_file_to_buffer(
-    file_key: str, s3_client: boto3.client | None = None, bucket_name: str | None = None
+    file_key: str, s3_client: Any | None = None, bucket_name: str | None = None
 ) -> io.BytesIO | None:
     if not s3_client:
         s3_client = get_s3_client()
@@ -152,7 +152,7 @@ def download_file_to_buffer(
         return None
 
 
-def file_exists(file_key: str, s3_client: boto3.client | None = None, bucket_name: str | None = None) -> bool:
+def file_exists(file_key: str, s3_client: Any | None = None, bucket_name: str | None = None) -> bool:
     if not s3_client:
         s3_client = get_s3_client()
         if not s3_client:
