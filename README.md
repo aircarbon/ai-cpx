@@ -15,12 +15,12 @@ The system follows a microservices architecture with the following components:
 ### Data Storage
 - **MongoDB**: The primary database for storing structured project data, extracted document information, calculated risk metrics, and system metadata.
 
-- **MinIO/S3**: Object storage for handling raw documents, processed files, and any binary assets associated with carbon projects.
+- **SeaweedFS / S3**: Object storage for handling raw documents, processed files, and any binary assets associated with carbon projects.
 
 - **LangFuse**: Observability and tracing platform for Large Language Model (LLM) interactions, providing detailed insights into model performance, token usage, and request flows for debugging and optimization.
 
 ### Deployment Architecture
-The three core services can be deployed independently or together using the provided Docker Compose configuration. MongoDB and MinIO are intentionally kept separate from the Docker Compose file to provide flexibility for different deployment environments - whether using managed cloud services (like MongoDB Atlas or AWS S3) or local instances. For development and testing purposes, commands are provided below to run MongoDB and MinIO locally.
+The three core services can be deployed independently or together using the provided Docker Compose configuration. MongoDB and SeaweedFS are intentionally kept separate from the Docker Compose file to provide flexibility for different deployment environments - whether using managed cloud services (like MongoDB Atlas or AWS S3) or local instances. For development and testing purposes, commands are provided below to run MongoDB and SeaweedFS locally.
 
 
 # PROD
@@ -34,9 +34,9 @@ git clone https://github.com/atesluks/ai-cpx
 ```bash
 cp .env.example .env
 ```
-4. Setup MinIO/S3 Storage: For document and file storage:
+4. Setup S3-compatible Object Storage: For document and file storage:
    - Cloud: Use AWS S3, Google Cloud Storage, or other S3-compatible service
-   - Local: Run MinIO locally with Docker (see [MinIO setup command](#minio-s3-storage))
+   - Local: Run SeaweedFS locally with Docker (see [SeaweedFS setup command](#seaweedfs-s3-compatible-object-storage))
 
    Add your storage credentials to the `.env` file.
 5. Setup MongoDB Database: For data persistence:
@@ -51,11 +51,11 @@ cp .env.example .env
    - See [LangFuse self-hosting guide](https://langfuse.com/docs/deployment/self-host) for details
 
    The application will function without LangFuse, but you'll miss valuable LLM performance insights.
-8. Build and run everything (MongoDB and MinIO not included):
+8. Build and run everything (MongoDB and SeaweedFS not included):
 ```bash
 docker compose -f docker/docker-compose.yml up -d --build
 ```
-9. To stop everything, run the following (MongoDB and MinIO not included):
+9. To stop everything, run the following (MongoDB and SeaweedFS not included):
 ```
 docker compose -f docker/docker-compose.yml down
 ```
@@ -67,7 +67,7 @@ When adding dependencies, don't forget to add them in `dependencies.txt` file.
 
 
 ## Running all services
-To run all services (MongoDB and MinIO not included), you can use the same docker compose command as when running production.
+To run all services (MongoDB and SeaweedFS not included), you can use the same docker compose command as when running production.
 
 ## Run individual services
 
@@ -89,24 +89,17 @@ docker run -d --name mongodb \
   mongo:noble
 ```
 
-### MinIO S3 storage
+### SeaweedFS S3-compatible object storage
 ```bash
 source ./.env
-docker run -d --name minio \
+docker run -d --name seaweedfs \
   --network internal \
-  -e MINIO_ROOT_USER=${S3_ROOT_USER:-minioadmin} \
-  -e MINIO_ROOT_PASSWORD=${S3_ROOT_PASSWORD:-minioadmin} \
-  -p ${MINIO_API_PORT:-9100}:9000 -p ${MINIO_CONSOLE_PORT:-9101}:9001 \
-  -v minio-data:/data \
-  quay.io/minio/minio server /data --console-address ":9001"
-```
-
-You will need to use MinIO `mc` client to make the files public.
-To isntall `mc`: https://docs.min.io/community/minio-object-store/reference/minio-mc.html
-Then run these commands to make MinIO files public (adjust credentials in the commands):
-```bash
-mc alias set myminio http://localhost:9100 admin minio_password
-mc anonymous set download myminio/test-bucket
+  -p ${S3_API_PORT:-8333}:8333 \
+  -p 9333:9333 -p 8080:8080 \
+  -e AWS_ACCESS_KEY_ID=${S3_ROOT_USER:-aicpx_s3_access} \
+  -e AWS_SECRET_ACCESS_KEY=${S3_ROOT_PASSWORD:-change-me-strong-secret} \
+  -v seaweedfs-data:/data \
+  chrislusf/seaweedfs server -s3 -s3.port=8333 -volume.port=8080 -master.port=9333 -ip=seaweedfs
 ```
 
 
@@ -131,7 +124,7 @@ docker run -d --name risk-calculator --network internal risk-calculator \
 ```
 
 <!-- # Testing
-For testing purposes (mostly for claud to be able to spin on a quick testing environment to test and debug), you can setup temporary MongoDB and api, doc-parser and risk-calculation containers. They can stay in the `internal` network to be able to connect to MinIO bucket (the MinIO bucket can be reused because it just serves the files and is not affected by the code).
+For testing purposes (mostly for claud to be able to spin on a quick testing environment to test and debug), you can setup temporary MongoDB and api, doc-parser and risk-calculation containers. They can stay in the `internal` network to be able to connect to SeaweedFS bucket (the SeaweedFS bucket can be reused because it just serves the files and is not affected by the code).
 
 Create `.env.test` file with different credentials than in the `.env` file to avoid confusion (especially ports).
 

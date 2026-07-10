@@ -144,7 +144,7 @@ async def get_risk_assessment_top_evidences(risk_assessment_id: str):
                 # Get first 100 characters of chunk text
                 chunk_text = chunk.content[:100] + "..." if len(chunk.content) > 100 else chunk.content
 
-                # Obscure internal MinIO URLs when AI_CPX_PUBLIC_DOCUMENT_URLS is false
+                # Obscure internal S3 URLs when AI_CPX_PUBLIC_DOCUMENT_URLS is false
                 public_doc_urls = os.getenv("AI_CPX_PUBLIC_DOCUMENT_URLS", "false").lower() == "true"
                 doc_url: str | None = document.document_url if public_doc_urls else None
 
