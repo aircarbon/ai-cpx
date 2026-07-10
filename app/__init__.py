@@ -6,5 +6,5 @@ Structure:
 - services/: Individual microservices
   - api/: FastAPI REST API service
   - doc_parser/: Document processing service
-  - risk_calculator/: Risk calculation service  
+  - risk_calculator/: Risk calculation service
 """

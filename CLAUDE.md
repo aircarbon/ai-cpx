@@ -10,7 +10,7 @@ The system follows a microservices architecture with three core services that pr
 
 ### Core Services
 1. **Document Parser** - Monitors S3/MinIO for new documents, extracts text, identifies projects, creates structured records
-2. **Risk Calculator** - Chunks documents, uses LLMs to find evidence, calculates risk scores and project summaries  
+2. **Risk Calculator** - Chunks documents, uses LLMs to find evidence, calculates risk scores and project summaries
 3. **API Service** - FastAPI server providing RESTful access to calculated risks and project data
 
 ### Data Storage
@@ -20,7 +20,7 @@ The system follows a microservices architecture with three core services that pr
 
 ### Processing Pipeline
 ```
-S3 Documents → Document Parser → Projects/Documents → Risk Calculator → 
+S3 Documents → Document Parser → Projects/Documents → Risk Calculator →
 Chunks → Evidence Extraction (LLM) → Risk Assessments → Project Scores → API
 ```
 
@@ -48,7 +48,7 @@ The system uses configuration-driven risk assessment through JSON files in `conf
 ## Data Layer Understanding
 Understand the data flow stages when making changes:
 1. **Raw Documents** (S3/MinIO) → PDF files uploaded by users
-2. **Projects & Documents** (MongoDB) → Structured metadata extracted from PDFs  
+2. **Projects & Documents** (MongoDB) → Structured metadata extracted from PDFs
 3. **Chunks** (MongoDB) → Documents split into smaller pieces for LLM processing
 4. **Evidences** (MongoDB) → LLM-extracted evidence linked to risk types and dimensions
 5. **Risk Assessments** (MongoDB) → Calculated risk scores based on evidence

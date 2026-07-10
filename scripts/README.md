@@ -63,4 +63,4 @@ scripts/
 └── README.md
 ```
 
-Each migration script can be run independently to update the database schema as needed. 
+Each migration script can be run independently to update the database schema as needed.

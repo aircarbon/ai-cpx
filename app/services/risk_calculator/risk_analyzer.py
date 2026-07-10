@@ -1,17 +1,24 @@
-import os
-from typing import List
-import json
 import asyncio
+import json
+import os
 
-from app.core.types import Project, Chunk, RiskType, LLMRiskAnalysisResponse, RiskDimensionSpec, LLMEvidence, LLMDimensionRating
+from app.core.llm_service import get_llm_service
+from app.core.types import (
+    Chunk,
+    LLMDimensionRating,
+    LLMEvidence,
+    LLMRiskAnalysisResponse,
+    Project,
+    RiskDimensionSpec,
+    RiskType,
+)
 from app.repositories.chunk_repository import ChunkRepository
-from app.repositories.risk_type_repository import RiskTypeRepository
-from app.repositories.source_document_repository import SourceDocumentRepository
-from app.repositories.risk_dimension_repository import RiskDimensionRepository
 from app.repositories.evidence_rating_repository import EvidenceRatingRepository
 from app.repositories.evidence_repository import EvidenceRepository
 from app.repositories.processing_state_repository import ProcessingStateRepository
-from app.core.llm_service import get_llm_service
+from app.repositories.risk_dimension_repository import RiskDimensionRepository
+from app.repositories.risk_type_repository import RiskTypeRepository
+from app.repositories.source_document_repository import SourceDocumentRepository
 
 # Retry configuration for LLM analysis
 MAX_RETRIES = 3
@@ -21,20 +28,24 @@ RETRY_DELAY = 1  # seconds
 BATCH_SIZE = 5  # Number of concurrent LLM queries
 
 
-async def get_all_risk_types() -> List[RiskType]:
+async def get_all_risk_types() -> list[RiskType]:
     """Load all risk types from database. Cache this result to avoid repeated queries."""
     try:
         risk_types = await RiskTypeRepository.get_all()
 
         # Apply DEV mode risk type limits
         total_risk_types = len(risk_types)
-        if os.getenv('APP_MODE') == 'DEV':
-            max_risk_types = int(os.getenv('DEV_MAX_RISK_TYPES', '999'))
+        if os.getenv("APP_MODE") == "DEV":
+            max_risk_types = int(os.getenv("DEV_MAX_RISK_TYPES", "999"))
             if max_risk_types < total_risk_types:
                 # Sort risk types by weight (descending) for most important risks first, then by name for consistency
                 risk_types = sorted(risk_types, key=lambda rt: (-rt.weight, rt.risk_type))[:max_risk_types]
-                print(f"🧪 DEV MODE: Using {len(risk_types)} of {total_risk_types} risk types (limited by DEV_MAX_RISK_TYPES={max_risk_types})")
-                print(f"    Selected risk types: {', '.join([f'{rt.name} (weight: {rt.weight})' for rt in risk_types])}")
+                print(
+                    f"🧪 DEV MODE: Using {len(risk_types)} of {total_risk_types} risk types (limited by DEV_MAX_RISK_TYPES={max_risk_types})"
+                )
+                print(
+                    f"    Selected risk types: {', '.join([f'{rt.name} (weight: {rt.weight})' for rt in risk_types])}"
+                )
 
         return risk_types
     except Exception as e:
@@ -42,12 +53,11 @@ async def get_all_risk_types() -> List[RiskType]:
         return []
 
 
-async def get_all_risk_dimensions() -> List[RiskDimensionSpec]:
+async def get_all_risk_dimensions() -> list[RiskDimensionSpec]:
     return await RiskDimensionRepository.get_all()
 
 
-def build_risk_analysis_prompt(chunk_content: str, risk_type: RiskType, dimensions: List[RiskDimensionSpec]) -> str:
-    
+def build_risk_analysis_prompt(chunk_content: str, risk_type: RiskType, dimensions: list[RiskDimensionSpec]) -> str:
     # Build dimensions section
     dimensions_text = ""
     for dim in dimensions:
@@ -55,11 +65,11 @@ def build_risk_analysis_prompt(chunk_content: str, risk_type: RiskType, dimensio
         dimensions_text += f"""
 **{dim.label}** ({dim.key}):
 - Description: {dim.description}
-- Rationale: {dim.rationale} 
+- Rationale: {dim.rationale}
 - Guidance: {dim.guidance}
-- Scale: {scale_desc} {'(higher = riskier)' if dim.higher_is_riskier else '(higher = less risky)'}
+- Scale: {scale_desc} {"(higher = riskier)" if dim.higher_is_riskier else "(higher = less risky)"}
 """
-    
+
     # Build the main prompt
     prompt = f"""You are an expert risk analyst for carbon credit projects. Your task is to analyze a text chunk for evidence of a specific risk type and rate each evidence across multiple dimensions.
 
@@ -96,13 +106,20 @@ You MUST respond with ONLY valid JSON. No other text before or after the JSON.
     {{
       "title": "Brief Risk Title",
       "evidence_description": "Explain what evidence of the risk you found and why it indicates this risk",
-      "dimension_ratings": [{', '.join([f'''
+      "dimension_ratings": [{
+        ", ".join(
+            [
+                f'''
         {{
           "dimension_key": "{dim.key}",
           "scale_value": "{dim.scale[1] if len(dim.scale) > 1 else dim.scale[0]}",
           "reasoning": "Why this {dim.key} rating fits the evidence",
           "confidence": 0.8
-        }}''' for dim in dimensions])}
+        }}'''
+                for dim in dimensions
+            ]
+        )
+    }
       ],
       "confidence": 0.75
     }}
@@ -121,7 +138,7 @@ You MUST respond with ONLY valid JSON. No other text before or after the JSON.
 
 **CRITICAL REQUIREMENTS:**
 - RESPOND WITH ONLY JSON - no explanatory text, no markdown formatting
-- Use exact dimension keys: {', '.join([dim.key for dim in dimensions])}
+- Use exact dimension keys: {", ".join([dim.key for dim in dimensions])}
 - Use exact scale values from the provided scales
 - Include ALL {len(dimensions)} dimension ratings for each evidence
 - If evidences found: set "no_evidence_reasoning": null
@@ -135,82 +152,86 @@ You MUST respond with ONLY valid JSON. No other text before or after the JSON.
 def parse_llm_response(response_data: dict) -> LLMRiskAnalysisResponse:
     """Parse JSON response from LLM into our dataclass structure."""
     evidences = []
-    
-    for evidence_data in response_data.get('evidences', []):
+
+    for evidence_data in response_data.get("evidences", []):
         dimension_ratings = []
-        
-        for rating_data in evidence_data.get('dimension_ratings', []):
+
+        for rating_data in evidence_data.get("dimension_ratings", []):
             dimension_rating = LLMDimensionRating(
-                dimension_key=rating_data.get('dimension_key', ''),
-                scale_value=rating_data.get('scale_value', ''),
-                reasoning=rating_data.get('reasoning', ''),
-                confidence=rating_data.get('confidence', 0.0)
+                dimension_key=rating_data.get("dimension_key", ""),
+                scale_value=rating_data.get("scale_value", ""),
+                reasoning=rating_data.get("reasoning", ""),
+                confidence=rating_data.get("confidence", 0.0),
             )
             dimension_ratings.append(dimension_rating)
-        
+
         evidence = LLMEvidence(
-            title=evidence_data.get('title', ''),
-            evidence_description=evidence_data.get('evidence_description', ''),
+            title=evidence_data.get("title", ""),
+            evidence_description=evidence_data.get("evidence_description", ""),
             dimension_ratings=dimension_ratings,
-            confidence=evidence_data.get('confidence', 0.0)
+            confidence=evidence_data.get("confidence", 0.0),
         )
         evidences.append(evidence)
-    
+
     return LLMRiskAnalysisResponse(
-        risk_type=response_data.get('risk_type', ''),
+        risk_type=response_data.get("risk_type", ""),
         evidences=evidences,
-        chunk_summary=response_data.get('chunk_summary', ''),
-        no_evidence_reasoning=response_data.get('no_evidence_reasoning', '')
+        chunk_summary=response_data.get("chunk_summary", ""),
+        no_evidence_reasoning=response_data.get("no_evidence_reasoning", ""),
     )
 
 
-async def save_evidences_to_database(llm_response: LLMRiskAnalysisResponse, risk_type: RiskType, chunk: Chunk, dimensions: List[RiskDimensionSpec]) -> int:
+async def save_evidences_to_database(
+    llm_response: LLMRiskAnalysisResponse, risk_type: RiskType, chunk: Chunk, dimensions: list[RiskDimensionSpec]
+) -> int:
     """Save LLM evidences and evidence ratings to database. Returns number of evidences saved."""
     saved_count = 0
-    
+
     # Create a lookup dict for dimensions by key
     dimensions_dict = {dim.key: dim for dim in dimensions}
-    
+
     for llm_evidence in llm_response.evidences:
         try:
             # Create evidence ratings for each dimension
             evidence_ratings = []
-            
+
             for llm_rating in llm_evidence.dimension_ratings:
                 dimension_spec = dimensions_dict.get(llm_rating.dimension_key)
                 if not dimension_spec:
                     print(f"        ⚠️ Warning: Unknown dimension key '{llm_rating.dimension_key}', skipping rating")
                     continue
-                
+
                 # Validate scale value
                 if llm_rating.scale_value not in dimension_spec.mapping:
-                    print(f"        ⚠️ Warning: Invalid scale value '{llm_rating.scale_value}' for dimension '{llm_rating.dimension_key}', skipping rating")
+                    print(
+                        f"        ⚠️ Warning: Invalid scale value '{llm_rating.scale_value}' for dimension '{llm_rating.dimension_key}', skipping rating"
+                    )
                     continue
-                
-                rating = await EvidenceRatingRepository.create_from_llm_rating(
-                    llm_rating, risk_type, dimension_spec
-                )
+
+                rating = await EvidenceRatingRepository.create_from_llm_rating(llm_rating, risk_type, dimension_spec)
                 evidence_ratings.append(rating)
-            
+
             if not evidence_ratings:
-                print(f"        ⚠️ No valid evidence ratings created for evidence: {llm_evidence.evidence_description[:50]}...")
+                print(
+                    f"        ⚠️ No valid evidence ratings created for evidence: {llm_evidence.evidence_description[:50]}..."
+                )
                 continue
-            
+
             # Create evidence with associated ratings
             evidence = await EvidenceRepository.create_from_llm_evidence(
                 llm_evidence, risk_type, chunk, evidence_ratings
             )
-            
+
             saved_count += 1
             print(f"        ✅ Saved evidence: {evidence.evidence_description[:50]}... (score: {evidence.score:.2f})")
 
         except Exception as e:
             print(f"        ❌ Error saving evidence '{llm_evidence.evidence_description[:50]}...': {str(e)}")
-    
+
     return saved_count
 
 
-async def get_project_chunks(project: Project) -> List[Chunk]:
+async def get_project_chunks(project: Project) -> list[Chunk]:
     """Get all chunks for a project by getting chunks from all its documents."""
     try:
         documents = await SourceDocumentRepository.get_by_project(project.id)
@@ -224,12 +245,14 @@ async def get_project_chunks(project: Project) -> List[Chunk]:
             all_chunks.extend(chunks)
 
         # Apply DEV mode chunk limits for consistency with chunk creation
-        if os.getenv('APP_MODE') == 'DEV':
-            max_chunks_per_project = int(os.getenv('DEV_MAX_CHUNKS_PER_PROJECT', '999'))
+        if os.getenv("APP_MODE") == "DEV":
+            max_chunks_per_project = int(os.getenv("DEV_MAX_CHUNKS_PER_PROJECT", "999"))
             if max_chunks_per_project < len(all_chunks):
                 # Sort chunks deterministically by document_id and chunk_index for consistent selection
                 all_chunks = sorted(all_chunks, key=lambda c: (c.document_id, c.chunk_index))[:max_chunks_per_project]
-                print(f"    🧪 DEV MODE: Processing {len(all_chunks)} chunks (limited by DEV_MAX_CHUNKS_PER_PROJECT={max_chunks_per_project})")
+                print(
+                    f"    🧪 DEV MODE: Processing {len(all_chunks)} chunks (limited by DEV_MAX_CHUNKS_PER_PROJECT={max_chunks_per_project})"
+                )
 
         return all_chunks
     except Exception as e:
@@ -237,7 +260,7 @@ async def get_project_chunks(project: Project) -> List[Chunk]:
         return []
 
 
-async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: List[RiskDimensionSpec]) -> int:
+async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: list[RiskDimensionSpec]) -> int:
     """Analyze chunk with retry logic for LLM failures. Returns number of evidences saved."""
     for attempt in range(MAX_RETRIES):
         try:
@@ -250,19 +273,19 @@ async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: List
             try:
                 # Clean response - remove any markdown formatting or extra text
                 cleaned_response = response.strip()
-                if cleaned_response.startswith('```json'):
+                if cleaned_response.startswith("```json"):
                     cleaned_response = cleaned_response[7:]  # Remove ```json
-                if cleaned_response.endswith('```'):
+                if cleaned_response.endswith("```"):
                     cleaned_response = cleaned_response[:-3]  # Remove ```
                 cleaned_response = cleaned_response.strip()
 
                 # Try to find JSON if response contains other text
-                if not cleaned_response.startswith('{'):
+                if not cleaned_response.startswith("{"):
                     # Look for first { to last }
-                    start = cleaned_response.find('{')
-                    end = cleaned_response.rfind('}')
+                    start = cleaned_response.find("{")
+                    end = cleaned_response.rfind("}")
                     if start != -1 and end != -1 and end > start:
-                        cleaned_response = cleaned_response[start:end+1]
+                        cleaned_response = cleaned_response[start : end + 1]
 
                 response_data = json.loads(cleaned_response)
                 llm_response = parse_llm_response(response_data)
@@ -276,9 +299,11 @@ async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: List
 
             except json.JSONDecodeError as e:
                 if attempt < MAX_RETRIES - 1:
-                    print(f"      ⚠️ Attempt {attempt + 1}/{MAX_RETRIES}: JSON parsing failed, retrying in {RETRY_DELAY}s...")
+                    print(
+                        f"      ⚠️ Attempt {attempt + 1}/{MAX_RETRIES}: JSON parsing failed, retrying in {RETRY_DELAY}s..."
+                    )
                     if len(response.strip()) == 0:
-                        print(f"        🔍 Empty response received from LLM")
+                        print("        🔍 Empty response received from LLM")
                     else:
                         print(f"        🔍 Response preview: {response[:100]}...")
                     await asyncio.sleep(RETRY_DELAY)
@@ -286,14 +311,16 @@ async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: List
                 else:
                     print(f"      ❌ Failed to parse JSON response after {MAX_RETRIES} attempts: {str(e)}")
                     if len(response.strip()) == 0:
-                        print(f"        🔍 Final response was empty")
+                        print("        🔍 Final response was empty")
                     else:
                         print(f"        🔍 Final response preview: {response[:200]}...")
                     return 0
 
             except Exception as e:
                 if attempt < MAX_RETRIES - 1:
-                    print(f"      ⚠️ Attempt {attempt + 1}/{MAX_RETRIES}: Processing error, retrying in {RETRY_DELAY}s...")
+                    print(
+                        f"      ⚠️ Attempt {attempt + 1}/{MAX_RETRIES}: Processing error, retrying in {RETRY_DELAY}s..."
+                    )
                     await asyncio.sleep(RETRY_DELAY)
                     continue
                 else:
@@ -312,20 +339,29 @@ async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: List
     return 0
 
 
-async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project_id: str, project_index: int, total_projects: int, chunk_index: int, total_chunks: int, risk_index: int, total_risks: int) -> None:
+async def analyze_chunk_for_risk_type(
+    chunk: Chunk,
+    risk_type: RiskType,
+    project_id: str,
+    project_index: int,
+    total_projects: int,
+    chunk_index: int,
+    total_chunks: int,
+    risk_index: int,
+    total_risks: int,
+) -> None:
     """Analyze a single chunk for a specific risk type."""
-    print(f"    🔍 Analyzing project {project_index}/{total_projects}, chunk {chunk_index}/{total_chunks}, risk type {risk_index}/{total_risks}: {risk_type.name}")
+    print(
+        f"    🔍 Analyzing project {project_index}/{total_projects}, chunk {chunk_index}/{total_chunks}, risk type {risk_index}/{total_risks}: {risk_type.name}"
+    )
 
     # Check if evidence extraction is already completed for this chunk + risk type
     is_completed = await ProcessingStateRepository.is_completed(
-        stage="evidence_extraction",
-        project_id=project_id,
-        chunk_id=chunk.id,
-        risk_type_id=risk_type.id
+        stage="evidence_extraction", project_id=project_id, chunk_id=chunk.id, risk_type_id=risk_type.id
     )
 
     if is_completed:
-        print(f"      ⏭️  Skipping (already completed)")
+        print("      ⏭️  Skipping (already completed)")
         return
 
     # Update status to in_progress
@@ -334,7 +370,7 @@ async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project
         project_id=project_id,
         chunk_id=chunk.id,
         risk_type_id=risk_type.id,
-        status="in_progress"
+        status="in_progress",
     )
 
     try:
@@ -346,7 +382,7 @@ async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project
                 chunk_id=chunk.id,
                 risk_type_id=risk_type.id,
                 status="failed",
-                error_message="No risk dimensions found"
+                error_message="No risk dimensions found",
             )
             return
 
@@ -360,7 +396,7 @@ async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project
             chunk_id=chunk.id,
             risk_type_id=risk_type.id,
             status="completed",
-            results={"evidence_count": saved_count}
+            results={"evidence_count": saved_count},
         )
 
         if saved_count > 0:
@@ -373,12 +409,20 @@ async def analyze_chunk_for_risk_type(chunk: Chunk, risk_type: RiskType, project
             chunk_id=chunk.id,
             risk_type_id=risk_type.id,
             status="failed",
-            error_message=str(e)
+            error_message=str(e),
         )
         print(f"      ❌ Error in LLM analysis: {str(e)}")
 
 
-async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType], project_id: str, project_index: int, total_projects: int, chunk_index: int, total_chunks: int) -> None:
+async def analyze_chunk_for_all_risks(
+    chunk: Chunk,
+    risk_types: list[RiskType],
+    project_id: str,
+    project_index: int,
+    total_projects: int,
+    chunk_index: int,
+    total_chunks: int,
+) -> None:
     """Analyze a single chunk against all risk types using parallel batches."""
     # Process risk types in batches for parallel execution
     for batch_start in range(0, len(risk_types), BATCH_SIZE):
@@ -390,13 +434,22 @@ async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType], 
         for i, risk_type in enumerate(batch_risk_types):
             risk_index = batch_start + i + 1  # 1-based index
             task = analyze_chunk_for_risk_type(
-                chunk, risk_type, project_id, project_index, total_projects,
-                chunk_index, total_chunks, risk_index, len(risk_types)
+                chunk,
+                risk_type,
+                project_id,
+                project_index,
+                total_projects,
+                chunk_index,
+                total_chunks,
+                risk_index,
+                len(risk_types),
             )
             tasks.append(task)
 
         # Execute batch in parallel
-        print(f"    📦 Processing batch {batch_start//BATCH_SIZE + 1} ({len(batch_risk_types)} risk types in parallel)")
+        print(
+            f"    📦 Processing batch {batch_start // BATCH_SIZE + 1} ({len(batch_risk_types)} risk types in parallel)"
+        )
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         # Log any exceptions that occurred
@@ -406,7 +459,9 @@ async def analyze_chunk_for_all_risks(chunk: Chunk, risk_types: List[RiskType], 
                 print(f"      ❌ Error processing {risk_type.name}: {str(result)}")
 
 
-async def process_project_risk_analysis(project: Project, risk_types: List[RiskType], project_index: int, total_projects: int) -> int:
+async def process_project_risk_analysis(
+    project: Project, risk_types: list[RiskType], project_index: int, total_projects: int
+) -> int:
     """Process risk analysis for all chunks in a project."""
     chunks = await get_project_chunks(project)
 
@@ -416,7 +471,9 @@ async def process_project_risk_analysis(project: Project, risk_types: List[RiskT
 
     # Process each chunk against all risk types
     for chunk_index, chunk in enumerate(chunks):
-        await analyze_chunk_for_all_risks(chunk, risk_types, project.id, project_index, total_projects, chunk_index + 1, len(chunks))
+        await analyze_chunk_for_all_risks(
+            chunk, risk_types, project.id, project_index, total_projects, chunk_index + 1, len(chunks)
+        )
 
     # Return total combinations processed
     return len(chunks) * len(risk_types)

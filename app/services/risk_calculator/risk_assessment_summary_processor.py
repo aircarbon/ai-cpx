@@ -1,14 +1,13 @@
 import os
-from typing import List, Optional
 
+from app.core.llm_service import get_llm_service
 from app.core.types import Project, RiskType
 from app.repositories.evidence_repository import EvidenceRepository
-from app.repositories.risk_assessment_repository import RiskAssessmentRepository
 from app.repositories.processing_state_repository import ProcessingStateRepository
-from app.core.llm_service import get_llm_service
+from app.repositories.risk_assessment_repository import RiskAssessmentRepository
 
 
-async def generate_risk_assessment_summary(project: Project, risk_type: RiskType) -> Optional[str]:
+async def generate_risk_assessment_summary(project: Project, risk_type: RiskType) -> str | None:
     """Generate a summary for a risk assessment based on top evidence."""
 
     # Get the risk assessment to check if it exists and has a score
@@ -58,32 +57,27 @@ Summary:"""
     # Get LLM service and generate summary
     llm_service = get_llm_service()
     try:
-        summary = await llm_service.query(
-            prompt,
-            session_id=f"risk_summary_{project.name}_{risk_type.risk_type}"
-        )
+        summary = await llm_service.query(prompt, session_id=f"risk_summary_{project.name}_{risk_type.risk_type}")
         return summary.strip()
     except Exception as e:
         print(f"❌ Error generating risk assessment summary: {str(e)}")
         return None
 
 
-async def process_project_risk_assessment_summaries(project: Project, risk_types: List[RiskType]) -> int:
+async def process_project_risk_assessment_summaries(project: Project, risk_types: list[RiskType]) -> int:
     """Process risk assessment summary generation for all risk types in a project."""
     if not risk_types:
         return 0
 
     # Check DEV mode skip option
-    if os.getenv('APP_MODE') == 'DEV' and os.getenv('DEV_SKIP_RISK_ASSESSMENT_SUMMARIES', 'false').lower() == 'true':
-        print(f"    🧪 DEV MODE: Skipping all risk assessment summaries (DEV_SKIP_RISK_ASSESSMENT_SUMMARIES=true)")
+    if os.getenv("APP_MODE") == "DEV" and os.getenv("DEV_SKIP_RISK_ASSESSMENT_SUMMARIES", "false").lower() == "true":
+        print("    🧪 DEV MODE: Skipping all risk assessment summaries (DEV_SKIP_RISK_ASSESSMENT_SUMMARIES=true)")
 
         # Mark all risk types as completed with skip status
         skipped_count = 0
         for risk_type in risk_types:
             is_completed = await ProcessingStateRepository.is_completed(
-                stage="risk_assessment_summary",
-                project_id=project.id,
-                risk_type_id=risk_type.id
+                stage="risk_assessment_summary", project_id=project.id, risk_type_id=risk_type.id
             )
             if not is_completed:
                 await ProcessingStateRepository.update_status(
@@ -91,7 +85,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
                     project_id=project.id,
                     risk_type_id=risk_type.id,
                     status="completed",
-                    results={"skipped_dev_mode": True, "reason": "DEV_SKIP_RISK_ASSESSMENT_SUMMARIES"}
+                    results={"skipped_dev_mode": True, "reason": "DEV_SKIP_RISK_ASSESSMENT_SUMMARIES"},
                 )
                 skipped_count += 1
 
@@ -104,9 +98,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
     for risk_type in risk_types:
         # Check if risk assessment summary is already completed for this project + risk type
         is_completed = await ProcessingStateRepository.is_completed(
-            stage="risk_assessment_summary",
-            project_id=project.id,
-            risk_type_id=risk_type.id
+            stage="risk_assessment_summary", project_id=project.id, risk_type_id=risk_type.id
         )
 
         if is_completed:
@@ -116,10 +108,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
 
         # Update status to in_progress
         await ProcessingStateRepository.update_status(
-            stage="risk_assessment_summary",
-            project_id=project.id,
-            risk_type_id=risk_type.id,
-            status="in_progress"
+            stage="risk_assessment_summary", project_id=project.id, risk_type_id=risk_type.id, status="in_progress"
         )
 
         try:
@@ -128,9 +117,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
 
             if summary:
                 # Update risk assessment with summary
-                success = await RiskAssessmentRepository.update_summary(
-                    project.id, risk_type.id, summary
-                )
+                success = await RiskAssessmentRepository.update_summary(project.id, risk_type.id, summary)
 
                 if success:
                     processed_count += 1
@@ -140,7 +127,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
                         project_id=project.id,
                         risk_type_id=risk_type.id,
                         status="completed",
-                        results={"summary_generated": True, "summary_length": len(summary)}
+                        results={"summary_generated": True, "summary_length": len(summary)},
                     )
                     print(f"    ✅ Generated summary for '{risk_type.name}' ({len(summary)} chars)")
                 else:
@@ -149,7 +136,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
                         project_id=project.id,
                         risk_type_id=risk_type.id,
                         status="failed",
-                        error_message="Failed to update risk assessment with summary"
+                        error_message="Failed to update risk assessment with summary",
                     )
                     print(f"    ❌ Failed to update risk assessment with summary for '{risk_type.name}'")
             else:
@@ -159,7 +146,7 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
                     project_id=project.id,
                     risk_type_id=risk_type.id,
                     status="completed",
-                    results={"summary_generated": False, "reason": "no_evidences_or_risk_assessment"}
+                    results={"summary_generated": False, "reason": "no_evidences_or_risk_assessment"},
                 )
                 print(f"    ⏭️  No summary needed for '{risk_type.name}' (no evidences or risk assessment)")
 
@@ -169,9 +156,11 @@ async def process_project_risk_assessment_summaries(project: Project, risk_types
                 project_id=project.id,
                 risk_type_id=risk_type.id,
                 status="failed",
-                error_message=str(e)
+                error_message=str(e),
             )
             print(f"    ❌ Error processing risk assessment summary for '{risk_type.name}': {str(e)}")
 
-    print(f"✅ Processed {processed_count} risk assessment summaries, skipped {skipped_count} for project '{project.name}'")
+    print(
+        f"✅ Processed {processed_count} risk assessment summaries, skipped {skipped_count} for project '{project.name}'"
+    )
     return processed_count

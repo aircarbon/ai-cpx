@@ -37,21 +37,21 @@ cp .env.example .env
 4. Setup MinIO/S3 Storage: For document and file storage:
    - Cloud: Use AWS S3, Google Cloud Storage, or other S3-compatible service
    - Local: Run MinIO locally with Docker (see [MinIO setup command](#minio-s3-storage))
-   
+
    Add your storage credentials to the `.env` file.
 5. Setup MongoDB Database: For data persistence:
    - Cloud: Use MongoDB Atlas or other managed MongoDB service
    - Local: Run MongoDB locally with Docker (see [MongoDB setup command](#mongodb-database))
-   
+
    Add your database credentials to the `.env` file.
 6. In the beginning (or when there are any changes in data models) you will need to initialize MongoDB database or migrate latest changes. Check [scripts/README.md](scripts/README.md) for more details.
 7. Setup LangFuse (Optional but Recommended): For LLM observability and tracing:
    - Cloud: Add your LangFuse credentials to `.env` file (get them from [cloud.langfuse.com](https://cloud.langfuse.com))
    - Self-hosted: Clone and run locally with Docker: `git clone https://github.com/langfuse/langfuse && cd langfuse && docker compose up -d`
    - See [LangFuse self-hosting guide](https://langfuse.com/docs/deployment/self-host) for details
-   
+
    The application will function without LangFuse, but you'll miss valuable LLM performance insights.
-8. Build and run everything (MongoDB and MinIO not included): 
+8. Build and run everything (MongoDB and MinIO not included):
 ```bash
 docker compose -f docker/docker-compose.yml up -d --build
 ```

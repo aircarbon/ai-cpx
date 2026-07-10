@@ -1,9 +1,10 @@
-from typing import List, Optional, Dict, Any
 from datetime import datetime
+from typing import Any
+
+from beanie import PydanticObjectId
 
 from app.core.models import ProcessingState as ProcessingStateModel
 from app.core.types import ProcessingState
-from beanie import PydanticObjectId
 
 
 class ProcessingStateRepository:
@@ -14,19 +15,16 @@ class ProcessingStateRepository:
         stage: str,
         project_id: str,
         status: str,
-        document_id: Optional[str] = None,
-        chunk_id: Optional[str] = None,
-        risk_type_id: Optional[str] = None,
-        error_message: Optional[str] = None,
-        results: Optional[Dict[str, Any]] = None
-    ) -> Optional[ProcessingState]:
+        document_id: str | None = None,
+        chunk_id: str | None = None,
+        risk_type_id: str | None = None,
+        error_message: str | None = None,
+        results: dict[str, Any] | None = None,
+    ) -> ProcessingState | None:
         """Update status of an existing processing state record"""
 
         # Build query
-        query = {
-            "stage": stage,
-            "project_id": PydanticObjectId(project_id)
-        }
+        query = {"stage": stage, "project_id": PydanticObjectId(project_id)}
 
         if document_id:
             query["document_id"] = PydanticObjectId(document_id)
@@ -36,10 +34,7 @@ class ProcessingStateRepository:
             query["risk_type_id"] = PydanticObjectId(risk_type_id)
 
         # Build update
-        update_data = {
-            "status": status,
-            "updated_at": datetime.now()
-        }
+        update_data = {"status": status, "updated_at": datetime.now()}
 
         if status == "in_progress":
             update_data["started_at"] = datetime.now()
@@ -67,7 +62,7 @@ class ProcessingStateRepository:
                 document_id=PydanticObjectId(document_id) if document_id else None,
                 chunk_id=PydanticObjectId(chunk_id) if chunk_id else None,
                 risk_type_id=PydanticObjectId(risk_type_id) if risk_type_id else None,
-                **update_data
+                **update_data,
             )
             await model.insert()
 
@@ -77,17 +72,13 @@ class ProcessingStateRepository:
     async def is_completed(
         stage: str,
         project_id: str,
-        document_id: Optional[str] = None,
-        chunk_id: Optional[str] = None,
-        risk_type_id: Optional[str] = None
+        document_id: str | None = None,
+        chunk_id: str | None = None,
+        risk_type_id: str | None = None,
     ) -> bool:
         """Check if a specific processing state is completed"""
 
-        query = {
-            "stage": stage,
-            "project_id": PydanticObjectId(project_id),
-            "status": "completed"
-        }
+        query = {"stage": stage, "project_id": PydanticObjectId(project_id), "status": "completed"}
 
         if document_id:
             query["document_id"] = PydanticObjectId(document_id)
@@ -103,16 +94,10 @@ class ProcessingStateRepository:
     async def is_project_scoring_completed(project_id: str) -> bool:
         """Check if project scoring is completed for a project"""
 
-        return await ProcessingStateRepository.is_completed(
-            stage="project_scoring",
-            project_id=project_id
-        )
+        return await ProcessingStateRepository.is_completed(stage="project_scoring", project_id=project_id)
 
     @staticmethod
     async def is_project_summary_completed(project_id: str) -> bool:
         """Check if project summary generation is completed for a project"""
 
-        return await ProcessingStateRepository.is_completed(
-            stage="project_summary",
-            project_id=project_id
-        )
+        return await ProcessingStateRepository.is_completed(stage="project_summary", project_id=project_id)
