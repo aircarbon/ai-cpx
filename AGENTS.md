@@ -82,7 +82,7 @@ load-evidences → load-risk-assessments → load-project-scores → load-projec
 just test-setup <stage>   # builds and runs test-setup container
 ```
 
-Test containers use `mongodb-test` (port 27018), `.env.test` credentials, and the `internal` network. They share the same MinIO instance (read-only static files).
+Test containers use `mongodb-test` (port 27018), `.env.test` credentials, and the `internal` network. They share the same SeaweedFS instance (read-only static files).
 
 ## Processing pipeline
 

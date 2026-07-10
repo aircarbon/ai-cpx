@@ -50,6 +50,18 @@ push tag="sha-$(git rev-parse --short HEAD)":
 
 # ─── Run (local) ────────────────────────────────────────────────────────────
 
+# Start SeaweedFS S3-compatible object storage
+seaweedfs:
+    source ./.env
+    docker run -d --name seaweedfs \
+      --network internal \
+      -p ${S3_API_PORT:-8333}:8333 \
+      -p 9333:9333 -p 8080:8080 \
+      -e AWS_ACCESS_KEY_ID=${S3_ROOT_USER:-aicpx_s3_access} \
+      -e AWS_SECRET_ACCESS_KEY=${S3_ROOT_PASSWORD:-change-me-strong-secret} \
+      -v seaweedfs-data:/data \
+      chrislusf/seaweedfs server -s3 -s3.port=8333 -volume.port=8080 -master.port=9333 -ip=seaweedfs
+
 # Start API server
 api:
     uv run uvicorn app.services.api.main:app --host 0.0.0.0 --port 8001 --reload

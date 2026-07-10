@@ -1,0 +1,36 @@
+# SeaweedFS S3-compatible object storage — local dev / single-node
+#
+# Start:
+#   docker compose -f docker/docker-compose.seaweedfs.yml up -d
+#
+# Verify (requires aws-cli or boto3):
+#   S3_ENDPOINT=http://localhost:8333
+#   S3_ROOT_USER=aicpx_s3_access
+#   S3_ROOT_PASSWORD=change-me-strong-secret
+#   S3_BUCKET_NAME=aicpx-documents
+#
+# See just seaweedfs for the equivalent docker run command.
+
+services:
+  seaweedfs:
+    image: chrislusf/seaweedfs:latest
+    container_name: seaweedfs
+    restart: unless-stopped
+    ports:
+      - "${S3_API_PORT:-8333}:8333"   # S3 API
+      - "9333:9333"                   # Master (admin)
+      - "8080:8080"                   # Volume
+    environment:
+      AWS_ACCESS_KEY_ID: ${S3_ROOT_USER:-aicpx_s3_access}
+      AWS_SECRET_ACCESS_KEY: ${S3_ROOT_PASSWORD:-change-me-strong-secret}
+    volumes:
+      - seaweedfs-data:/data
+    command: server -s3 -s3.port=8333 -volume.port=8080 -master.port=9333 -ip=seaweedfs
+
+networks:
+  default:
+    name: internal
+    external: true
+
+volumes:
+  seaweedfs-data:
