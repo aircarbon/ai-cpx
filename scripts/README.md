@@ -16,17 +16,17 @@ The database scripts are executed from temporary Docker containers for isolation
 
 ```bash
 # Build the database initialization container
-docker build -t db-init -f docker/Dockerfile.db-init .
+docker build -t db-init -f docker/Dockerfile.api .
 
 # Run database initialization
-docker run --rm --network internal db-init
+docker run --rm --network internal db-init python scripts/init_db.py
 ```
 
 #### Check Database Status
 
 ```bash
 # Check database status (shows collection counts and config data summary)
-docker run --rm --network internal db-init status
+docker run --rm --network internal db-init python scripts/init_db.py status
 ```
 
 ## What it does
@@ -63,4 +63,4 @@ scripts/
 └── README.md
 ```
 
-Each migration script can be run independently to update the database schema as needed. 
+Each migration script can be run independently to update the database schema as needed.

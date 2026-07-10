@@ -1,1 +1,1 @@
-# Scripts package for database initialization and migrations 
+# Scripts package for database initialization and migrations

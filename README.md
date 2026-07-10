@@ -37,21 +37,21 @@ cp .env.example .env
 4. Setup MinIO/S3 Storage: For document and file storage:
    - Cloud: Use AWS S3, Google Cloud Storage, or other S3-compatible service
    - Local: Run MinIO locally with Docker (see [MinIO setup command](#minio-s3-storage))
-   
+
    Add your storage credentials to the `.env` file.
 5. Setup MongoDB Database: For data persistence:
    - Cloud: Use MongoDB Atlas or other managed MongoDB service
    - Local: Run MongoDB locally with Docker (see [MongoDB setup command](#mongodb-database))
-   
+
    Add your database credentials to the `.env` file.
 6. In the beginning (or when there are any changes in data models) you will need to initialize MongoDB database or migrate latest changes. Check [scripts/README.md](scripts/README.md) for more details.
 7. Setup LangFuse (Optional but Recommended): For LLM observability and tracing:
    - Cloud: Add your LangFuse credentials to `.env` file (get them from [cloud.langfuse.com](https://cloud.langfuse.com))
    - Self-hosted: Clone and run locally with Docker: `git clone https://github.com/langfuse/langfuse && cd langfuse && docker compose up -d`
    - See [LangFuse self-hosting guide](https://langfuse.com/docs/deployment/self-host) for details
-   
+
    The application will function without LangFuse, but you'll miss valuable LLM performance insights.
-8. Build and run everything (MongoDB and MinIO not included): 
+8. Build and run everything (MongoDB and MinIO not included):
 ```bash
 docker compose -f docker/docker-compose.yml up -d --build
 ```
@@ -118,14 +118,16 @@ docker run -d --name api -p 8001:8001 --network internal api
 
 ### Document parsing service
 ```bash
-docker build -t doc-parser -f docker/Dockerfile.docparser .
-docker run -d --name doc-parser --network internal doc-parser
+docker build -t doc-parser -f docker/Dockerfile.api .
+docker run -d --name doc-parser --network internal doc-parser \
+  python -m app.services.doc_parser.doc_parser
 ```
 
 ### Risk calculation service
 ```bash
-docker build -t risk-calculator -f docker/Dockerfile.risk-calculator .
-docker run -d --name risk-calculator --network internal risk-calculator
+docker build -t risk-calculator -f docker/Dockerfile.api .
+docker run -d --name risk-calculator --network internal risk-calculator \
+  python -m app.services.risk_calculator.risk_calculator
 ```
 
 <!-- # Testing
@@ -153,14 +155,16 @@ docker run -d --rm --name api-test -v $(pwd)/.env.test:/app/.env -p 8002:8001 --
 
 ### Document parsing service
 ```bash
-docker build -t doc-parser-test -f docker/Dockerfile.docparser .
-docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test
+docker build -t doc-parser-test -f docker/Dockerfile.api .
+docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test \
+  python -m app.services.doc_parser.doc_parser
 ```
 
 ### Risk calculation service
 ```bash
-docker build -t risk-calculator-test -f docker/Dockerfile.risk-calculator .
-docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test
+docker build -t risk-calculator-test -f docker/Dockerfile.api .
+docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test \
+  python -m app.services.risk_calculator.risk_calculator
 ```
 
 To run test setup:

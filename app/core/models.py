@@ -1,29 +1,27 @@
-from datetime import datetime, timezone
-from typing import Optional, Dict, Any, List
+from datetime import UTC, datetime
+from typing import Any
+
 from beanie import Document, Link, PydanticObjectId
 from pydantic import Field
+
 
 # Carbon project, a separate folder in the S3 bucket
 class Project(Document):
     name: str = Field(..., description="Name of the project", unique=True)
     folder_path: str = Field(..., description="Path to the project folder")
-    
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the project was created")
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the project was last updated")
-    
+
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC), description="When the project was created")
+    updated_at: datetime = Field(
+        default_factory=lambda: datetime.now(UTC), description="When the project was last updated"
+    )
+
     class Settings:
         name = "projects"
-        indexes = [
-            "name",
-            "folder_path",
-            "created_at",
-            "updated_at"
-        ]
-    
+        indexes = ["name", "folder_path", "created_at", "updated_at"]
+
     class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        json_encoders = {datetime: lambda v: v.isoformat()}
+
 
 # Individual parsed file from S3 file
 class SourceDocument(Document):
@@ -37,46 +35,39 @@ class SourceDocument(Document):
     content: str = Field(..., description="Extracted text content from the document")
 
     success: bool = Field(..., description="Whether processing was successful")
-    error: Optional[str] = Field(None, description="Error message if processing failed")
+    error: str | None = Field(None, description="Error message if processing failed")
 
-    file_size: Optional[int] = Field(None, description="Size of the file in bytes")
-    page_count: Optional[int] = Field(None, description="Number of pages in the document")
-    document_url: Optional[str] = Field(None, description="Public URL to access the document")
+    file_size: int | None = Field(None, description="Size of the file in bytes")
+    page_count: int | None = Field(None, description="Number of pages in the document")
+    document_url: str | None = Field(None, description="Public URL to access the document")
 
-    metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional document metadata")
-    
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the document was created")
-    
+    metadata: dict[str, Any] = Field(default_factory=dict, description="Additional document metadata")
+
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC), description="When the document was created")
+
     class Settings:
         name = "documents"
-        indexes = [
-            "project_id",
-            "file_name",
-            "source_type",
-            "success",
-            "created_at"
-        ]
-    
+        indexes = ["project_id", "file_name", "source_type", "success", "created_at"]
+
     class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        json_encoders = {datetime: lambda v: v.isoformat()}
+
 
 # Chunk of text from the parsed document
 class Chunk(Document):
     document_id: Link[SourceDocument] = Field(..., description="Reference to the document this chunk belongs to")
-    
+
     chunk_index: int = Field(..., description="Index of this chunk within the document")
-    page_from: Optional[int] = Field(None, description="Starting page number for this chunk")
-    page_to: Optional[int] = Field(None, description="Ending page number for this chunk")
+    page_from: int | None = Field(None, description="Starting page number for this chunk")
+    page_to: int | None = Field(None, description="Ending page number for this chunk")
     content: str = Field(..., description="Text content of this chunk")
     size_characters: int = Field(..., description="Size of the chunk in characters")
-    
-    previous_chunk_id: Optional[PydanticObjectId] = Field(None, description="ID of the previous chunk")
-    next_chunk_id: Optional[PydanticObjectId] = Field(None, description="ID of the next chunk")
-    
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the chunk was created")
-    
+
+    previous_chunk_id: PydanticObjectId | None = Field(None, description="ID of the previous chunk")
+    next_chunk_id: PydanticObjectId | None = Field(None, description="ID of the next chunk")
+
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC), description="When the chunk was created")
+
     class Settings:
         name = "chunks"
         indexes = [
@@ -86,13 +77,12 @@ class Chunk(Document):
             "page_to",
             "previous_chunk_id",
             "next_chunk_id",
-            "created_at"
+            "created_at",
         ]
-    
+
     class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        json_encoders = {datetime: lambda v: v.isoformat()}
+
 
 # Risk type, taken from config, LLM will have to find evidences for each risk type in each chunk
 class RiskType(Document):
@@ -100,20 +90,16 @@ class RiskType(Document):
     name: str = Field(..., description="Human-readable name of the risk type")
     description: str = Field(..., description="Description of the risk type")
     weight: float = Field(..., description="Weight factor for this risk type in calculations")
-    
+
     class Settings:
         name = "risk_types"
-        indexes = [
-            "risk_type",
-            "weight"
-        ]
-    
-    class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        indexes = ["risk_type", "weight"]
 
-# Instead of scoring a risk directly, we score each dimension of the risk and then calculate the 
+    class Config:
+        json_encoders = {datetime: lambda v: v.isoformat()}
+
+
+# Instead of scoring a risk directly, we score each dimension of the risk and then calculate the
 # overall score as a weighted average of the dimension scores. RiskDimensionSpec is a config file
 # that defines the dimensions and their scale, and will be used by the LLM for scoring.
 class RiskDimensionSpec(Document):
@@ -122,153 +108,154 @@ class RiskDimensionSpec(Document):
     description: str = Field(..., description="Description of what this dimension measures")
     rationale: str = Field(..., description="Rationale for why this dimension is important")
     guidance: str = Field(..., description="Guidance on how to assess this dimension")
-    
+
     higher_is_riskier: bool = Field(..., description="Whether higher values indicate higher risk")
-    
-    scale: List[str] = Field(..., description="Ordered list of scale values from lowest to highest")
-    mapping: Dict[str, float] = Field(..., description="Mapping from scale values to numeric scores")
-    
+
+    scale: list[str] = Field(..., description="Ordered list of scale values from lowest to highest")
+    mapping: dict[str, float] = Field(..., description="Mapping from scale values to numeric scores")
+
     weight: float = Field(..., description="Weight factor for this dimension in calculations")
-    
+
     class Settings:
         name = "risk_dimensions"
-        indexes = [
-            "key",
-            "weight",
-            "higher_is_riskier"
-        ]
-    
+        indexes = ["key", "weight", "higher_is_riskier"]
+
     class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        json_encoders = {datetime: lambda v: v.isoformat()}
+
 
 # Evidence rating for a specific dimension of a specific risk type.
 # For example, how severe is the impact of the political risk on the project from X claim?
 class EvidenceRating(Document):
     risk_type_id: Link[RiskType] = Field(..., description="Reference to the risk type")
-    risk_dimension_spec_id: Link[RiskDimensionSpec] = Field(..., description="Reference to the risk dimension specification")
+    risk_dimension_spec_id: Link[RiskDimensionSpec] = Field(
+        ..., description="Reference to the risk dimension specification"
+    )
     scale_value: str = Field(..., description="String value from the scale (e.g., 'mild', 'moderate', 'severe')")
     score: float = Field(..., description="Numeric score for this assessment")
     higher_is_riskier: bool = Field(..., description="Whether higher values indicate higher risk")
     weight: float = Field(..., description="Weight factor for this assessment")
-    
+
     class Settings:
         name = "evidence_ratings"
-        indexes = [
-            "risk_type_id",
-            "risk_dimension_spec_id",
-            "scale_value",
-            "higher_is_riskier",
-            "weight"
-        ]
-    
+        indexes = ["risk_type_id", "risk_dimension_spec_id", "scale_value", "higher_is_riskier", "weight"]
+
     class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        json_encoders = {datetime: lambda v: v.isoformat()}
+
 
 # Evidence is found by an LLM from a chunk of text for a specific risk type,
 # and contains a list of evidence ratings for different dimensions, from which
 # the final score of the evidence is calculated as a weighted average.
 class Evidence(Document):
     risk_type_id: Link[RiskType] = Field(..., description="Reference to the risk type")
-    title: Optional[str] = Field(None, description="Short 2-4 word title for the evidence")
+    title: str | None = Field(None, description="Short 2-4 word title for the evidence")
     evidence_description: str = Field(..., description="Description of what evidence of risk was found")
     chunk_id: Link[Chunk] = Field(..., description="Reference to the chunk")
-    
-    evidence_ratings: List[Link[EvidenceRating]] = Field(default_factory=list, description="List of evidence ratings for different dimensions (one for each dimension with the assigned score)")
-    score: float = Field(..., description="Overall score for this evidence (calculated as a weighted avergae of all evidence assessments)")
-    
-    metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata for the evidence")
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the evidence was created")
-    
+
+    evidence_ratings: list[Link[EvidenceRating]] = Field(
+        default_factory=list,
+        description="List of evidence ratings for different dimensions "
+        "(one for each dimension with the assigned score)",
+    )
+    score: float = Field(
+        ...,
+        description="Overall score for this evidence (calculated as a weighted avergae of all evidence assessments)",
+    )
+
+    metadata: dict[str, Any] = Field(default_factory=dict, description="Additional metadata for the evidence")
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC), description="When the evidence was created")
+
     class Settings:
         name = "evidences"
-        indexes = [
-            "risk_type_id",
-            "chunk_id",
-            "score",
-            "created_at"
-        ]
-    
+        indexes = ["risk_type_id", "chunk_id", "score", "created_at"]
+
     class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        json_encoders = {datetime: lambda v: v.isoformat()}
+
 
 # Risk assessment aggregates different evidences and their scores for a specific risk type
 class RiskAssessment(Document):
     project_id: Link[Project] = Field(..., description="Reference to the project this assessment belongs to")
     risk_type_id: Link[RiskType] = Field(..., description="Reference to the risk type")
-    evidence_ids: List[Link[Evidence]] = Field(default_factory=list, description="Array of links to Evidence objects (each risk type can have multiple evidences)")
-    score: Optional[float] = Field(None, description="Risk assessment score for this risk type (null if no evidences)")
-    summary: Optional[str] = Field(None, description="AI-generated summary explaining the risk assessment score based on top evidences")
+    evidence_ids: list[Link[Evidence]] = Field(
+        default_factory=list,
+        description="Array of links to Evidence objects (each risk type can have multiple evidences)",
+    )
+    score: float | None = Field(None, description="Risk assessment score for this risk type (null if no evidences)")
+    summary: str | None = Field(
+        None, description="AI-generated summary explaining the risk assessment score based on top evidences"
+    )
 
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the assessment was created")
-    
+    created_at: datetime = Field(
+        default_factory=lambda: datetime.now(UTC), description="When the assessment was created"
+    )
+
     class Settings:
         name = "risk_assessments"
-        indexes = [
-            "project_id",
-            "risk_type_id",
-            "score",
-            "created_at"
-        ]
-    
+        indexes = ["project_id", "risk_type_id", "score", "created_at"]
+
     class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        json_encoders = {datetime: lambda v: v.isoformat()}
+
 
 # Project score is a weighted average of all risk scores for a project
 class ProjectScore(Document):
     project_id: Link[Project] = Field(..., description="Reference to the project this score belongs to")
-    risk_scores: List[Link[RiskAssessment]] = Field(default_factory=list, description="Array of links to RiskAssessment objects, one for each type of risk")
-    total_score: float = Field(..., description="Total calculated score for the project (as weighted average of all risk scores)")
-    summary: Optional[str] = Field(None, description="Optional summary text describing the project's risk assessment")
-    
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the project score was created")
-    
+    risk_scores: list[Link[RiskAssessment]] = Field(
+        default_factory=list, description="Array of links to RiskAssessment objects, one for each type of risk"
+    )
+    total_score: float = Field(
+        ..., description="Total calculated score for the project (as weighted average of all risk scores)"
+    )
+    summary: str | None = Field(None, description="Optional summary text describing the project's risk assessment")
+
+    created_at: datetime = Field(
+        default_factory=lambda: datetime.now(UTC), description="When the project score was created"
+    )
+
     class Settings:
         name = "project_scores"
-        indexes = [
-            "project_id",
-            "total_score",
-            "created_at"
-        ]
-    
+        indexes = ["project_id", "total_score", "created_at"]
+
     class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        json_encoders = {datetime: lambda v: v.isoformat()}
+
 
 # Model for tracking processing state to enable resumable operations
 class ProcessingState(Document):
     """Track processing state for all stages to enable precise resume capability"""
 
     # Processing stage identifier
-    stage: str = Field(..., description="Processing stage: chunking, evidence_extraction, risk_assessment, project_scoring")
+    stage: str = Field(
+        ..., description="Processing stage: chunking, evidence_extraction, risk_assessment, project_scoring"
+    )
 
     # Core references (project_id always present, others depend on stage)
     project_id: Link[Project] = Field(..., description="Reference to the project")
-    document_id: Optional[Link[SourceDocument]] = Field(None, description="Reference to document (for chunking stage)")
-    chunk_id: Optional[Link[Chunk]] = Field(None, description="Reference to chunk (for evidence_extraction stage)")
-    risk_type_id: Optional[Link[RiskType]] = Field(None, description="Reference to risk type (for evidence_extraction, risk_assessment stages)")
+    document_id: Link[SourceDocument] | None = Field(None, description="Reference to document (for chunking stage)")
+    chunk_id: Link[Chunk] | None = Field(None, description="Reference to chunk (for evidence_extraction stage)")
+    risk_type_id: Link[RiskType] | None = Field(
+        None, description="Reference to risk type (for evidence_extraction, risk_assessment stages)"
+    )
 
     # Status tracking
     status: str = Field(..., description="Status: pending, in_progress, completed, failed")
-    started_at: Optional[datetime] = Field(None, description="When processing started")
-    completed_at: Optional[datetime] = Field(None, description="When processing completed")
-    error_message: Optional[str] = Field(None, description="Error message if failed")
+    started_at: datetime | None = Field(None, description="When processing started")
+    completed_at: datetime | None = Field(None, description="When processing completed")
+    error_message: str | None = Field(None, description="Error message if failed")
     retry_count: int = Field(default=0, description="Number of retry attempts")
 
     # Results and metadata
-    results: Dict[str, Any] = Field(default_factory=dict, description="Stage-specific results (e.g., chunk_count, evidence_count)")
+    results: dict[str, Any] = Field(
+        default_factory=dict, description="Stage-specific results (e.g., chunk_count, evidence_count)"
+    )
     processing_version: str = Field(default="1.0", description="Algorithm version for invalidation on changes")
 
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the record was created")
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="When the record was last updated")
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC), description="When the record was created")
+    updated_at: datetime = Field(
+        default_factory=lambda: datetime.now(UTC), description="When the record was last updated"
+    )
 
     class Settings:
         name = "processing_state"
@@ -284,10 +271,8 @@ class ProcessingState(Document):
             ("project_id", "chunk_id", "risk_type_id", "stage"),
             ("project_id", "risk_type_id", "stage"),
             "created_at",
-            "updated_at"
+            "updated_at",
         ]
 
     class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        json_encoders = {datetime: lambda v: v.isoformat()}

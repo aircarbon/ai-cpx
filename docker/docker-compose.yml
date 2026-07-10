@@ -4,6 +4,8 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile.api
+    env_file:
+      - ../.env
     ports:
       - "8001:8001"
     networks:
@@ -13,14 +15,20 @@ services:
   docparser:
     build:
       context: ..
-      dockerfile: docker/Dockerfile.docparser
+      dockerfile: docker/Dockerfile.api
+    env_file:
+      - ../.env
+    command: ["python", "-m", "app.services.doc_parser.doc_parser"]
     networks:
       - internal
 
   risk-calculator:
     build:
       context: ..
-      dockerfile: docker/Dockerfile.risk-calculator
+      dockerfile: docker/Dockerfile.api
+    env_file:
+      - ../.env
+    command: ["python", "-m", "app.services.risk_calculator.risk_calculator"]
     networks:
       - internal
 
