@@ -186,15 +186,17 @@ curl "http://localhost:8002/health"  # Test API is responding
 
 #### Document Parser Test Service
 ```bash
-docker build -t doc-parser-test -f docker/Dockerfile.docparser .
-docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test
+docker build -t doc-parser-test -f docker/Dockerfile.api .
+docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test \
+  python -m app.services.doc_parser.doc_parser
 docker logs doc-parser-test  # Monitor document processing
 ```
 
 #### Risk Calculator Test Service
 ```bash
-docker build -t risk-calculator-test -f docker/Dockerfile.risk-calculator .
-docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test
+docker build -t risk-calculator-test -f docker/Dockerfile.api .
+docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test \
+  python -m app.services.risk_calculator.risk_calculator
 docker logs risk-calculator-test  # Monitor LLM processing and scoring
 ```
 
@@ -316,8 +318,9 @@ docker run --rm --network internal test-setup <stage>
 3. **Test Evidence Generation**
    ```bash
    # Build risk calculator with your changes
-   docker build -t risk-calculator-test -f docker/Dockerfile.risk-calculator .
-   docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test
+   docker build -t risk-calculator-test -f docker/Dockerfile.api .
+   docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test \
+     python -m app.services.risk_calculator.risk_calculator
 
    # Monitor evidence extraction process
    docker logs -f risk-calculator-test
@@ -370,8 +373,9 @@ docker run --rm --network internal test-setup <stage>
 3. **Test Document Processing**
    ```bash
    # Build and run document parser with your changes
-   docker build -t doc-parser-test -f docker/Dockerfile.docparser .
-   docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test
+   docker build -t doc-parser-test -f docker/Dockerfile.api .
+   docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test \
+     python -m app.services.doc_parser.doc_parser
 
    # Monitor document processing
    docker logs -f doc-parser-test

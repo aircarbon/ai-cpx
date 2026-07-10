@@ -1,24 +1,41 @@
-# Use the official Python image from the Docker Hub
-FROM python:3.12.3
+# === Canonical image for AI CPX ===
+#
+# This single image is reused by all AI CPX components (API, docparser,
+# risk calculator, DB init) with overridden commands in Kubernetes.
+#
+# Build:
+#   docker buildx build --platform linux/amd64 \
+#     -f docker/Dockerfile.api \
+#     -t ghcr.io/aircarbon/ai-cpx:<tag> \
+#     --push .
+#
+# Requires: uv.lock and pyproject.toml at the repo root.
+
+FROM python:3.12.3-slim
+
+# Install uv (official Astral install)
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    PATH="/app/.venv/bin:$PATH"
 
 # Create and set the working directory in the container
 WORKDIR /app
 
-# Copy the requirements file into the container
-COPY requirements.txt /app/
-
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies (layer caching via uv.lock)
+COPY pyproject.toml uv.lock /app/
+RUN uv sync --frozen --no-dev --no-editable
 
 # Copy the rest of the application into the container
 COPY . /app/
 
-# Healthcheck to clean files older than 4 hours in /tmp every 30 minutes
-HEALTHCHECK --interval=30m CMD find /tmp -mindepth 1 -mmin +240 -exec rm -rf {} \; || exit 0
-
-# Run the application
+# Default: run the API service
+# Override CMD for other components:
+#   docparser:    python -m app.services.doc_parser.doc_parser
+#   risk-calc:    python -m app.services.risk_calculator.risk_calculator
+#   db-init:      python scripts/init_db.py
 CMD ["uvicorn", "app.services.api.main:app", "--host", "0.0.0.0", "--port", "8001"]

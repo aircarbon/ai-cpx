@@ -118,14 +118,16 @@ docker run -d --name api -p 8001:8001 --network internal api
 
 ### Document parsing service
 ```bash
-docker build -t doc-parser -f docker/Dockerfile.docparser .
-docker run -d --name doc-parser --network internal doc-parser
+docker build -t doc-parser -f docker/Dockerfile.api .
+docker run -d --name doc-parser --network internal doc-parser \
+  python -m app.services.doc_parser.doc_parser
 ```
 
 ### Risk calculation service
 ```bash
-docker build -t risk-calculator -f docker/Dockerfile.risk-calculator .
-docker run -d --name risk-calculator --network internal risk-calculator
+docker build -t risk-calculator -f docker/Dockerfile.api .
+docker run -d --name risk-calculator --network internal risk-calculator \
+  python -m app.services.risk_calculator.risk_calculator
 ```
 
 <!-- # Testing
@@ -153,14 +155,16 @@ docker run -d --rm --name api-test -v $(pwd)/.env.test:/app/.env -p 8002:8001 --
 
 ### Document parsing service
 ```bash
-docker build -t doc-parser-test -f docker/Dockerfile.docparser .
-docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test
+docker build -t doc-parser-test -f docker/Dockerfile.api .
+docker run -d --rm --name doc-parser-test -v $(pwd)/.env.test:/app/.env --network internal doc-parser-test \
+  python -m app.services.doc_parser.doc_parser
 ```
 
 ### Risk calculation service
 ```bash
-docker build -t risk-calculator-test -f docker/Dockerfile.risk-calculator .
-docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test
+docker build -t risk-calculator-test -f docker/Dockerfile.api .
+docker run -d --rm --name risk-calculator-test -v $(pwd)/.env.test:/app/.env --network internal risk-calculator-test \
+  python -m app.services.risk_calculator.risk_calculator
 ```
 
 To run test setup:
