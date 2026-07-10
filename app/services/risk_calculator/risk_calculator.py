@@ -66,7 +66,8 @@ async def scheduled_task() -> None:
                 # Sort projects deterministically by name for consistent selection across resumes
                 projects = sorted(projects, key=lambda p: p.name)[:max_projects]
                 print(
-                    f"🧪 DEV MODE: Processing {len(projects)} of {total_projects} projects (limited by DEV_MAX_PROJECTS={max_projects})"
+                    f"🧪 DEV MODE: Processing {len(projects)} of {total_projects} projects "
+                    f"(limited by DEV_MAX_PROJECTS={max_projects})"
                 )
                 print(f"    Selected projects: {', '.join([p.name for p in projects])}")
 

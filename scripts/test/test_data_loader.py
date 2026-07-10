@@ -190,7 +190,8 @@ async def load_test_evidence_ratings() -> int:
             )
 
         print(
-            f"📊 Test evidence ratings loaded: {created_count} created, {len(evidence_ratings_data) - created_count} already existed"
+            f"📊 Test evidence ratings loaded: {created_count} created, "
+            f"{len(evidence_ratings_data) - created_count} already existed"
         )
         return created_count
 
@@ -262,7 +263,8 @@ async def load_test_risk_assessments() -> int:
             print(f"   ✅ Created risk assessment: {evidence_count} evidences, score: {score:.3f}")
 
         print(
-            f"📊 Test risk assessments loaded: {created_count} created, {len(risk_assessments_data) - created_count} already existed"
+            f"📊 Test risk assessments loaded: {created_count} created, "
+            f"{len(risk_assessments_data) - created_count} already existed"
         )
         return created_count
 
@@ -302,7 +304,8 @@ async def load_test_project_scores() -> int:
             print(f"   ✅ Created project score: {risk_scores_count} risk assessments, total score: {total_score:.3f}")
 
         print(
-            f"🏆 Test project scores loaded: {created_count} created, {len(project_scores_data) - created_count} already existed"
+            f"🏆 Test project scores loaded: {created_count} created, "
+            f"{len(project_scores_data) - created_count} already existed"
         )
         return created_count
 

@@ -84,7 +84,7 @@ async def process_documents_for_project(project: ProjectType, files: list[dict[s
             metadata=metadata,
         )
 
-        saved_document = await SourceDocumentRepository.add_or_get_existing(document_data)
+        await SourceDocumentRepository.add_or_get_existing(document_data)
 
         # Concise status logging
         if success:
@@ -153,7 +153,8 @@ async def scheduled_task() -> None:
             print()
 
         print(
-            f"✅ Summary: {total_projects} projects, {total_new_documents} new docs, {total_documents_processed - total_new_documents} existing"
+            f"✅ Summary: {total_projects} projects, {total_new_documents} new docs, "
+            f"{total_documents_processed - total_new_documents} existing"
         )
 
     except Exception as e:

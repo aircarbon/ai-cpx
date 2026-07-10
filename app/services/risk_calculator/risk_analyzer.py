@@ -41,7 +41,8 @@ async def get_all_risk_types() -> list[RiskType]:
                 # Sort risk types by weight (descending) for most important risks first, then by name for consistency
                 risk_types = sorted(risk_types, key=lambda rt: (-rt.weight, rt.risk_type))[:max_risk_types]
                 print(
-                    f"🧪 DEV MODE: Using {len(risk_types)} of {total_risk_types} risk types (limited by DEV_MAX_RISK_TYPES={max_risk_types})"
+                    f"🧪 DEV MODE: Using {len(risk_types)} of {total_risk_types} risk types "
+                    f"(limited by DEV_MAX_RISK_TYPES={max_risk_types})"
                 )
                 print(
                     f"    Selected risk types: {', '.join([f'{rt.name} (weight: {rt.weight})' for rt in risk_types])}"
@@ -71,8 +72,8 @@ def build_risk_analysis_prompt(chunk_content: str, risk_type: RiskType, dimensio
 """
 
     # Build the main prompt
-    prompt = f"""You are an expert risk analyst for carbon credit projects. Your task is to analyze a text chunk for evidence of a specific risk type and rate each evidence across multiple dimensions.
-
+    prompt = f"""You are an expert risk analyst for carbon credit projects. Your task is to analyze a text chunk \
+for evidence of a specific risk type and rate each evidence across multiple dimensions.
 **RISK TYPE TO ANALYZE:**
 - **Name**: {risk_type.name}
 - **Description**: {risk_type.description}
@@ -204,7 +205,8 @@ async def save_evidences_to_database(
                 # Validate scale value
                 if llm_rating.scale_value not in dimension_spec.mapping:
                     print(
-                        f"        ⚠️ Warning: Invalid scale value '{llm_rating.scale_value}' for dimension '{llm_rating.dimension_key}', skipping rating"
+                        f"        ⚠️ Warning: Invalid scale value '{llm_rating.scale_value}' "
+                        f"for dimension '{llm_rating.dimension_key}', skipping rating"
                     )
                     continue
 
@@ -213,7 +215,8 @@ async def save_evidences_to_database(
 
             if not evidence_ratings:
                 print(
-                    f"        ⚠️ No valid evidence ratings created for evidence: {llm_evidence.evidence_description[:50]}..."
+                    f"        ⚠️ No valid evidence ratings created for evidence: "
+                    f"{llm_evidence.evidence_description[:50]}..."
                 )
                 continue
 
@@ -251,7 +254,8 @@ async def get_project_chunks(project: Project) -> list[Chunk]:
                 # Sort chunks deterministically by document_id and chunk_index for consistent selection
                 all_chunks = sorted(all_chunks, key=lambda c: (c.document_id, c.chunk_index))[:max_chunks_per_project]
                 print(
-                    f"    🧪 DEV MODE: Processing {len(all_chunks)} chunks (limited by DEV_MAX_CHUNKS_PER_PROJECT={max_chunks_per_project})"
+                    f"    🧪 DEV MODE: Processing {len(all_chunks)} chunks "
+                    f"(limited by DEV_MAX_CHUNKS_PER_PROJECT={max_chunks_per_project})"
                 )
 
         return all_chunks
@@ -300,7 +304,8 @@ async def analyze_with_retry(chunk: Chunk, risk_type: RiskType, dimensions: list
             except json.JSONDecodeError as e:
                 if attempt < MAX_RETRIES - 1:
                     print(
-                        f"      ⚠️ Attempt {attempt + 1}/{MAX_RETRIES}: JSON parsing failed, retrying in {RETRY_DELAY}s..."
+                        f"      ⚠️ Attempt {attempt + 1}/{MAX_RETRIES}: JSON parsing failed, "
+                        f"retrying in {RETRY_DELAY}s..."
                     )
                     if len(response.strip()) == 0:
                         print("        🔍 Empty response received from LLM")
@@ -352,7 +357,8 @@ async def analyze_chunk_for_risk_type(
 ) -> None:
     """Analyze a single chunk for a specific risk type."""
     print(
-        f"    🔍 Analyzing project {project_index}/{total_projects}, chunk {chunk_index}/{total_chunks}, risk type {risk_index}/{total_risks}: {risk_type.name}"
+        f"    🔍 Analyzing project {project_index}/{total_projects}, chunk {chunk_index}/{total_chunks}, "
+        f"risk type {risk_index}/{total_risks}: {risk_type.name}"
     )
 
     # Check if evidence extraction is already completed for this chunk + risk type

@@ -142,7 +142,8 @@ async def process_project_chunks(project: Project) -> int:
                 # Sort documents deterministically by filename for consistent selection across resumes
                 documents = sorted(documents, key=lambda d: d.file_name)[:max_documents]
                 print(
-                    f"    🧪 DEV MODE: Processing {len(documents)} of {total_documents} documents for '{project.name}' (limited by DEV_MAX_DOCUMENTS_PER_PROJECT={max_documents})"
+                    f"    🧪 DEV MODE: Processing {len(documents)} of {total_documents} documents "
+                    f"for '{project.name}' (limited by DEV_MAX_DOCUMENTS_PER_PROJECT={max_documents})"
                 )
                 print(f"        Selected documents: {', '.join([d.file_name for d in documents])}")
 
@@ -155,7 +156,8 @@ async def process_project_chunks(project: Project) -> int:
             # Check if we've reached the project chunk limit
             if os.getenv("APP_MODE") == "DEV" and total_chunks >= max_chunks_per_project:
                 print(
-                    f"    🧪 DEV MODE: Reached project chunk limit ({max_chunks_per_project}), skipping remaining documents"
+                    f"    🧪 DEV MODE: Reached project chunk limit ({max_chunks_per_project}), "
+                    f"skipping remaining documents"
                 )
                 break
 

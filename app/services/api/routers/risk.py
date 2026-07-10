@@ -17,13 +17,20 @@ router = APIRouter(tags=["risk"])
 @router.get("/methodology")
 async def get_risk_calculation_methodology_description():
     methodology_description = (
-        "AI-CPX analyzes carbon project documents and public sources using advanced AI models to calculate comprehensive risk scores. "
-        "The system processes diverse project materials like Project Design Documents, monitoring reports, and validation records to identify "
-        "evidence across 13 key risk categories including policy/regulatory changes, data integrity issues, financing problems, execution delays, "
-        "and legal compliance risks. Each piece of evidence is evaluated on four dimensions - impact severity, likelihood certainty, timing, "
-        "and reversibility - using structured rating scales. The final risk score is calculated through sophisticated weighted averaging, "
-        "where different risk types and evaluation dimensions are weighted by their relative importance to project success. "
-        "This produces a normalized score from 0.0 (lowest risk) to 10.0 (highest risk), providing stakeholders with a clear, "
+        "AI-CPX analyzes carbon project documents and public sources using advanced AI models "
+        "to calculate comprehensive risk scores. "
+        "The system processes diverse project materials like Project Design Documents, monitoring reports, "
+        "and validation records to identify "
+        "evidence across 13 key risk categories including policy/regulatory changes, data integrity issues, "
+        "financing problems, execution delays, "
+        "and legal compliance risks. Each piece of evidence is evaluated on four dimensions - impact severity, "
+        "likelihood certainty, timing, "
+        "and reversibility - using structured rating scales. The final risk score is calculated through "
+        "sophisticated weighted averaging, "
+        "where different risk types and evaluation dimensions are weighted by their relative importance "
+        "to project success. "
+        "This produces a normalized score from 0.0 (lowest risk) to 10.0 (highest risk), providing "
+        "stakeholders with a clear, "
         "data-driven assessment of each carbon project's overall risk profile."
     )
     return {"description": methodology_description}

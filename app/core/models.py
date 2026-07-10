@@ -155,7 +155,8 @@ class Evidence(Document):
 
     evidence_ratings: list[Link[EvidenceRating]] = Field(
         default_factory=list,
-        description="List of evidence ratings for different dimensions (one for each dimension with the assigned score)",
+        description="List of evidence ratings for different dimensions "
+        "(one for each dimension with the assigned score)",
     )
     score: float = Field(
         ...,
