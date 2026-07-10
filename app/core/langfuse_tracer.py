@@ -10,7 +10,6 @@ def get_langfuse_callback():
     # Check if Langfuse is configured
     public_key = os.getenv("LANGFUSE_PUBLIC_KEY")
     secret_key = os.getenv("LANGFUSE_SECRET_KEY")
-    host = os.getenv("LANGFUSE_HOST")
 
     if not public_key or not secret_key:
         print("⚠️  Langfuse not configured (missing keys), skipping tracing")
